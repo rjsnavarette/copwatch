@@ -131,6 +131,7 @@
             android:layout_above="@id/tv_email"
             android:layout_centerHorizontal="true"
             android:text="John Doe"
+            android:visibility="invisible"
             android:textColor="@color/purple_200"
             android:textSize="28sp" />
 
@@ -141,6 +142,7 @@
             android:layout_above="@id/tv_phone"
             android:layout_centerHorizontal="true"
             android:text="johndoe@gmail.com"
+            android:visibility="invisible"
             android:textColor="@color/purple_200"
             android:textSize="18sp" />
 
@@ -152,6 +154,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="(123) 456 7890"
+            android:visibility="invisible"
             android:textColor="@color/purple_200"
             android:textSize="18sp" />
     </RelativeLayout>

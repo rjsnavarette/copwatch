@@ -51,6 +51,7 @@ public class OnBoardingActivity extends AppCompatActivity {
     private int mCurrentPage;
     private final Handler timerHandler = new Handler();
     private final Runnable timerRunnable = this::signIn;
+    private OnBoardingScreenAdapter onBoardingScreenAdapter;
     private final Runnable scrollBoard = new Runnable() {
         @Override
         public void run() {
@@ -65,7 +66,7 @@ public class OnBoardingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding);
         ButterKnife.bind(this);
 
-        OnBoardingScreenAdapter onBoardingScreenAdapter = new OnBoardingScreenAdapter(this);
+        onBoardingScreenAdapter = new OnBoardingScreenAdapter(this);
         vpScreens.setAdapter(onBoardingScreenAdapter);
         timerHandler.postDelayed(scrollBoard, 2000);
         dotsIndicator(0);
@@ -95,7 +96,7 @@ public class OnBoardingActivity extends AppCompatActivity {
     }
 
     public void dotsIndicator(int position) {
-        mDots = new TextView[4];
+        mDots = new TextView[onBoardingScreenAdapter.getCount()];
         llDots.removeAllViews();
 
         for (int i = 0; i < mDots.length; i++) {

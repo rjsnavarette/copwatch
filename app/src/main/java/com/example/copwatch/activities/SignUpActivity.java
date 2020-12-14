@@ -250,12 +250,12 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void goToHome() {
-        Intent loginIntent = new Intent(SignUpActivity.this, HomeActivity.class);
+        Intent loginIntent = new Intent(SignUpActivity.this, PreferencesActivity.class);
         loginIntent.putExtra(Constants.LOGIN_MODE, Constants.DEFAULT);
-        loginIntent.putExtra("first_name", etFirstName.getText().toString().trim());
-        loginIntent.putExtra("last_name", etLastName.getText().toString().trim());
-        loginIntent.putExtra("email", etEmail.getText().toString().trim());
-        loginIntent.putExtra("phone_number", etPhoneNumber.getText().toString().trim());
+        loginIntent.putExtra(Constants.FIRST_NAME, etFirstName.getText().toString().trim());
+        loginIntent.putExtra(Constants.LAST_NAME, etLastName.getText().toString().trim());
+        loginIntent.putExtra(Constants.EMAIL_ADDRESS, etEmail.getText().toString().trim());
+        loginIntent.putExtra(Constants.PHONE_NUMBER, etPhoneNumber.getText().toString().trim());
         startActivity(loginIntent);
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

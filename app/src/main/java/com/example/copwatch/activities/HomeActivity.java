@@ -2,7 +2,9 @@ package com.example.copwatch.activities;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -63,6 +65,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSignInClient;
     private String loginAccount;
+    private SharedPreferences userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,25 +79,28 @@ public class HomeActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        userData = getSharedPreferences(Constants.USERDATA, Context.MODE_PRIVATE);
 
-        loginAccount = getIntent().getStringExtra(Constants.LOGIN_MODE);
-        switch (loginAccount) {
-            case Constants.FACEBOOK:
-                if (AccessToken.getCurrentAccessToken() != null) {
-                    loadUserProfile(AccessToken.getCurrentAccessToken());
-                }
-                break;
-            case Constants.GOOGLE:
-                if (account != null) {
-                    updateUI(account.getPhotoUrl(), account.getGivenName() + " " + account.getFamilyName(),
-                            account.getEmail(), "");
-                }
-                break;
-            default:
-                updateUI(null, getIntent().getStringExtra("first_name") + " " +
-                                getIntent().getStringExtra("last_name"), getIntent().getStringExtra("email"),
-                        getIntent().getStringExtra("phone_number"));
-                break;
+        loginAccount = userData.getString(Constants.LOGIN_MODE, "");
+        if (!loginAccount.equals("")) {
+            switch (loginAccount) {
+                case Constants.FACEBOOK:
+                    if (AccessToken.getCurrentAccessToken() != null) {
+                        loadUserProfile(AccessToken.getCurrentAccessToken());
+                    }
+                    break;
+                case Constants.GOOGLE:
+                    if (account != null) {
+                        updateUI(account.getPhotoUrl(), account.getGivenName() + " " + account.getFamilyName(),
+                                account.getEmail(), "");
+                    }
+                    break;
+                default:
+                    updateUI(null, userData.getString(Constants.FIRST_NAME, "") + " " +
+                                    userData.getString(Constants.LAST_NAME, ""), userData.getString(Constants.EMAIL_ADDRESS, ""),
+                            userData.getString(Constants.PHONE_NUMBER, ""));
+                    break;
+            }
         }
     }
 
@@ -134,7 +140,7 @@ public class HomeActivity extends AppCompatActivity {
         request.executeAsync();
     }
 
-    public void logout() {
+    private void logout() {
         switch (loginAccount) {
             case Constants.FACEBOOK:
                 LoginManager.getInstance().logOut();
@@ -155,6 +161,10 @@ public class HomeActivity extends AppCompatActivity {
         tvName.setText(name);
         tvEmail.setText(email);
         tvPhone.setText(phone);
+
+        tvName.setVisibility(View.VISIBLE);
+        tvEmail.setVisibility(View.VISIBLE);
+        tvPhone.setVisibility(View.VISIBLE);
     }
 
     private void backToHome() {

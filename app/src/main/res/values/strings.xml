@@ -61,14 +61,14 @@
     <string name="permission_instruction">These are preferences that are put in place to enact upon startup of the app
         i.e. "Hey Siri, Start CopWatch" then CopWatch would open with these exact settings already in place. </string>
     <string name="permission_advance">In event of my death or serious injury resulting in coma or vegetative state caused
-    by or believed to be caused by the use of place from the law of enforcement, I authorize copwatch and/or "designated
-    person" permission to access my cloud for evidence to my benefit</string>
+    by or believed to be caused by the use of place from the law of enforcement, I authorize copwatch and/or "designated person"
+        permission to access my cloud for evidence to my benefit</string>
     <string name="legal_disclaimer_1">In use of the free version of the copwatch where audio and/or video is admitted as an
     evidence in a civil lawsuit where demands are awarded as 10% of the victim or clients portion, the settlement is to
     be paid to copwatch app for its services to help us better our app and to cover expenses in provisions this free services…
     you\'re welcome.</string>
     <string name="legal_disclaimer_2">Copwatch will never in any copy will use your cloud recordings to assist law enforcement
-    in your prosecution and has zero obligation to assist law enforcement at any time for any reason.</string>
+    in your prosecution and has no obligation to assist law enforcement at any time for any reason.</string>
 
     <!--Errors-->
     <string name="error_terms_and_conditions">Please indicate that you accept our Terms and Conditions.</string>

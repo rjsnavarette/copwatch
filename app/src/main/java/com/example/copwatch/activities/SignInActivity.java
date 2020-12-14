@@ -175,7 +175,7 @@ public class SignInActivity extends AppCompatActivity {
     private void goToHome(String login) {
         if (!login.equals("")) {
             Log.e(TAG, "Success " + login);
-            Intent loginIntent = new Intent(SignInActivity.this, HomeActivity.class);
+            Intent loginIntent = new Intent(SignInActivity.this, PreferencesActivity.class);
             loginIntent.putExtra(Constants.LOGIN_MODE, login);
             startActivity(loginIntent);
             finish();

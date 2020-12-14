@@ -21,6 +21,12 @@ public class Constants {
     public static final String GOOGLE = "Google";
     public static final String DEFAULT = "Default";
 
+    public static String USERDATA = "user";
+    public static String FIRST_NAME = "first_name";
+    public static String LAST_NAME = "last_name";
+    public static String EMAIL_ADDRESS = "email_address";
+    public static String PHONE_NUMBER = "phone_number";
+
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
