@@ -13,8 +13,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".application.CopWatchApp"
         android:theme="@style/Theme.CopWatch">
-        <activity android:name=".activities.AdvancePermissionsActivity"></activity>
+        <activity android:name=".activities.AdvancePermissionsActivity" />
         <activity android:name=".activities.PermissionsActivity" />
 
         <meta-data
@@ -66,7 +67,8 @@
             android:name=".activities.ForgotPasswordActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".activities.PreferencesActivity" />
+        <activity android:name=".activities.PreferencesActivity"
+            android:theme="@style/AppTheme"/>
         <activity android:name=".activities.ModeSelectionActivity" />
         <activity android:name=".activities.CloudStorageActivity" />
     </application>
