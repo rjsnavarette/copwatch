@@ -35,7 +35,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/head_mode_selection"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -69,10 +69,11 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,22 +81,10 @@
         app:layout_constraintTop_toBottomOf="@+id/divider"
         app:layout_constraintVertical_bias="0.0">
 
-        <TextView
-            android:id="@+id/tv_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:text="Check one"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
         <FrameLayout
             android:id="@+id/fl_standard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_label"
-            android:layout_marginTop="25dp"
             android:orientation="horizontal">
 
             <CheckBox
@@ -104,18 +93,16 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
                 android:theme="@style/colored_checkbox" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:minLines="2"
                 android:text="CopWatch standard"
-                android:textColor="@color/white"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
 
         </FrameLayout>
@@ -135,15 +122,13 @@
                 android:enabled="false"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
                 android:theme="@style/colored_checkbox" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:minLines="2"
                 android:text="@string/dash_cam_mode"
                 android:textColor="@color/grey"
@@ -166,15 +151,13 @@
                 android:enabled="false"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
                 android:theme="@style/colored_checkbox" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:minLines="2"
                 android:text="@string/body_cam_mode"
                 android:textColor="@color/grey"
@@ -183,6 +166,20 @@
         </FrameLayout>
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_mode_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minLines="2"
+        android:text="Please select mode"
+        android:textColor="@color/error_red"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/b_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/b_next"
@@ -194,8 +191,8 @@
         android:background="@drawable/round_buttons"
         android:text="Next"
         android:textSize="18sp"
-        android:visibility="gone"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -35,7 +35,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/head_advance_permission"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -51,7 +51,7 @@
             android:gravity="center"
             android:visibility="invisible"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -84,76 +84,47 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:text="@string/permission_advance"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:letterSpacing="0.025"
+            android:lineSpacingExtra="6dp"
+            android:textColor="@color/blue_very_dark"
             android:textSize="18sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_label"
-            android:weightSum="1"
-            android:orientation="horizontal">
-
-            <FrameLayout
-                android:id="@+id/fl_agree"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
+            <RadioGroup
+                android:id="@+id/rg_select"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:layout_below="@id/tv_label">
 
-                <CheckBox
-                    android:id="@+id/cb_agree"
-                    android:layout_width="match_parent"
+                <RadioButton
+                    android:id="@+id/rb_agree"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:buttonTint="@color/blue_very_dark"
+                    android:layout_marginTop="12dp"
                     android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:theme="@style/colored_checkbox" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="2dp"
                     android:text="Agree"
-                    android:textColor="@color/white"
+                    android:textColor="@color/blue_very_dark"
                     android:textSize="18sp" />
 
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/fl_disagree"
-                android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp">
-
-                <CheckBox
-                    android:id="@+id/cb_disagree"
-                    android:layout_width="match_parent"
+                <RadioButton
+                    android:id="@+id/rb_disagree"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:layout_marginTop="12dp"
+                    android:buttonTint="@color/blue_very_dark"
                     android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:theme="@style/colored_checkbox" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="2dp"
                     android:text="Disagree"
-                    android:textColor="@color/white"
+                    android:textColor="@color/blue_very_dark"
                     android:textSize="18sp" />
 
-            </FrameLayout>
-
-        </LinearLayout>
+            </RadioGroup>
 
     </RelativeLayout>
 

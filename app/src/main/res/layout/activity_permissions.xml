@@ -35,7 +35,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/head_permissions"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -70,8 +70,8 @@
 
     <RelativeLayout
         android:id="@+id/rl_main"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintBottom_toTopOf="@+id/b_next"
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:text="Check one"
-            android:textColor="@color/white"
+            android:textColor="@color/blue_very_dark"
             android:textSize="18sp"
             android:textStyle="bold"
             android:visibility="invisible" />
@@ -103,18 +103,16 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
                 android:theme="@style/colored_checkbox" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:minLines="2"
                 android:text="@string/permission_camera"
-                android:textColor="@color/white"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
 
         </FrameLayout>
@@ -132,18 +130,16 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
                 android:theme="@style/colored_checkbox" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:minLines="2"
                 android:text="@string/permission_cloud"
-                android:textColor="@color/white"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
 
         </FrameLayout>
@@ -161,18 +157,16 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
                 android:theme="@style/colored_checkbox" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:minLines="2"
                 android:text="@string/permission_phone_lock"
-                android:textColor="@color/white"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
 
         </FrameLayout>
@@ -190,18 +184,16 @@
                 android:layout_height="wrap_content"
                 android:paddingStart="12dp"
                 android:paddingEnd="12dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
                 android:theme="@style/colored_checkbox" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="6dp"
                 android:minLines="2"
                 android:text="@string/permission_interface"
-                android:textColor="@color/white"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
         </FrameLayout>
 
@@ -214,13 +206,27 @@
             android:minLines="5"
             android:layout_below="@id/fl_interface"
             android:text="@string/permission_instruction"
-            android:textColor="@color/white"
+            android:textColor="@color/blue_very_dark"
             android:textSize="18sp" />
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tv_perm_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minLines="2"
+        android:text="Please select mode"
+        android:textColor="@color/error_red"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/b_perm_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
-        android:id="@+id/b_next"
+        android:id="@+id/b_perm_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"

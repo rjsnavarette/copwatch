@@ -3,14 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    tools:context=".activities.PreferencesActivity">
 
     <RelativeLayout
         android:id="@+id/rl_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:background="@color/blue_very_dark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,9 +25,12 @@
             android:layout_width="@dimen/standard_touch_size"
             android:layout_height="@dimen/standard_touch_size"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="8dp"
             android:padding="9dp"
-            android:src="@drawable/previous_icon" />
+            android:scaleX="1.2"
+            android:scaleY="1.2"
+            android:src="@drawable/previous_icon"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -34,10 +40,11 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="@string/head_cloud_storage"
+            android:text="Sign In"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/tv_skip"
@@ -48,11 +55,11 @@
             android:layout_marginEnd="20dp"
             android:gravity="center"
             android:text="Skip"
+            android:visibility="invisible"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:visibility="invisible" />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -61,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/blue_divider"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,74 +76,50 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:id="@+id/rl_main"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ll_dots"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/divider">
 
-        <TextView
-            android:id="@+id/tv_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Select Default Cloud Storage for Saving the Recording"
-            android:textColor="@color/blue_very_dark"
-            android:textSize="18sp" />
-
-        <RadioGroup
-            android:id="@+id/rg_storage"
+        <com.example.copwatch.utils.CustomViewPager
+            android:id="@+id/vp_slide"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_label">
-
-            <RadioButton
-                android:id="@+id/rb_google_drive"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/blue_very_dark"
-                android:layout_marginTop="12dp"
-                android:paddingStart="12dp"
-                android:text="Google Drive"
-                android:textColor="@color/blue_very_dark"
-                android:textSize="18sp" />
-
-            <RadioButton
-                android:id="@+id/rb_iCloud"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rb_google_drive"
-                android:layout_marginTop="12dp"
-                android:buttonTint="@color/blue_very_dark"
-                android:paddingStart="12dp"
-                android:text="iCloud"
-                android:textColor="@color/blue_very_dark"
-                android:textSize="18sp" />
-
-        </RadioGroup>
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_storage_status"
+        android:id="@+id/tv_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:layout_marginTop="8dp"
         android:minLines="2"
-        android:text="Please select storage"
+        android:text="Please select mode"
         android:textColor="@color/error_red"
         android:textSize="14sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/b_storage_next"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/rl_main"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rl_header"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <LinearLayout
+        android:id="@+id/ll_dots"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/b_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></LinearLayout>
 
     <Button
-        android:id="@+id/b_storage_next"
+        android:id="@+id/b_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
@@ -146,7 +129,6 @@
         android:text="Next"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

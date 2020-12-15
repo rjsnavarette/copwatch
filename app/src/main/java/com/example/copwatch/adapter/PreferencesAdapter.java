@@ -4,21 +4,32 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.copwatch.R;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 
 public class PreferencesAdapter extends PagerAdapter {
 
     private final LayoutInflater mLayoutInflater;
+    private final CheckedItem activity;
     private final int[] screens = {R.layout.activity_select_storage, R.layout.activity_preferences, R.layout.activity_mode_selection,
             R.layout.activity_permissions, R.layout.activity_advance_permissions, R.layout.activity_legal_disclaimer};
 
     public PreferencesAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.activity = (CheckedItem) context;
+    }
+
+    public interface CheckedItem {
+        void onCheckedItem(boolean isItemChecked);
     }
 
     @Override
@@ -40,6 +51,42 @@ public class PreferencesAdapter extends PagerAdapter {
         View screenFour = mLayoutInflater.inflate(screens[3], container, false);
         View screenFive = mLayoutInflater.inflate(screens[4], container, false);
         View screenSix = mLayoutInflater.inflate(screens[5], container, false);
+
+        switch (position) {
+            case 0:
+                RadioGroup rgStorage = screenOne.findViewById(R.id.rg_storage);
+                break;
+            case 1:
+                SwitchCompat swRecord = screenTwo.findViewById(R.id.sc_record);
+                SwitchCompat swDim = screenTwo.findViewById(R.id.sc_dim);
+                SwitchCompat swDisturb = screenTwo.findViewById(R.id.sc_disturb);
+                SwitchCompat swAudio = screenTwo.findViewById(R.id.sc_audio);
+                SwitchCompat swVoice = screenTwo.findViewById(R.id.sc_voice);
+                SwitchCompat swCamera = screenTwo.findViewById(R.id.sc_camera);
+                TextView tvCamera = screenTwo.findViewById(R.id.tv_camera);
+                swCamera.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                    if (isChecked) {
+                        tvCamera.setText("Camera Selection (Back)");
+                    } else {
+                        tvCamera.setText("Camera Selection (Front)");
+                    }
+                });
+                break;
+            case 2:
+                CheckBox cbStandard = screenThree.findViewById(R.id.cb_standard);
+                cbStandard.setChecked(true);
+                cbStandard.setOnCheckedChangeListener((buttonView, isChecked) -> activity.onCheckedItem(isChecked));
+                break;
+            case 3:
+                CheckBox cbCamera = screenFour.findViewById(R.id.cb_camera);
+                CheckBox cbCloud = screenFour.findViewById(R.id.cb_cloud);
+                CheckBox cbLock = screenFour.findViewById(R.id.cb_lock);
+                CheckBox cbInterface = screenFour.findViewById(R.id.cb_interface);
+                break;
+            case 4:
+                RadioGroup rgSelect = screenFive.findViewById(R.id.rg_select);
+                break;
+        }
 
         View[] screenViews = {screenOne, screenTwo, screenThree, screenFour, screenFive, screenSix};
 

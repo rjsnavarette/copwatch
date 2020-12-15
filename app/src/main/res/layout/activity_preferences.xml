@@ -36,7 +36,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/head_preferences"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -103,7 +103,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/box_buttons">
+            android:background="@color/grey_light">
 
             <TextView
                 android:id="@+id/tv_record"
@@ -113,7 +113,7 @@
                 android:layout_marginStart="8dp"
                 android:text="Record to cloud"
                 android:layout_gravity="center_vertical"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -139,7 +139,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/box_buttons">
+            android:background="@color/grey_light">
 
             <TextView
                 android:id="@+id/tv_dim"
@@ -149,7 +149,7 @@
                 android:layout_marginStart="8dp"
                 android:text="Dim my screen"
                 android:layout_gravity="center_vertical"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -175,7 +175,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/box_buttons">
+            android:background="@color/grey_light">
 
             <TextView
                 android:id="@+id/tv_disturb"
@@ -185,7 +185,7 @@
                 android:layout_marginStart="8dp"
                 android:text="Do not disturb"
                 android:layout_gravity="center_vertical"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -211,7 +211,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/box_buttons">
+            android:background="@color/grey_light">
 
             <TextView
                 android:id="@+id/tv_audio"
@@ -221,7 +221,7 @@
                 android:layout_marginStart="8dp"
                 android:text="Record audio/video"
                 android:layout_gravity="center_vertical"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -247,7 +247,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/box_buttons">
+            android:background="@color/grey_light">
 
             <TextView
                 android:id="@+id/tv_voice"
@@ -257,7 +257,7 @@
                 android:layout_marginStart="8dp"
                 android:text="Voice activation"
                 android:layout_gravity="center_vertical"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -283,7 +283,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/box_buttons">
+            android:background="@color/grey_light">
 
             <TextView
                 android:id="@+id/tv_camera"
@@ -293,7 +293,7 @@
                 android:layout_marginStart="8dp"
                 android:text="Camera Selection (Front)"
                 android:layout_gravity="center_vertical"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/blue_very_dark"
                 android:textSize="18sp" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -314,8 +314,22 @@
 
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/tv_prefs_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:minLines="2"
+        android:text="Please select preferences"
+        android:textColor="@color/error_red"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/b_prefs_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <Button
-        android:id="@+id/b_next"
+        android:id="@+id/b_prefs_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"

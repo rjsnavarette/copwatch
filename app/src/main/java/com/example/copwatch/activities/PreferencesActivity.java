@@ -1,6 +1,8 @@
 package com.example.copwatch.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
 import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -11,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -23,18 +26,16 @@ import com.example.copwatch.R;
 import com.example.copwatch.adapter.PreferencesAdapter;
 import com.example.copwatch.service.Constants;
 import com.example.copwatch.utils.CustomScroller;
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.example.copwatch.utils.CustomViewPager;
 
 import java.lang.reflect.Field;
 
-public class PreferencesActivity extends AppCompatActivity {
+public class PreferencesActivity extends AppCompatActivity implements PreferencesAdapter.CheckedItem {
 
-    private static final String TAG = "Preferences";
+    private static final String TAG = "PREFERENCES";
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.vp_slide)
-    ViewPager vpScreens;
+    CustomViewPager vpScreens;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.ll_dots)
     LinearLayout llDots;
@@ -45,8 +46,8 @@ public class PreferencesActivity extends AppCompatActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.tv_skip)
-    TextView tvSkip;
+    @BindView(R.id.tv_status)
+    TextView tvStatus;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.iv_prev)
     ImageView ivPrev;
@@ -57,25 +58,28 @@ public class PreferencesActivity extends AppCompatActivity {
     private int mCurrentPage;
     private PreferencesAdapter preferencesAdapter;
 
-    GoogleSignInClient mGoogleSignInClient;
     private String loginAccount;
+    private TextView[] mDots;
+    private boolean isChecked = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_onboarding);
+        setContentView(R.layout.activity_prehome);
         ButterKnife.bind(this);
 
         loginAccount = getIntent().getStringExtra(Constants.LOGIN_MODE);
 
         preferencesAdapter = new PreferencesAdapter(this);
         vpScreens.setAdapter(preferencesAdapter);
+        vpScreens.setPagingEnabled(false);
         vpScreens.addOnPageChangeListener(pageChangeListener);
 
+        tvTitle.setText(R.string.head_cloud_storage);
         tvTitle.setVisibility(View.VISIBLE);
-        ivPrev.setVisibility(View.VISIBLE);
-        tvSkip.setVisibility(View.INVISIBLE);
         divider.setVisibility(View.VISIBLE);
+
+        dotsIndicator(0);
 
         try {
             Field mScroller = ViewPager.class.getDeclaredField("mScroller");
@@ -97,6 +101,24 @@ public class PreferencesActivity extends AppCompatActivity {
         }
     }
 
+    public void dotsIndicator(int position) {
+        mDots = new TextView[preferencesAdapter.getCount()];
+        llDots.removeAllViews();
+
+        for (int i = 0; i < mDots.length; i++) {
+            mDots[i] = new TextView(this);
+            mDots[i].setText(Html.fromHtml("&#8226;", HtmlCompat.FROM_HTML_MODE_LEGACY));
+            mDots[i].setTextSize(35);
+            mDots[i].setTextColor(ContextCompat.getColor(this, R.color.purple_200));
+
+            llDots.addView(mDots[i]);
+        }
+
+        if (mDots.length > 0) {
+            mDots[position].setTextColor(ContextCompat.getColor(this, R.color.purple_500));
+        }
+    }
+
     ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -105,25 +127,34 @@ public class PreferencesActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
+            dotsIndicator(position);
             mCurrentPage = position;
-            switch (mCurrentPage) {
+            switch (position) {
                 case 0:
                     tvTitle.setText(R.string.head_cloud_storage);
+                    ivPrev.setVisibility(View.INVISIBLE);
                     break;
                 case 1:
                     tvTitle.setText(R.string.head_preferences);
+                    ivPrev.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     tvTitle.setText(R.string.head_mode_selection);
+                    ivPrev.setVisibility(View.VISIBLE);
+
+
                     break;
                 case 3:
                     tvTitle.setText(R.string.head_permissions);
+                    ivPrev.setVisibility(View.VISIBLE);
                     break;
                 case 4:
                     tvTitle.setText(R.string.head_advance_permission);
+                    ivPrev.setVisibility(View.VISIBLE);
                     break;
                 case 5:
                     tvTitle.setText(R.string.head_legal);
+                    ivPrev.setVisibility(View.VISIBLE);
                     break;
             }
         }
@@ -145,35 +176,28 @@ public class PreferencesActivity extends AppCompatActivity {
                     startActivity(mainIntent);
                     finish();
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                } else if (mCurrentPage == 2) {
+                    if (isChecked) {
+                        vpScreens.setCurrentItem(mCurrentPage + 1);
+                    }
                 } else vpScreens.setCurrentItem(mCurrentPage + 1);
                 break;
             case R.id.iv_prev:
                 if (mCurrentPage == 0) {
-                    logout();
+                    ivPrev.setEnabled(false);
                 } else vpScreens.setCurrentItem(mCurrentPage - 1);
                 break;
         }
     }
 
-    public void logout() {
-        switch (loginAccount) {
-            case Constants.FACEBOOK:
-                LoginManager.getInstance().logOut();
-                backToHome();
-                break;
-            case Constants.GOOGLE:
-                mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> backToHome());
-                break;
-            default:
-                backToHome();
-                break;
+    @Override
+    public void onCheckedItem(boolean isItemChecked) {
+        isChecked = isItemChecked;
+        if (!isItemChecked) {
+            tvStatus.setText("Please select mode");
+            tvStatus.setVisibility(View.VISIBLE);
+        } else {
+            tvStatus.setVisibility(View.INVISIBLE);
         }
-    }
-
-    private void backToHome() {
-        Intent logoutIntent = new Intent(PreferencesActivity.this, SignInActivity.class);
-        startActivity(logoutIntent);
-        finish();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }

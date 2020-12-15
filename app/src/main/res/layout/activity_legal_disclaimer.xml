@@ -36,7 +36,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/head_legal"
-            android:textColor="#FFFFFF"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -71,61 +71,65 @@
 
     <RelativeLayout
         android:id="@+id/rl_main"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintBottom_toTopOf="@+id/b_next"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider">
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/number_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
             android:text="1."
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/blue_very_dark"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_disclaimer_one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/number_one"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@id/number_one"
             android:text="@string/legal_disclaimer_1"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:letterSpacing="0.025"
+            android:lineSpacingExtra="6dp"
+            android:textColor="@color/blue_very_dark"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/number_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/tv_disclaimer_one"
             android:layout_marginStart="8dp"
             android:layout_marginTop="30dp"
-            android:layout_below="@id/tv_disclaimer_one"
             android:text="2."
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/blue_very_dark"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tv_disclaimer_two"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/number_one"
+            android:layout_below="@id/tv_disclaimer_one"
             android:layout_marginStart="8dp"
             android:layout_marginTop="30dp"
-            android:layout_below="@id/tv_disclaimer_one"
+            android:layout_toRightOf="@id/number_one"
             android:text="@string/legal_disclaimer_2"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:letterSpacing="0.025"
+            android:lineSpacingExtra="6dp"
+            android:textColor="@color/blue_very_dark"
             android:textSize="18sp" />
 
     </RelativeLayout>
@@ -140,8 +144,8 @@
         android:background="@drawable/round_buttons"
         android:text="Next"
         android:textSize="18sp"
-        android:visibility="gone"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
