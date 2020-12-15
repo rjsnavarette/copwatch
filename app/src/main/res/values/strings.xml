@@ -59,15 +59,15 @@
     <string name="permission_phone_lock">Manage Phone Lock, DND, Screen Dimming</string>
     <string name="permission_interface">Siri, Bixby, Google Api, Interface Command</string>
     <string name="permission_instruction">These are preferences that are put in place to enact upon startup of the app
-        i.e. "Hey Siri, Start CopWatch" then CopWatch would open with these exact settings already in place. </string>
+        i.e. \"Hey Siri, Start CopWatch\" then CopWatch would open with these exact settings already in place. </string>
     <string name="permission_advance">In event of my death or serious injury resulting in coma or vegetative state caused
-    by or believed to be caused by the use of place from the law of enforcement, I authorize copwatch and/or "designated person"
+    by or believed to be caused by the use of place from the law of enforcement, I authorize CopWatch and/or \"designated person\"
         permission to access my cloud for evidence to my benefit</string>
-    <string name="legal_disclaimer_1">In use of the free version of the copwatch where audio and/or video is admitted as an
+    <string name="legal_disclaimer_1">In use of the free version of the CopWatch where audio and/or video is admitted as an
     evidence in a civil lawsuit where demands are awarded as 10% of the victim or clients portion, the settlement is to
-    be paid to copwatch app for its services to help us better our app and to cover expenses in provisions this free services…
+    be paid to CopWatch app for its services to help us better our app and to cover expenses in provisions this free services…
     you\'re welcome.</string>
-    <string name="legal_disclaimer_2">Copwatch will never in any copy will use your cloud recordings to assist law enforcement
+    <string name="legal_disclaimer_2">CopWatch will never in any copy will use your cloud recordings to assist law enforcement
     in your prosecution and has no obligation to assist law enforcement at any time for any reason.</string>
 
     <!--Errors-->
@@ -91,21 +91,20 @@
         posuere. Elit ut aliquam purus sit amet. Vel eros donec ac odio. Vel facilisis volutpat est velit. Sit amet mauris
         commodo quis imperdiet massa tincidunt nunc pulvinar. Eu augue ut lectus arcu bibendum at varius vel pharetra.
         Feugiat scelerisque varius morbi enim nunc faucibus a. Ultricies mi quis hendrerit dolor magna. Nisl suscipit
-        adipiscing bibendum est ultricies integer quis. Iaculis nunc sed augue lacus.\n\n
-        Justo nec ultrices dui sapien eget mi proin sed. Ut venenatis tellus in metus. Facilisis leo vel fringilla est
-        ullamcorper eget nulla facilisi. Iaculis urna id volutpat lacus laoreet non. Cursus risus at ultrices mi tempus
-        imperdiet nulla. Volutpat est velit egestas dui id ornare arcu odio. Tristique magna sit amet purus gravida quis
-        blandit turpis cursus. Venenatis cras sed felis eget velit aliquet. Urna nec tincidunt praesent semper feugiat
-        nibh sed pulvinar. Phasellus vestibulum lorem sed risus. Lacus vel facilisis volutpat est velit. Porttitor leo
-        a diam sollicitudin. Cursus vitae congue mauris rhoncus aenean vel elit scelerisque.\n\n
-        Massa sed elementum tempus egestas sed risus pretium. Consequat id porta nibh venenatis cras sed felis eget.
-        Malesuada fames ac turpis egestas sed tempus urna et pharetra. Eget nullam non nisi est sit amet. Dignissim diam
-        quis enim lobortis scelerisque fermentum dui. Mus mauris vitae ultricies leo integer malesuada nunc vel. Purus
-        gravida quis blandit turpis cursus in. Rhoncus est pellentesque elit ullamcorper. Sit amet mattis vulputate enim
-        nulla aliquet porttitor lacus. Felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices. Nisi porta
-        lorem mollis aliquam ut porttitor leo a diam. Et netus et malesuada fames ac turpis egestas. Purus viverra
-        accumsan in nisl. Risus viverra adipiscing at in tellus integer. Etiam erat velit scelerisque in dictum non
-        consectetur a.</string>
+        adipiscing bibendum est ultricies integer quis. Iaculis nunc sed augue lacus.\n\nJusto nec ultrices dui sapien
+        eget mi proin sed. Ut venenatis tellus in metus. Facilisis leo vel fringilla estullamcorper eget nulla facilisi.
+        Iaculis urna id volutpat lacus laoreet non. Cursus risus at ultrices mi tempus imperdiet nulla. Volutpat est velit
+        egestas dui id ornare arcu odio. Tristique magna sit amet purus gravida quis blandit turpis cursus. Venenatis cras
+        sed felis eget velit aliquet. Urna nec tincidunt praesent semper feugiat nibh sed pulvinar. Phasellus vestibulum
+        lorem sed risus. Lacus vel facilisis volutpat est velit. Porttitor leo a diam sollicitudin. Cursus vitae congue
+        mauris rhoncus aenean vel elit scelerisque.\n\nMassa sed elementum tempus egestas sed risus pretium. Consequat id
+        porta nibh venenatis cras sed felis eget. Malesuada fames ac turpis egestas sed tempus urna et pharetra. Eget nullam
+        non nisi est sit amet. Dignissim diam quis enim lobortis scelerisque fermentum dui. Mus mauris vitae ultricies leo
+        integer malesuada nunc vel. Purus gravida quis blandit turpis cursus in. Rhoncus est pellentesque elit ullamcorper.
+        Sit amet mattis vulputate enim nulla aliquet porttitor lacus. Felis bibendum ut tristique et egestas quis ipsum
+        suspendisse ultrices. Nisi porta lorem mollis aliquam ut porttitor leo a diam. Et netus et malesuada fames ac turpis
+        egestas. Purus viverra accumsan in nisl. Risus viverra adipiscing at in tellus integer. Etiam erat velit scelerisque
+        in dictum non consectetur a.</string>
     <string name="sample_text2">Natoque penatibus et magnis dis parturient montes. Ultrices tincidunt arcu non sodales
         neque sodales. Duis tristique sollicitudin nibh sit amet. Morbi tristique senectus et netus. Mi ipsum faucibus
         vitae aliquet nec ullamcorper sit amet risus. Risus nullam eget felis eget nunc lobortis. Lobortis mattis aliquam

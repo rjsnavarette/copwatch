@@ -17,7 +17,7 @@
     <color name="blue_very_dark">#050A30</color>
     <color name="blue_dark">#191970</color>
     <color name="blue_divider">#311b92</color>
-<!--    <color name="blue_logo">#189AB4</color>-->
+
     <color name="blue_logo">#FFBB86FC</color>
     <color name="facebook_blue">#1976D2</color>
     <color name="switch_on_color">#00e676</color>
@@ -25,4 +25,5 @@
     <color name="link_color">#26c6da</color>
 
     <color name="error_red">#f44336</color>
+    <color name="et_blue">#2f6699</color>
 </resources>

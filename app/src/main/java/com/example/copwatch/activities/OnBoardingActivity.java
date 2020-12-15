@@ -83,12 +83,12 @@ public class OnBoardingActivity extends AppCompatActivity {
         vpScreens.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
-                    timerHandler.removeCallbacks(scrollBoard);
+                    removeAllCallbacks();
                     return true;
                 case MotionEvent.ACTION_UP:
                     if (mCurrentPage != mDots.length - 1) {
                         timerHandler.postDelayed(scrollBoard, 2000);
-                    }
+                    } else timerHandler.postDelayed(timerRunnable, 3000);
                     break;
             }
             return false;
