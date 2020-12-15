@@ -38,6 +38,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.example.copwatch.R;
+import com.example.copwatch.adapter.TermsAndConditionsAdapter;
+import com.example.copwatch.dialogs.InputDialog;
 import com.example.copwatch.service.Constants;
 import com.example.copwatch.utils.AfterTextChangedWatcher;
 import com.squareup.picasso.Picasso;
@@ -46,7 +48,7 @@ import java.io.File;
 
 import static com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements InputDialog.AcceptClicked {
 
     private static final String TAG = "SIGNUP";
     @SuppressLint("NonConstantResourceId")
@@ -147,7 +149,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     @SuppressLint("NonConstantResourceId")
-    @OnClick(value = {R.id.iv_prev, R.id.b_signUp, R.id.fl_profile, R.id.tv_terms})
+    @OnClick(value = {R.id.iv_prev, R.id.b_signUp, R.id.rl_profile, R.id.tv_terms})
     public void userClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         switch (view.getId()) {
@@ -176,7 +178,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else tvStatus.setVisibility(View.INVISIBLE);
 
                 break;
-            case R.id.fl_profile:
+            case R.id.rl_profile:
                 verifyStoragePermissions(this);
                 break;
             case R.id.tv_terms:
@@ -313,5 +315,10 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         return checked;
+    }
+
+    @Override
+    public void onAcceptClicked() {
+        cbTerms.setChecked(true);
     }
 }
