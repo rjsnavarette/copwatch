@@ -49,12 +49,12 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="Terms and Conditions"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <ImageView
-                android:id="@+id/iv_next"
+                android:id="@+id/iv_close"
                 android:layout_width="@dimen/standard_touch_size"
                 android:layout_height="@dimen/standard_touch_size"
                 android:layout_alignParentEnd="true"
@@ -77,8 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="500dp"
             android:layout_below="@id/divider"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginTop="20dp">
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/vp_terms"
@@ -93,7 +92,29 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/rl_main"
             android:gravity="center_horizontal"
-            android:orientation="horizontal"></LinearLayout>
+            android:orientation="horizontal" />
+
+        <RelativeLayout
+            android:id="@+id/rl_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_dots"
+            android:layout_marginBottom="20dp">
+
+            <Button
+                android:id="@+id/b_accept"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/round_buttons"
+                android:text="Next"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textAllCaps="true" />
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

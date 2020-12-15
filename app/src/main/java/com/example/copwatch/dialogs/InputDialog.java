@@ -8,6 +8,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -37,12 +38,15 @@ public class InputDialog extends Dialog {
     @BindView(R.id.ll_dots)
     LinearLayout llDots;
     @SuppressLint("NonConstantResourceId")
-    @BindView(R.id.iv_next)
-    ImageView ivNext;
+    @BindView(R.id.iv_close)
+    ImageView ivClose;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.b_accept)
+    Button bAccept;
 
-    private Context mCon;
     private TextView[] mDots;
     private int mCurrentPage;
+    private final AcceptClicked activity;
     private final Handler timerHandler = new Handler();
     private final Runnable scrollBoard = new Runnable() {
         @Override
@@ -56,13 +60,13 @@ public class InputDialog extends Dialog {
 
         setContentView(R.layout.dialog_inputs);
         ButterKnife.bind(this);
-        if (getWindow() != null){
+        if (getWindow() != null) {
             getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         }
 
-        this.mCon = context;
+        this.activity = (AcceptClicked) context;
 
-        TermsAndConditionsAdapter termsAndConditionsAdapter = new TermsAndConditionsAdapter(mCon);
+        TermsAndConditionsAdapter termsAndConditionsAdapter = new TermsAndConditionsAdapter(getContext());
         vpTerms.setAdapter(termsAndConditionsAdapter);
         vpTerms.addOnPageChangeListener(pageChangeListener);
         timerHandler.postDelayed(scrollBoard, 2000);
@@ -77,8 +81,12 @@ public class InputDialog extends Dialog {
         }
     }
 
+    public interface AcceptClicked {
+        void onAcceptClicked();
+    }
+
     @SuppressLint("NonConstantResourceId")
-    @OnClick(value = {R.id.iv_next, R.id.iv_prev})
+    @OnClick(value = {R.id.iv_close, R.id.iv_prev, R.id.b_accept})
     public void userClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         switch (view.getId()) {
@@ -89,12 +97,14 @@ public class InputDialog extends Dialog {
                     dismiss();
                 }
                 break;
-            case R.id.iv_next:
-                if (mCurrentPage != 0) {
+            case R.id.iv_close:
+                dismiss();
+                break;
+            case R.id.b_accept:
+                if (bAccept.getText().equals("Accept")) {
+                    activity.onAcceptClicked();
                     dismiss();
-                } else {
-                    vpTerms.setCurrentItem(mCurrentPage + 1);
-                }
+                } else vpTerms.setCurrentItem(mCurrentPage + 1);
                 break;
             default:
                 break;
@@ -107,16 +117,16 @@ public class InputDialog extends Dialog {
         llDots.removeAllViews();
 
         for (int i = 0; i < mDots.length; i++) {
-            mDots[i] = new TextView(mCon);
+            mDots[i] = new TextView(getContext());
             mDots[i].setText(Html.fromHtml("&#8226;", HtmlCompat.FROM_HTML_MODE_LEGACY));
             mDots[i].setTextSize(35);
-            mDots[i].setTextColor(ContextCompat.getColor(mCon, R.color.purple_200));
+            mDots[i].setTextColor(ContextCompat.getColor(getContext(), R.color.purple_200));
 
             llDots.addView(mDots[i]);
         }
 
         if (mDots.length > 0) {
-            mDots[position].setTextColor(ContextCompat.getColor(mCon, R.color.purple_500));
+            mDots[position].setTextColor(ContextCompat.getColor(getContext(), R.color.purple_500));
         }
     }
 
@@ -131,16 +141,13 @@ public class InputDialog extends Dialog {
             dotsIndicator(position);
             mCurrentPage = position;
             if (position == mDots.length - 1) {
-                ivNext.setImageDrawable(ContextCompat.getDrawable(mCon, R.drawable.close_icon));
-                ivNext.setScaleX(1f);
-                ivNext.setScaleY(1f);
+                ivClose.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.close_icon));
                 tvTitle.setText("Privacy Policy");
+                bAccept.setText("Accept");
                 timerHandler.removeCallbacks(scrollBoard);
             } else {
-                ivNext.setImageDrawable(ContextCompat.getDrawable(mCon, R.drawable.next_icon));
-                ivNext.setScaleX(1.2f);
-                ivNext.setScaleY(1.2f);
                 tvTitle.setText("Terms and Conditions");
+                bAccept.setText("Next");
             }
         }
 

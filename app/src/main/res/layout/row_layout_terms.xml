@@ -23,6 +23,9 @@
             android:fadeScrollbars="true"
             android:fillViewport="true"
             android:scrollbarSize="2dp"
+            android:fadingEdgeLength="40dp"
+            android:requiresFadingEdge="vertical"
+            android:scrollbarFadeDuration="@android:integer/config_mediumAnimTime"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical">
 
@@ -37,10 +40,9 @@
                     android:id="@+id/tv_details"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_marginBottom="20dp"
-                    android:gravity="center_horizontal"
                     android:text="@string/sample_text2"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
