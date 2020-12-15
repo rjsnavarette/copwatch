@@ -68,7 +68,7 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activities.PreferencesActivity"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme_2"/>
         <activity android:name=".activities.ModeSelectionActivity" />
         <activity android:name=".activities.CloudStorageActivity" />
     </application>
