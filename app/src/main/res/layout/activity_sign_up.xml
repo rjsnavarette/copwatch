@@ -41,7 +41,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/head_sign_up"
-                android:textColor="#FFFFFF"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -96,9 +96,9 @@
                     android:layout_marginEnd="20dp"
                     android:orientation="vertical">
 
-                    <FrameLayout
-                        android:id="@+id/fl_profile"
-                        android:layout_width="140dp"
+                    <RelativeLayout
+                        android:id="@+id/rl_profile"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="8dp"
@@ -121,19 +121,24 @@
 
                         </androidx.cardview.widget.CardView>
 
-                        <ImageView
+                        <androidx.cardview.widget.CardView
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="20dp"
-                            android:background="@drawable/circle_button"
-                            android:src="@drawable/add_icon"
-                            android:translationX="50dp"
-                            android:translationY="10dp"
-                            android:translationZ="50dp"
-                            app:tint="@color/grey" />
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            app:cardBackgroundColor="@color/white"
+                            app:cardCornerRadius="60dp">
 
-                    </FrameLayout>
+                            <ImageView
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:background="@drawable/circle_button"
+                                android:src="@drawable/add_icon"
+                                app:tint="@color/grey" />
+
+                        </androidx.cardview.widget.CardView>
+
+                    </RelativeLayout>
 
                     <TextView
                         android:id="@+id/tv_status"
