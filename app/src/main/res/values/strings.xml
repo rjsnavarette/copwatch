@@ -4,10 +4,12 @@
         <font color="#26c6da">Privacy Policy</font></string>
 
     <!--OnBoarding Screens-->
-    <string name="app_onboarding_one">Activate CopWatch when you worry there might be an altercation. This will also
-        black out your screen and turn on do not disturb to discreetly record.</string>
-    <string name="app_onboarding_two">CopWatch was created to keep you safe and prove your innocence in cases of abuses
-        of power by police.</string>
+    <string name="app_onboarding_one">CopWatch was created to help document, prosecute and reduce cases of police
+        brutality and gross civil rights violations.</string>
+    <string name="app_onboarding_two">Activate CopWatch if and when you encounter law enforcement with voice activated
+        discreet recordings that auto-load to your cloud securely. Thus giving you tamper proof recordings.</string>
+    <string name="app_onboarding_three">Further protections include checkpoint and speed-trap notifications. As well
+        as a news feed and a VLOG where you can share your CopWatch footage and see others stories and videos. </string>
     <string name="app_message_to_users">\"Being no stranger to police violence, we have such a passion to see every
         power-abusing, overly violent, law-breaking law enforcement officer reprimanded or retired from duty. We
         believe that every person regardless of their race, religion, income or educational background or mental capacity
@@ -17,13 +19,20 @@
         the time. There are over 300 million people in the United States alone. That means there are probably well over
         200 million cell phones commuting across the country every day. We need to do what their badge cams were supposed
         to do and record every interaction with the police. It\'s time those responsible for upholding the law actually
-        adhered to it too. \n\n-CopWatch\"</string>
+        adhered to it too.\" \n\n-CopWatch</string>
+    <string name="app_about_us">Our ultimate goal is to stop police violence and see that our constitutional
+        rights are protected. Its time those tasked with upholding the law actually adhered to it too. Downloading and
+        using this app is a great first step, but it only works if we all do it. SPREAD THE MESSAGE!!\n\n
+        --- #COPWATCH --- \nfree to join and free to use!</string>
+
 
     <!--Facebook-->
     <string name="facebook_app_id">868410380627318</string>
     <string name="fb_login_protocol_scheme">fb868410380627318</string>
 
     <!--Headers-->
+    <string name="head_privacy_policy">Privacy Policy</string>
+    <string name="head_terms_and_conditions">Terms and Conditions</string>
     <string name="head_advance_permission">Advance Permissions</string>
     <string name="head_forget_password">Forget Password</string>
     <string name="head_mode_selection">Mode Selection</string>
@@ -36,11 +45,16 @@
     <string name="head_legal">Legal Disclaimer</string>
 
     <!--Buttons-->
-    <string name="button_next">NEXT</string>
+    <string name="button_next">Next</string>
     <string name="button_sign_in">Sign In</string>
+    <string name="button_accept">Accept</string>
+    <string name="button_ok">Ok</string>
+    <string name="button_skip">Skip</string>
+    <string name="button_agree">Agree</string>
+    <string name="button_disagree">Disagree</string>
 
     <!--Navigation-->
-    <string name="nav_sign_in">GO TO SIGN IN</string>
+    <string name="nav_sign_in">Go to sign in</string>
 
     <!--Statements-->
     <string name="welcome_to_statement">Welcome to</string>
@@ -63,10 +77,10 @@
     <string name="permission_advance">In event of my death or serious injury resulting in coma or vegetative state caused
     by or believed to be caused by the use of place from the law of enforcement, I authorize CopWatch and/or \"designated person\"
         permission to access my cloud for evidence to my benefit</string>
-    <string name="legal_disclaimer_1">In use of the free version of the CopWatch where audio and/or video is admitted as an
-    evidence in a civil lawsuit where demands are awarded as 10% of the victim or clients portion, the settlement is to
-    be paid to CopWatch app for its services to help us better our app and to cover expenses in provisions this free services…
-    you\'re welcome.</string>
+    <string name="legal_disclaimer_1">In the use of the free version of this app where audio and / or video is submitted
+        as evidence in a civil lawsuit, CopWatch will receive 10% when damages are awarded to the client. Payment is
+        not required from clients who have paid to go add free. This helps us cover expenses and keeps it possible
+        to provide this free service for all. Thank you and you\'re welcome! </string>
     <string name="legal_disclaimer_2">CopWatch will never in any copy will use your cloud recordings to assist law enforcement
     in your prosecution and has no obligation to assist law enforcement at any time for any reason.</string>
 
@@ -114,4 +128,10 @@
         sit amet massa vitae. Consectetur libero id faucibus nisl tincidunt eget nullam non nisi. Quis vel eros donec
         ac odio tempor. Cum sociis natoque penatibus et magnis dis parturient montes nascetur. Urna cursus eget nunc
         celerisque.</string>
+    <string name="cd_previous">Previous</string>
+    <string name="cd_copwatch_logo">CopWatch Logo</string>
+    <string name="success_reset_password">Reset password link sent successfully.</string>
+    <string name="button_send_link">Send Link</string>
+    <string name="num_2">2.</string>
+    <string name="num_1">1.</string>
 </resources>
