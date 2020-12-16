@@ -16,7 +16,7 @@ public class OnBoardingScreenAdapter extends PagerAdapter {
 
     private final LayoutInflater mLayoutInflater;
     private final int[] screens = {R.layout.screen_one_layout, R.layout.screen_two_layout, R.layout.screen_two_layout,
-            R.layout.screen_three_layout};
+            R.layout.screen_two_layout, R.layout.screen_three_layout};
 
     public OnBoardingScreenAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -37,16 +37,19 @@ public class OnBoardingScreenAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         View screenOne = mLayoutInflater.inflate(screens[0], container, false);
         View screenTwo = mLayoutInflater.inflate(screens[1], container, false);
-        View screenThree = mLayoutInflater.inflate(screens[3], container, false);
+        View screenThree = mLayoutInflater.inflate(screens[4], container, false);
 
-        View[] screenViews = {screenOne, screenTwo, screenTwo, screenThree};
+        View[] screenViews = {screenOne, screenTwo, screenTwo, screenTwo, screenThree};
 
-        if (position == 2) {
+        if (position == 1) {
             TextView tvInfo = screenTwo.findViewById(R.id.tv_info);
             tvInfo.setText(R.string.app_onboarding_one);
-        } else if (position == 1) {
+        } else if (position == 2) {
             TextView tvInfo = screenTwo.findViewById(R.id.tv_info);
             tvInfo.setText(R.string.app_onboarding_two);
+        } else if (position == 3) {
+            TextView tvInfo = screenTwo.findViewById(R.id.tv_info);
+            tvInfo.setText(R.string.app_onboarding_three);
         }
 
         container.addView(screenViews[position]);

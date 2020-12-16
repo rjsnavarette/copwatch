@@ -14,7 +14,7 @@
         android:layout_marginEnd="24dp"
         android:ems="12"
         android:gravity="center"
-        android:text="CopWatch was created to keep you safe and prove your innocence in cases of abuses of power by police."
+        android:text="@string/app_onboarding_one"
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
