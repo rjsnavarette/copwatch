@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.copwatch.R;
 import com.example.copwatch.adapter.TermsAndConditionsAdapter;
+import com.example.copwatch.interfaces.TermsAccepted;
 import com.example.copwatch.utils.CustomScroller;
 
 import java.lang.reflect.Field;
@@ -46,7 +47,7 @@ public class InputDialog extends Dialog {
 
     private TextView[] mDots;
     private int mCurrentPage;
-    private final AcceptClicked activity;
+    private final TermsAccepted activity;
     private final Handler timerHandler = new Handler();
     private final Runnable scrollBoard = new Runnable() {
         @Override
@@ -64,7 +65,7 @@ public class InputDialog extends Dialog {
             getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         }
 
-        this.activity = (AcceptClicked) context;
+        this.activity = (TermsAccepted) context;
 
         TermsAndConditionsAdapter termsAndConditionsAdapter = new TermsAndConditionsAdapter(getContext());
         vpTerms.setAdapter(termsAndConditionsAdapter);
@@ -79,10 +80,6 @@ public class InputDialog extends Dialog {
         } catch (Exception e) {
             Log.e("DIALOG", e.getMessage());
         }
-    }
-
-    public interface AcceptClicked {
-        void onAcceptClicked();
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -102,7 +99,7 @@ public class InputDialog extends Dialog {
                 break;
             case R.id.b_accept:
                 if (bAccept.getText().equals("Accept")) {
-                    activity.onAcceptClicked();
+                    activity.onTermsAccepted();
                     dismiss();
                 } else vpTerms.setCurrentItem(mCurrentPage + 1);
                 break;
@@ -142,12 +139,12 @@ public class InputDialog extends Dialog {
             mCurrentPage = position;
             if (position == mDots.length - 1) {
                 ivClose.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.close_icon));
-                tvTitle.setText("Privacy Policy");
-                bAccept.setText("Accept");
+                tvTitle.setText(R.string.head_privacy_policy);
+                bAccept.setText(R.string.button_accept);
                 timerHandler.removeCallbacks(scrollBoard);
             } else {
-                tvTitle.setText("Terms and Conditions");
-                bAccept.setText("Next");
+                tvTitle.setText(R.string.head_terms_and_conditions);
+                bAccept.setText(R.string.button_next);
             }
         }
 

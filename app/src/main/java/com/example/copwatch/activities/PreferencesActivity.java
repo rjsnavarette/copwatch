@@ -1,5 +1,7 @@
 package com.example.copwatch.activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
@@ -8,10 +10,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -24,13 +29,26 @@ import android.widget.TextView;
 
 import com.example.copwatch.R;
 import com.example.copwatch.adapter.PreferencesAdapter;
+import com.example.copwatch.interfaces.PreferencesCheckListener;
 import com.example.copwatch.service.Constants;
 import com.example.copwatch.utils.CustomScroller;
 import com.example.copwatch.utils.CustomViewPager;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.tasks.OnCanceledListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.services.drive.DriveScopes;
 
 import java.lang.reflect.Field;
 
-public class PreferencesActivity extends AppCompatActivity implements PreferencesAdapter.CheckedItem {
+public class PreferencesActivity extends AppCompatActivity implements PreferencesCheckListener {
 
     private static final String TAG = "PREFERENCES";
     @SuppressLint("NonConstantResourceId")
@@ -58,7 +76,10 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
     private int mCurrentPage;
     private PreferencesAdapter preferencesAdapter;
 
+    private GoogleSignInClient mGoogleSignInClient;
+
     private String loginAccount;
+    private boolean isHomeAccess;
     private TextView[] mDots;
     private boolean isChecked = true;
 
@@ -69,9 +90,23 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
         ButterKnife.bind(this);
 
         loginAccount = getIntent().getStringExtra(Constants.LOGIN_MODE);
+        isHomeAccess = getIntent().getBooleanExtra("isHomeAccess", false);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestScopes(new Scope(DriveScopes.DRIVE_FILE))
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         preferencesAdapter = new PreferencesAdapter(this);
         vpScreens.setAdapter(preferencesAdapter);
+        if (isHomeAccess) {
+            llDots.setVisibility(View.INVISIBLE);
+            vpScreens.setCurrentItem(1, false);
+            mCurrentPage = 1;
+            bNext.setText("Ok");
+            Log.e(TAG, "onCreate: " + mCurrentPage);
+        }
         vpScreens.setPagingEnabled(false);
         vpScreens.addOnPageChangeListener(pageChangeListener);
 
@@ -141,8 +176,6 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
                 case 2:
                     tvTitle.setText(R.string.head_mode_selection);
                     ivPrev.setVisibility(View.VISIBLE);
-
-
                     break;
                 case 3:
                     tvTitle.setText(R.string.head_permissions);
@@ -176,6 +209,11 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
                     startActivity(mainIntent);
                     finish();
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                } else if (mCurrentPage == 1 && isHomeAccess) {
+                    Intent mainIntent = new Intent(PreferencesActivity.this, HomeActivity.class);
+                    startActivity(mainIntent);
+                    finish();
+                    overridePendingTransition(0, R.anim.slide_out_left);
                 } else if (mCurrentPage == 2) {
                     if (isChecked) {
                         vpScreens.setCurrentItem(mCurrentPage + 1);
@@ -190,14 +228,58 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
         }
     }
 
+    private void logout() {
+        switch (loginAccount) {
+            case Constants.FACEBOOK:
+                LoginManager.getInstance().logOut();
+                backToHome();
+                break;
+            case Constants.GOOGLE:
+                mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> backToHome());
+                break;
+            default:
+                backToHome();
+                break;
+        }
+    }
+
+    private void backToHome() {
+        Intent logoutIntent = new Intent(PreferencesActivity.this, SignInActivity.class);
+        startActivity(logoutIntent);
+        finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
     @Override
-    public void onCheckedItem(boolean isItemChecked) {
-        isChecked = isItemChecked;
-        if (!isItemChecked) {
+    public void onBackPressed() {
+        if (!isHomeAccess) {
+            logout();
+            super.onBackPressed();
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        } else {
+            super.onBackPressed();
+            overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
+        }
+    }
+
+    @Override
+    public void onModeSelected(boolean isModeChecked) {
+        isChecked = isModeChecked;
+        if (!isModeChecked) {
             tvStatus.setText("Please select mode");
             tvStatus.setVisibility(View.VISIBLE);
         } else {
             tvStatus.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    public void onRadioButtonChecked(String radioButtonText) {
+        switch (radioButtonText) {
+            case "Google Drive":
+                break;
+            case "iCloud":
+                break;
         }
     }
 }

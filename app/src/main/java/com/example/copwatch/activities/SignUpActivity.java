@@ -16,8 +16,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -38,17 +36,15 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory;
 import com.example.copwatch.R;
-import com.example.copwatch.adapter.TermsAndConditionsAdapter;
-import com.example.copwatch.dialogs.InputDialog;
+import com.example.copwatch.interfaces.TermsAccepted;
 import com.example.copwatch.service.Constants;
 import com.example.copwatch.utils.AfterTextChangedWatcher;
-import com.squareup.picasso.Picasso;
 
 import java.io.File;
 
 import static com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade;
 
-public class SignUpActivity extends AppCompatActivity implements InputDialog.AcceptClicked {
+public class SignUpActivity extends AppCompatActivity implements TermsAccepted {
 
     private static final String TAG = "SIGNUP";
     @SuppressLint("NonConstantResourceId")
@@ -191,7 +187,7 @@ public class SignUpActivity extends AppCompatActivity implements InputDialog.Acc
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.OPEN_GALLERY_INTENT_CODE) {
-            if (resultCode == RESULT_OK) {
+            if (resultCode == RESULT_OK && data != null) {
                 Uri uri = data.getData();
                 String filePath = getPath(uri);
                 File imgFile = new File(filePath);
@@ -240,9 +236,11 @@ public class SignUpActivity extends AppCompatActivity implements InputDialog.Acc
         String[] projection = {MediaStore.Images.Media.DATA};
         CursorLoader loader = new CursorLoader(this, uri, projection, null, null, null);
         Cursor cursor = loader.loadInBackground();
+        assert cursor != null;
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+
     }
 
     @Override
@@ -318,7 +316,7 @@ public class SignUpActivity extends AppCompatActivity implements InputDialog.Acc
     }
 
     @Override
-    public void onAcceptClicked() {
+    public void onTermsAccepted() {
         cbTerms.setChecked(true);
     }
 }

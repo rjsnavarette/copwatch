@@ -1,15 +1,22 @@
 package com.example.copwatch.adapter;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.copwatch.R;
+import com.example.copwatch.interfaces.PreferencesCheckListener;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
@@ -19,17 +26,13 @@ import androidx.viewpager.widget.PagerAdapter;
 public class PreferencesAdapter extends PagerAdapter {
 
     private final LayoutInflater mLayoutInflater;
-    private final CheckedItem activity;
+    private final PreferencesCheckListener activity;
     private final int[] screens = {R.layout.activity_select_storage, R.layout.activity_preferences, R.layout.activity_mode_selection,
             R.layout.activity_permissions, R.layout.activity_advance_permissions, R.layout.activity_legal_disclaimer};
 
     public PreferencesAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.activity = (CheckedItem) context;
-    }
-
-    public interface CheckedItem {
-        void onCheckedItem(boolean isItemChecked);
+        this.activity = (PreferencesCheckListener) context;
     }
 
     @Override
@@ -55,6 +58,11 @@ public class PreferencesAdapter extends PagerAdapter {
         switch (position) {
             case 0:
                 RadioGroup rgStorage = screenOne.findViewById(R.id.rg_storage);
+                rgStorage.setOnCheckedChangeListener((group, checkedId) -> {
+                    RadioButton rbStorage = group.findViewById(checkedId);
+                    rbStorage.performClick();
+                    activity.onRadioButtonChecked(rbStorage.getText().toString());
+                });
                 break;
             case 1:
                 SwitchCompat swRecord = screenTwo.findViewById(R.id.sc_record);
@@ -66,7 +74,7 @@ public class PreferencesAdapter extends PagerAdapter {
                 TextView tvCamera = screenTwo.findViewById(R.id.tv_camera);
                 swCamera.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (isChecked) {
-                        tvCamera.setText("Camera Selection (Back)");
+                        tvCamera.setText("Camera Selection (Rear)");
                     } else {
                         tvCamera.setText("Camera Selection (Front)");
                     }
@@ -75,13 +83,19 @@ public class PreferencesAdapter extends PagerAdapter {
             case 2:
                 CheckBox cbStandard = screenThree.findViewById(R.id.cb_standard);
                 cbStandard.setChecked(true);
-                cbStandard.setOnCheckedChangeListener((buttonView, isChecked) -> activity.onCheckedItem(isChecked));
+                cbStandard.setOnCheckedChangeListener((buttonView, isChecked) -> activity.onModeSelected(isChecked));
                 break;
             case 3:
                 CheckBox cbCamera = screenFour.findViewById(R.id.cb_camera);
                 CheckBox cbCloud = screenFour.findViewById(R.id.cb_cloud);
                 CheckBox cbLock = screenFour.findViewById(R.id.cb_lock);
                 CheckBox cbInterface = screenFour.findViewById(R.id.cb_interface);
+
+                cbCamera.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    }
+                });
                 break;
             case 4:
                 RadioGroup rgSelect = screenFive.findViewById(R.id.rg_select);
