@@ -8,12 +8,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
@@ -51,18 +48,15 @@ public class SignInActivity extends AppCompatActivity {
     TextView tvStatus;
 
     private static final String TAG = "SIGN-IN";
-    private Context mCon;
 
     private CallbackManager callbackManager;
     private GoogleSignInClient mGoogleSignInClient;
-    private Handler timerHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         ButterKnife.bind(this);
-        mCon = this;
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -165,7 +159,9 @@ public class SignInActivity extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            goToHome(Constants.GOOGLE);
+            if (account != null) {
+                goToHome(Constants.GOOGLE);
+            }
         } catch (ApiException e) {
             Log.e(TAG, "signInResult:failed code=" + e.getStatusCode());
             goToHome("");
