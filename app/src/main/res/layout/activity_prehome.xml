@@ -12,8 +12,8 @@
         android:id="@+id/rl_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/blue_very_dark"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,12 +54,12 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
             android:gravity="center"
-            android:text="Skip"
-            android:visibility="invisible"
+            android:text="@string/button_skip"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
@@ -95,8 +95,8 @@
         android:id="@+id/tv_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="8dp"
+        android:gravity="center"
         android:minLines="2"
         android:text="Please select mode"
         android:textColor="@color/error_red"
@@ -116,7 +116,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/b_next"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></LinearLayout>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/b_next"
@@ -127,6 +127,7 @@
         android:layout_marginBottom="20dp"
         android:background="@drawable/round_buttons"
         android:text="Next"
+        android:textAllCaps="true"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,9 +20,10 @@
             android:id="@+id/iv_prev"
             android:layout_width="@dimen/standard_touch_size"
             android:layout_height="@dimen/standard_touch_size"
-            android:padding="9dp"
             android:layout_alignParentStart="true"
             android:layout_marginStart="8dp"
+            android:padding="9dp"
+            android:contentDescription="@string/cd_previous"
             android:src="@drawable/previous_icon" />
 
         <TextView
@@ -46,13 +46,13 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
-            android:text="Skip"
-            android:textSize="16sp"
             android:gravity="center"
-            android:visibility="invisible"
+            android:text="@string/button_skip"
             android:textAllCaps="true"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
@@ -85,46 +85,48 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="25dp"
-            android:text="@string/permission_advance"
-            android:textAllCaps="true"
             android:letterSpacing="0.025"
             android:lineSpacingExtra="6dp"
+            android:text="@string/permission_advance"
+            android:textAllCaps="true"
             android:textColor="@color/blue_very_dark"
             android:textSize="18sp" />
 
-            <RadioGroup
-                android:id="@+id/rg_select"
-                android:layout_width="match_parent"
+        <RadioGroup
+            android:id="@+id/rg_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_label"
+            android:orientation="horizontal"
+            android:weightSum="1">
+
+            <RadioButton
+                android:id="@+id/rb_agree"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                android:layout_below="@id/tv_label">
+                android:layout_marginTop="12dp"
+                android:layout_weight="0.5"
+                android:buttonTint="@color/blue_very_dark"
+                android:paddingStart="12dp"
+                android:paddingEnd="0dp"
+                android:text="@string/button_agree"
+                android:textColor="@color/blue_very_dark"
+                android:textSize="18sp" />
 
-                <RadioButton
-                    android:id="@+id/rb_agree"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:buttonTint="@color/blue_very_dark"
-                    android:layout_marginTop="12dp"
-                    android:paddingStart="12dp"
-                    android:text="Agree"
-                    android:textColor="@color/blue_very_dark"
-                    android:textSize="18sp" />
+            <RadioButton
+                android:id="@+id/rb_disagree"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_weight="0.5"
+                android:buttonTint="@color/blue_very_dark"
+                android:paddingStart="12dp"
+                android:paddingEnd="0dp"
+                android:text="@string/button_disagree"
+                android:textColor="@color/blue_very_dark"
+                android:textSize="18sp" />
 
-                <RadioButton
-                    android:id="@+id/rb_disagree"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:layout_marginTop="12dp"
-                    android:buttonTint="@color/blue_very_dark"
-                    android:paddingStart="12dp"
-                    android:text="Disagree"
-                    android:textColor="@color/blue_very_dark"
-                    android:textSize="18sp" />
-
-            </RadioGroup>
+        </RadioGroup>
 
     </RelativeLayout>
 
@@ -136,7 +138,8 @@
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="20dp"
         android:background="@drawable/round_buttons"
-        android:text="Next"
+        android:text="@string/button_next"
+        android:textAllCaps="true"
         android:textSize="18sp"
         android:textStyle="bold"
         android:visibility="gone"
