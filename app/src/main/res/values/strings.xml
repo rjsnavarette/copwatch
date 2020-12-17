@@ -74,14 +74,14 @@
     <string name="permission_interface">Siri, Bixby, Google Api, Interface Command</string>
     <string name="permission_instruction">These are preferences that are put in place to enact upon startup of the app
         i.e. \"Hey Siri, Start CopWatch\" then CopWatch would open with these exact settings already in place. </string>
-    <string name="permission_advance">In event of my death or serious injury resulting in coma or vegetative state caused
-    by or believed to be caused by the use of place from the law of enforcement, I authorize CopWatch and/or \"designated person\"
+    <string name="permission_advance">In the event of my death or serious injury resulting in coma or vegetative state caused
+    by or believed to be caused by the use of force from law enforcement, I authorize CopWatch and/or \"designated person\"
         permission to access my cloud for evidence to my benefit</string>
     <string name="legal_disclaimer_1">In the use of the free version of this app where audio and / or video is submitted
         as evidence in a civil lawsuit, CopWatch will receive 10% when damages are awarded to the client. Payment is
         not required from clients who have paid to go add free. This helps us cover expenses and keeps it possible
-        to provide this free service for all. Thank you and you\'re welcome! </string>
-    <string name="legal_disclaimer_2">CopWatch will never in any copy will use your cloud recordings to assist law enforcement
+        to provide this free service for all. Thank you and you\'re welcome!\n\nCopWatch :) </string>
+    <string name="legal_disclaimer_2">CopWatch will never in any way use your cloud recordings to assist law enforcement
     in your prosecution and has no obligation to assist law enforcement at any time for any reason.</string>
 
     <!--Errors-->
