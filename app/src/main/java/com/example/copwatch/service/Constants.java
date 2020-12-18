@@ -13,8 +13,12 @@ import com.example.copwatch.dialogs.InputDialog;
 
 public class Constants {
 
-    public static final int OPEN_GALLERY_INTENT_CODE = 100;
-    public static final int GOOGLE_SIGN_IN_INTENT_CODE = 101;
+    public static final int OPEN_GALLERY_INTENT_CODE = 1000;
+    public static final int GOOGLE_SIGN_IN_INTENT_CODE = 1001;
+    public static final int VIDEO_CAMERA_INTENT_CODE = 1002;
+    public static final int ICLOUD_WEB_INTENT_CODE = 1003;
+
+    public static final int PERMISSION_REQUEST_CAMERA = 2000;
 
     public static final String LOGIN_MODE = "Login";
     public static final String FACEBOOK = "Facebook";
@@ -31,8 +35,8 @@ public class Constants {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
-    public static void showInputDialog(Context mCon) {
-        InputDialog visitedDialog = new InputDialog(mCon, R.style.CustomDialog);
+    public static void showInputDialog(Context mCon, int statusCode) {
+        InputDialog visitedDialog = new InputDialog(mCon, R.style.CustomDialog, statusCode);
         if (visitedDialog.getWindow() != null) {
             visitedDialog.getWindow().
                     setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.copwatch.R;
@@ -33,11 +34,17 @@ public class InputDialog extends Dialog {
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.rl_main)
+    RelativeLayout rlMain;
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.vp_terms)
     ViewPager vpTerms;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.ll_dots)
     LinearLayout llDots;
+    @SuppressLint("NonConstantResourceId")
+    @BindView(R.id.tv_dialog)
+    TextView tvDialog;
     @SuppressLint("NonConstantResourceId")
     @BindView(R.id.iv_close)
     ImageView ivClose;
@@ -47,6 +54,7 @@ public class InputDialog extends Dialog {
 
     private TextView[] mDots;
     private int mCurrentPage;
+    private int statusCode;
     private final TermsAccepted activity;
     private final Handler timerHandler = new Handler();
     private final Runnable scrollBoard = new Runnable() {
@@ -56,7 +64,7 @@ public class InputDialog extends Dialog {
         }
     };
 
-    public InputDialog(Context context, int themeResId) {
+    public InputDialog(Context context, int themeResId, int statusCode) {
         super(context, themeResId);
 
         setContentView(R.layout.dialog_inputs);
@@ -67,11 +75,27 @@ public class InputDialog extends Dialog {
 
         this.activity = (TermsAccepted) context;
 
-        TermsAndConditionsAdapter termsAndConditionsAdapter = new TermsAndConditionsAdapter(getContext());
-        vpTerms.setAdapter(termsAndConditionsAdapter);
-        vpTerms.addOnPageChangeListener(pageChangeListener);
-        timerHandler.postDelayed(scrollBoard, 2000);
-        dotsIndicator(0);
+        switch (statusCode) {
+            case 1:
+                tvDialog.setVisibility(View.GONE);
+                rlMain.setVisibility(View.VISIBLE);
+                llDots.setVisibility(View.VISIBLE);
+                bAccept.setText(R.string.button_next);
+                TermsAndConditionsAdapter termsAndConditionsAdapter = new TermsAndConditionsAdapter(getContext());
+                vpTerms.setAdapter(termsAndConditionsAdapter);
+                vpTerms.addOnPageChangeListener(pageChangeListener);
+                tvTitle.setText(R.string.head_terms_and_conditions);
+                timerHandler.postDelayed(scrollBoard, 2000);
+                dotsIndicator(0);
+                break;
+            case 2:
+                tvDialog.setVisibility(View.VISIBLE);
+                tvTitle.setText(R.string.head_logout);
+                rlMain.setVisibility(View.GONE);
+                llDots.setVisibility(View.INVISIBLE);
+                bAccept.setText(R.string.button_confirm);
+                break;
+        }
 
         try {
             Field mScroller = ViewPager.class.getDeclaredField("mScroller");
@@ -102,6 +126,11 @@ public class InputDialog extends Dialog {
                     activity.onTermsAccepted();
                     dismiss();
                 } else vpTerms.setCurrentItem(mCurrentPage + 1);
+
+                if (bAccept.getText().equals("Confirm")) {
+                    activity.onTermsAccepted();
+                    dismiss();
+                }
                 break;
             default:
                 break;

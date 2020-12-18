@@ -178,7 +178,7 @@ public class SignUpActivity extends AppCompatActivity implements TermsAccepted {
                 verifyStoragePermissions(this);
                 break;
             case R.id.tv_terms:
-                Constants.showInputDialog(this);
+                Constants.showInputDialog(this, 1);
                 break;
         }
     }

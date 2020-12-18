@@ -32,6 +32,7 @@ import android.widget.TextView;
 import com.example.copwatch.R;
 import com.example.copwatch.adapter.PreferencesAdapter;
 import com.example.copwatch.interfaces.PreferencesCheckListener;
+import com.example.copwatch.interfaces.TermsAccepted;
 import com.example.copwatch.service.Constants;
 import com.example.copwatch.service.DriveServiceHelper;
 import com.example.copwatch.utils.CustomScroller;
@@ -58,7 +59,7 @@ import com.google.api.services.drive.DriveScopes;
 import java.lang.reflect.Field;
 import java.util.Collections;
 
-public class PreferencesActivity extends AppCompatActivity implements PreferencesCheckListener {
+public class PreferencesActivity extends AppCompatActivity implements PreferencesCheckListener, TermsAccepted {
 
     private static final String TAG = "PREFERENCES";
     @SuppressLint("NonConstantResourceId")
@@ -264,9 +265,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
     @Override
     public void onBackPressed() {
         if (!isHomeAccess) {
-            logout();
-            super.onBackPressed();
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            Constants.showInputDialog(this, 2);
         } else {
             super.onBackPressed();
             overridePendingTransition(R.anim.fade_in, R.anim.slide_out_left);
@@ -347,5 +346,12 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
 
 
         }
+    }
+
+    @Override
+    public void onTermsAccepted() {
+        logout();
+        super.onBackPressed();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }

@@ -86,11 +86,24 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/tv_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_below="@id/rl_main"
+            android:visibility="gone"
+            android:text="Are you sure you want to logout?"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
         <LinearLayout
             android:id="@+id/ll_dots"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rl_main"
+            android:layout_below="@id/tv_dialog"
             android:gravity="center_horizontal"
             android:orientation="horizontal" />
 
