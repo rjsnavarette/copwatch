@@ -12,6 +12,8 @@ import butterknife.OnClick;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,6 +33,7 @@ import com.example.copwatch.R;
 import com.example.copwatch.adapter.PreferencesAdapter;
 import com.example.copwatch.interfaces.PreferencesCheckListener;
 import com.example.copwatch.service.Constants;
+import com.example.copwatch.service.DriveServiceHelper;
 import com.example.copwatch.utils.CustomScroller;
 import com.example.copwatch.utils.CustomViewPager;
 import com.facebook.login.LoginManager;
@@ -38,15 +41,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.googleapis.extensions.android.gms.auth.GoogleAccountCredential;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
 
 public class PreferencesActivity extends AppCompatActivity implements PreferencesCheckListener {
 
@@ -77,6 +87,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
     private PreferencesAdapter preferencesAdapter;
 
     private GoogleSignInClient mGoogleSignInClient;
+    private DriveServiceHelper mDriveServiceHelper;
 
     private String loginAccount;
     private boolean isHomeAccess;
@@ -277,9 +288,64 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
     public void onRadioButtonChecked(String radioButtonText) {
         switch (radioButtonText) {
             case "Google Drive":
+                startActivityForResult(mGoogleSignInClient.getSignInIntent(), Constants.GOOGLE_SIGN_IN_INTENT_CODE);
                 break;
             case "iCloud":
+                Intent iCloudIntent = new Intent(Intent.ACTION_WEB_SEARCH);
+                iCloudIntent.putExtra(SearchManager.QUERY, "https://www.icloud.com/");
+                startActivityForResult(iCloudIntent, Constants.ICLOUD_WEB_INTENT_CODE);
                 break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case Constants.GOOGLE_SIGN_IN_INTENT_CODE:
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    GoogleSignIn.getSignedInAccountFromIntent(data)
+                            .addOnSuccessListener(googleAccount -> {
+                                Log.d(TAG, "Signed in as " + googleAccount.getEmail());
+
+                                // Use the authenticated account to sign in to the Drive service.
+                                GoogleAccountCredential credential =
+                                        GoogleAccountCredential.usingOAuth2(
+                                                this, Collections.singleton(DriveScopes.DRIVE_FILE));
+                                credential.setSelectedAccountName(googleAccount.getAccount().toString());
+                                Drive googleDriveService = new Drive.Builder(
+                                        new NetHttpTransport(),
+                                        new GsonFactory(),
+                                        credential)
+                                        .setApplicationName("Drive API Migration")
+                                        .build();
+
+                                // The DriveServiceHelper encapsulates all REST API and SAF functionality.
+                                // Its instantiation is required before handling any onClick actions.
+                                mDriveServiceHelper = new DriveServiceHelper(googleDriveService);
+                                vpScreens.setCurrentItem(mCurrentPage + 1);
+                            })
+                            .addOnFailureListener(exception -> {
+                                Log.e(TAG, "Unable to sign in.", exception);
+                                preferencesAdapter.clearAllCheck();
+                            });
+                } else if (resultCode == Activity.RESULT_CANCELED) {
+                    Log.e(TAG, "Sign-in cancelled");
+                    preferencesAdapter.clearAllCheck();
+                }
+                break;
+            case Constants.ICLOUD_WEB_INTENT_CODE:
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    vpScreens.setCurrentItem(mCurrentPage + 1);
+                } else if (resultCode == Activity.RESULT_CANCELED) {
+                    Log.e(TAG, "Sign-in cancelled");
+                    preferencesAdapter.clearAllCheck();
+                }
+                break;
+
+
         }
     }
 }

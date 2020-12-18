@@ -1,10 +1,7 @@
 package com.example.copwatch.adapter;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +13,6 @@ import android.widget.TextView;
 
 import com.example.copwatch.R;
 import com.example.copwatch.interfaces.PreferencesCheckListener;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
@@ -27,6 +23,9 @@ public class PreferencesAdapter extends PagerAdapter {
 
     private final LayoutInflater mLayoutInflater;
     private final PreferencesCheckListener activity;
+    private RadioGroup rgStorage;
+    private RadioButton rbStorage;
+    private boolean isClicked = false;
     private final int[] screens = {R.layout.activity_select_storage, R.layout.activity_preferences, R.layout.activity_mode_selection,
             R.layout.activity_permissions, R.layout.activity_advance_permissions, R.layout.activity_legal_disclaimer};
 
@@ -57,11 +56,14 @@ public class PreferencesAdapter extends PagerAdapter {
 
         switch (position) {
             case 0:
-                RadioGroup rgStorage = screenOne.findViewById(R.id.rg_storage);
+                rgStorage = screenOne.findViewById(R.id.rg_storage);
                 rgStorage.setOnCheckedChangeListener((group, checkedId) -> {
-                    RadioButton rbStorage = group.findViewById(checkedId);
-                    rbStorage.performClick();
-                    activity.onRadioButtonChecked(rbStorage.getText().toString());
+                    rbStorage = group.findViewById(checkedId);
+                    Log.e("PREFERENCES", "instantiateItem: " + checkedId + isClicked);
+                    if (!isClicked) {
+                        activity.onRadioButtonChecked(rbStorage.getText().toString());
+                        isClicked = true;
+                    }
                 });
                 break;
             case 1:
@@ -112,5 +114,10 @@ public class PreferencesAdapter extends PagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         container.removeView((ConstraintLayout) object);
+    }
+
+    public void clearAllCheck() {
+        rgStorage.clearCheck();
+        isClicked = false;
     }
 }
