@@ -14,40 +14,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.copwatch.R;
+import com.example.copwatch.fragments.CameraFragment;
+import com.example.copwatch.interfaces.TermsAccepted;
 import com.example.copwatch.service.Constants;
 import com.facebook.AccessToken;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-
-import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements TermsAccepted {
 
     private static final String TAG = "HOME";
     @SuppressLint("NonConstantResourceId")
@@ -65,7 +53,8 @@ public class HomeActivity extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSignInClient;
     private String loginAccount;
-    private SharedPreferences userData;
+
+    private boolean isCameraClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +68,7 @@ public class HomeActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        userData = getSharedPreferences(Constants.USERDATA, Context.MODE_PRIVATE);
+        SharedPreferences userData = getSharedPreferences(Constants.USERDATA, Context.MODE_PRIVATE);
 
         loginAccount = userData.getString(Constants.LOGIN_MODE, "");
         if (!loginAccount.equals("")) {
@@ -104,13 +93,30 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("NonConstantResourceId")
-    @OnClick(value = {R.id.cv_logout})
+    @SuppressLint({"NonConstantResourceId", "QueryPermissionsNeeded"})
+    @OnClick(value = {R.id.cv_camera, R.id.cv_preferences, R.id.iv_logout})
     public void userClick(View view) {
         view.performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
         switch (view.getId()) {
-            case R.id.cv_logout:
-                logout();
+            case R.id.cv_camera:
+//                Intent videoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+//                if (videoIntent.resolveActivity(getPackageManager()) != null) {
+//                    startActivityForResult(videoIntent, Constants.VIDEO_CAMERA_INTENT_CODE);
+//                }
+                AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.container, CameraFragment.newInstance())
+                        .commit();
+                isCameraClicked = true;
+                break;
+            case R.id.cv_preferences:
+                Intent prefIntent = new Intent(HomeActivity.this, PreferencesActivity.class);
+                prefIntent.putExtra("isHomeAccess", true);
+                startActivity(prefIntent);
+                overridePendingTransition(R.anim.slide_in_left, R.anim.fade_out);
+                break;
+            case R.id.iv_logout:
+                Constants.showInputDialog(this, 2);
                 break;
         }
     }
@@ -176,8 +182,31 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        logout();
-        super.onBackPressed();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        if (!isCameraClicked) {
+            Constants.showInputDialog(this, 2);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        } else {
+            getFragmentManager().beginTransaction().remove(CameraFragment.closeInstance()).commit();
+            isCameraClicked = false;
+        }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case Constants.VIDEO_CAMERA_INTENT_CODE:
+                if (resultCode == RESULT_OK && data != null) {
+                    Uri videoUri = data.getData();
+                    Log.e(TAG, "onActivityResult: " + videoUri);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onTermsAccepted() {
+        logout();
+    }
+
 }
