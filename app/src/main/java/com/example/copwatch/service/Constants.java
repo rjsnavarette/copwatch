@@ -17,6 +17,7 @@ public class Constants {
     public static final int GOOGLE_SIGN_IN_INTENT_CODE = 1001;
     public static final int VIDEO_CAMERA_INTENT_CODE = 1002;
     public static final int ICLOUD_WEB_INTENT_CODE = 1003;
+    public static final int NOTIFICATION_ALARMS_INTENT_CODE = 1004;
 
     public static final int PERMISSION_REQUEST_CAMERA = 2000;
 
@@ -31,17 +32,29 @@ public class Constants {
     public static String EMAIL_ADDRESS = "email_address";
     public static String PHONE_NUMBER = "phone_number";
 
+    public static final String CAMERA_FRONT = "1";
+    public static final String CAMERA_BACK = "0";
+
+    private static InputDialog visitedDialog;
+
     public static boolean isValidEmail(CharSequence target) {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
     public static void showInputDialog(Context mCon, int statusCode) {
-        InputDialog visitedDialog = new InputDialog(mCon, R.style.CustomDialog, statusCode);
+        visitedDialog = new InputDialog(mCon, R.style.CustomDialog, statusCode);
         if (visitedDialog.getWindow() != null) {
             visitedDialog.getWindow().
                     setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         }
         visitedDialog.show();
+    }
+
+    public static void closeInputDialog(Context context) {
+        if (visitedDialog != null) {
+            visitedDialog.dismiss();
+            visitedDialog = null;
+        }
     }
 
     public static void hideKeyboard(Activity activity) {
