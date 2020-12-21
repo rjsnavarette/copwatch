@@ -56,4 +56,7 @@ dependencies {
     implementation 'com.google.apis:google-api-services-drive:v3-rev110-1.23.0'
     implementation 'com.google.api-client:google-api-client-android:1.20.0'
     implementation 'com.google.http-client:google-http-client-gson:1.19.0'
+
+    implementation 'com.karumi:dexter:4.2.0'
+    implementation 'com.googlecode.mp4parser:isoparser:1.1.22'
 }
