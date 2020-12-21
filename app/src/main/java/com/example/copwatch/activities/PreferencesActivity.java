@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.example.copwatch.R;
 import com.example.copwatch.adapter.PreferencesAdapter;
+import com.example.copwatch.fragments.CameraFragment;
 import com.example.copwatch.interfaces.PreferencesCheckListener;
 import com.example.copwatch.interfaces.TermsAccepted;
 import com.example.copwatch.service.Constants;
@@ -110,7 +111,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        preferencesAdapter = new PreferencesAdapter(this);
+        preferencesAdapter = new PreferencesAdapter(this, CameraFragment.newInstance());
         vpScreens.setAdapter(preferencesAdapter);
         if (isHomeAccess) {
             llDots.setVisibility(View.INVISIBLE);
@@ -121,7 +122,7 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
         }
         vpScreens.setPagingEnabled(false);
         vpScreens.addOnPageChangeListener(pageChangeListener);
-
+        vpScreens.setOffscreenPageLimit(5);
         tvTitle.setText(R.string.head_cloud_storage);
         tvTitle.setVisibility(View.VISIBLE);
         divider.setVisibility(View.VISIBLE);
@@ -290,9 +291,9 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
                 startActivityForResult(mGoogleSignInClient.getSignInIntent(), Constants.GOOGLE_SIGN_IN_INTENT_CODE);
                 break;
             case "iCloud":
-                Intent iCloudIntent = new Intent(Intent.ACTION_WEB_SEARCH);
-                iCloudIntent.putExtra(SearchManager.QUERY, "https://www.icloud.com/");
-                startActivityForResult(iCloudIntent, Constants.ICLOUD_WEB_INTENT_CODE);
+//                Intent iCloudIntent = new Intent(Intent.ACTION_WEB_SEARCH);
+//                iCloudIntent.putExtra(SearchManager.QUERY, "https://www.icloud.com/");
+//                startActivityForResult(iCloudIntent, Constants.ICLOUD_WEB_INTENT_CODE);
                 break;
             default:
                 break;
@@ -343,7 +344,14 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
                     preferencesAdapter.clearAllCheck();
                 }
                 break;
-
+            case Constants.NOTIFICATION_ALARMS_INTENT_CODE:
+                Log.e(TAG, "onActivityResult: " + resultCode);
+                if (resultCode == Activity.RESULT_OK) {
+                    preferencesAdapter.onActivityResult(true);
+                } else if (resultCode == Activity.RESULT_CANCELED) {
+                    preferencesAdapter.onActivityResult(false);
+                }
+                break;
 
         }
     }
@@ -353,5 +361,10 @@ public class PreferencesActivity extends AppCompatActivity implements Preference
         logout();
         super.onBackPressed();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }
