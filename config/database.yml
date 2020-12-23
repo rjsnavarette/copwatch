@@ -24,6 +24,7 @@ default: &default
 development:
   <<: *default
   database: copwatch_development
+  username: copwatch
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -78,8 +79,14 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+staging:
+  <<: *default
+  database: copwatch_production
+  username: copwatch
+  password: <%= Rails.application.credentials.dig(:DB_PASSWORD) %>
+
 production:
   <<: *default
   database: copwatch_production
   username: copwatch
-  password: <%= ENV['COPWATCH_DATABASE_PASSWORD'] %>
+  password: <%= Rails.application.credentials.dig(:DB_PASSWORD) %> #<%= ENV['COPWATCH_DATABASE_PASSWORD'] %>
