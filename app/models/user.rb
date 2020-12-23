@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_secure_token :verification_token
 
   # Notes
-    # account_type: 0 - email, 1 - apple, 2 - facebook, 3 - google
+    # account_type: 0 - email, 1 - facebook, 2 - google
 
   # associations
 
