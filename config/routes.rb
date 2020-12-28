@@ -6,9 +6,22 @@ Rails.application.routes.draw do
       # sign up
       resources :registrations, path: 'sign_up', only: :create
       # sign in
-      resources :sessions, path: '' do
+      resources :sessions, path: '', only: [] do
         collection do
           post 'sign_in', to: 'sessions#create'
+        end
+      end
+      # Password
+      resources :passwords, only: [] do
+        collection do
+          put :forgot
+          put :reset
+        end
+      end
+      # Users
+      resources :users, only: [] do
+        collection do
+          put :verify
         end
       end
     end
