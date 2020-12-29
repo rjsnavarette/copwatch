@@ -22,6 +22,15 @@ Rails.application.routes.draw do
       resources :users, only: [] do
         collection do
           put :verify
+          put :select_default_storage
+          put :select_mode
+        end
+      end
+      # Preference
+      resources :preferences, only: [:create] do
+        collection do
+          get :show
+          put :update
         end
       end
     end

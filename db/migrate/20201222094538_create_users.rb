@@ -12,6 +12,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :password_reset_token
       t.string :uuid
       t.integer :account_type, default: 0
+      t.integer :default_storage_type, default: 0
+      t.integer :mode_type, default: 0
       t.boolean :is_verified, default: false
 
       t.timestamps

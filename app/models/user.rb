@@ -6,9 +6,17 @@ class User < ApplicationRecord
   has_secure_token :password_reset_token
 
   # Notes
-    # account_type: 0 - email, 1 - facebook, 2 - google
+    # account_type: 0 - email, 1 - facebook, 2 - google, 3 - apple
+    # storage_type: 0 - app storage (default), 1 - google cloud, 2 - icloud
+    # mode_type: 0 - copwatch standard (default), 1 - dash cam / trip, 2 - clip / body cam
 
   # associations
+  has_one :preference, dependent: :destroy
+
+  # deletegate
+  delegate :is_recording_to_cloud, :is_dim_my_screen, :is_do_not_disturb,
+    :is_recording_audio_video, :is_voice_activated, :is_rear_camera_selected,
+    to: :preference, prefix: true
 
   # scopes
   scope :verified, -> { where(is_verified: true) }
@@ -23,7 +31,7 @@ class User < ApplicationRecord
 
       { user: user.sign_up_format, status: 200 }
     else
-      { error: user.get_error, status: 500 }
+      { error: user.validation_error, status: 500 }
     end
   end
 
@@ -36,7 +44,7 @@ class User < ApplicationRecord
       elsif user.update(is_verified: true)
         { status: 200 }
       else
-        { error: user.get_error, status: 500 }
+        { error: user.validation_error, status: 500 }
       end
     else
       { error: "Invalid email or token.", status: 500 }
@@ -66,7 +74,7 @@ class User < ApplicationRecord
     elsif user.regenerate_auth_token
       { user: user.sign_in_format, status: 200 }
     else
-      { error: user.get_error, status: 500 }
+      { error: user.validation_error, status: 500 }
     end
   end
 
@@ -79,13 +87,13 @@ class User < ApplicationRecord
       if user.save
         { user: user.sign_in_format, status: 200 }
       else
-        { error: user.get_error, status: 500 }
+        { error: user.validation_error, status: 500 }
       end
     else
       if user.regenerate_auth_token
         { user: user.sign_in_format, status: 200 }
       else
-        { error: user.get_error, status: 500 }
+        { error: user.validation_error, status: 500 }
       end
     end
   end
@@ -99,7 +107,7 @@ class User < ApplicationRecord
 
         { status: 200 }
       else
-        { error: user.get_error.present? ? user.get_error : "Please verify your email first.", status: 500 }
+        { error: user.validation_error.present? ? user.validation_error : "Please verify your email first.", status: 500 }
       end
     else
       { error: "Invalid email.", status: 500 }
@@ -113,7 +121,7 @@ class User < ApplicationRecord
       if user.update({ password: password }) && user.regenerate_password_reset_token
         { status: 200 }
       else
-        { error: user.get_error, status: 500 }
+        { error: user.validation_error, status: 500 }
       end
     else
       { error: "Invalid token.", status: 500 }
@@ -130,11 +138,14 @@ class User < ApplicationRecord
   validates :verification_token, uniqueness: true
   validates :password_reset_token, uniqueness: true
 
+  validate :account_type_validity
+  validate :default_storage_type_validity
+  validate :mode_type_validity
+
   # callbacks
   before_save :encrypt_password, if: -> { (is_create? && is_email_account?) || (!is_create? && is_email_account? && is_password_changed?) }
 
   # instance methods
-  ## formatting methods
   def sign_up_format
     self.as_json(only: [:id, :first_name, :last_name, :email], methods: :photo_url)
   end
@@ -147,8 +158,7 @@ class User < ApplicationRecord
     self.photo.to_s
   end
 
-  ## helper methods
-  def get_error
+  def validation_error
     self.errors.full_messages.first
   end
 
@@ -168,6 +178,14 @@ class User < ApplicationRecord
     self.password_was != self.password
   end
 
+  def update_data(data)
+    if self.update(data)
+      { status: 200 }
+    else
+      { error: self.validation_error, status: 500 }
+    end
+  end
+
   private
 
     def password_validity
@@ -177,6 +195,24 @@ class User < ApplicationRecord
         self.error.add(:password, "is too short (minimum is 8 characters)")
       elsif self.password.length > 20
         self.error.add(:password, "is too long (maximum is 20 characters)")
+      end
+    end
+
+    def account_type_validity
+      if ![0,1,2,3].include?(self.account_type)
+        errors.add(:account_type, "is not supported")
+      end
+    end
+
+    def default_storage_type_validity
+      if ![0,1,2].include?(self.default_storage_type)
+        errors.add(:default_storage_type, "is not supported")
+      end
+    end
+
+    def mode_type_validity
+      if ![0,1,2].include?(self.mode_type)
+        errors.add(:mode_type, "is not supported")
       end
     end
 
