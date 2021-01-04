@@ -12,6 +12,7 @@ class User < ApplicationRecord
 
   # associations
   has_one :preference, dependent: :destroy
+  has_one :permission, dependent: :destroy
 
   # deletegate
   delegate :is_recording_to_cloud, :is_dim_my_screen, :is_do_not_disturb,
@@ -128,6 +129,18 @@ class User < ApplicationRecord
     end
   end
 
+  def self.sign_out(user)
+    if user.regenerate_auth_token
+      { status: 200 }
+    else
+      render json: { error: user.validation_error, status: 500 }
+    end
+  end
+
+  def self.show_data(user)
+    { user: user.show_format, status: 200 }
+  end
+
   # validations
   validates :email, presence: true, email: true, uniqueness: true, if: -> { is_email_account? }
   validates :password, presence: true, length: { minimum: 8, maximum: 20 }, if: -> { (is_create? && is_email_account?) || (!is_create? && is_email_account? && is_password_changed?) }
@@ -154,8 +167,20 @@ class User < ApplicationRecord
     self.as_json(only: [:id, :first_name, :last_name, :auth_token], methods: :photo_url).merge({ email: self.email.to_s })
   end
 
+  def show_format
+    self.as_json(only: [:id, :email], methods: [:phone, :photo_url, :name])
+  end
+
   def photo_url
     self.photo.to_s
+  end
+
+  def phone
+    self.phone_number.to_s
+  end
+
+  def name
+    self.first_name.to_s + " " + self.last_name.to_s
   end
 
   def validation_error

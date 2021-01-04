@@ -11,7 +11,7 @@ class Api::V1::PasswordsController < ApiController
     render json: User.reset_password(params[:token], params[:password])
 
   rescue StandardError => err
-    logger.info "\n-- Password : Controller : create --\nError: #{err}\n"
+    logger.info "\n-- Password : Controller : reset --\nError: #{err}\n"
     render json: { error: "Failed to reset password. Please try again later.", status: 500 }
   end
 end

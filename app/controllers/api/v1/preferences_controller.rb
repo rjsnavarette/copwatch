@@ -5,8 +5,8 @@ class Api::V1::PreferencesController < ApiController
     render json: Preference.show_data(@current_user.id)
 
   rescue StandardError => err
-    logger.info "\n-- Preferences : Controller : create --\nError: #{err}\n"
-    render json: { error: "Failed to save preferences. Please try again later.", status: 500 }
+    logger.info "\n-- Preferences : Controller : show --\nError: #{err}\n"
+    render json: { error: "Failed to retrieve preferences. Please try again later.", status: 500 }
   end
 
   def create
@@ -14,15 +14,15 @@ class Api::V1::PreferencesController < ApiController
 
   rescue StandardError => err
     logger.info "\n-- Preferences : Controller : create --\nError: #{err}\n"
-    render json: { error: "Failed to save preferences. Please try again later.", status: 500 }
+    render json: { error: "Failed to create preferences. Please try again later.", status: 500 }
   end
 
   def update
     render json: Preference.save_data(preference_params)
 
   rescue StandardError => err
-    logger.info "\n-- Preferences : Controller : create --\nError: #{err}\n"
-    render json: { error: "Failed to save preferences. Please try again later.", status: 500 }
+    logger.info "\n-- Preferences : Controller : update --\nError: #{err}\n"
+    render json: { error: "Failed to update preferences. Please try again later.", status: 500 }
   end
 
   private

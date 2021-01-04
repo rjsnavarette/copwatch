@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resources :sessions, path: '', only: [] do
         collection do
           post 'sign_in', to: 'sessions#create'
+          put 'sign_out', to: 'sessions#update'
         end
       end
       # Password
@@ -21,6 +22,7 @@ Rails.application.routes.draw do
       # Users
       resources :users, only: [] do
         collection do
+          get 'profile', to: 'users#show'
           put :verify
           put :select_default_storage
           put :select_mode
@@ -28,6 +30,13 @@ Rails.application.routes.draw do
       end
       # Preference
       resources :preferences, only: [:create] do
+        collection do
+          get :show
+          put :update
+        end
+      end
+      # Permission
+      resources :permissions, only: [:create] do
         collection do
           get :show
           put :update
