@@ -5,14 +5,17 @@ class User < ApplicationRecord
   has_secure_token :verification_token
   has_secure_token :password_reset_token
 
+  mount_uploader :photo, UserPhotoUploader
+
   # Notes
     # account_type: 0 - email, 1 - facebook, 2 - google, 3 - apple
     # storage_type: 0 - app storage (default), 1 - google cloud, 2 - icloud
     # mode_type: 0 - copwatch standard (default), 1 - dash cam / trip, 2 - clip / body cam
 
   # associations
-  has_one :preference, dependent: :destroy
-  has_one :permission, dependent: :destroy
+  has_one   :preference, dependent: :destroy
+  has_one   :permission, dependent: :destroy
+  has_many  :feedbacks, dependent: :destroy
 
   # deletegate
   delegate :is_recording_to_cloud, :is_dim_my_screen, :is_do_not_disturb,
@@ -23,9 +26,10 @@ class User < ApplicationRecord
   scope :verified, -> { where(is_verified: true) }
 
   # class methods
-  def self.sign_up(data)
+  def self.sign_up(data, photo)
     logger.info "\n-- User : Model : sign_in --\n"
-    user = User.new(data)
+    user        = User.new(data)
+    user.photo  = photo if photo.present?
 
     if user.save
       UserMailer.with(user: user).verification_email.deliver_now
@@ -139,6 +143,24 @@ class User < ApplicationRecord
 
   def self.show_data(user)
     { user: user.show_format, status: 200 }
+  end
+
+  def self.save_data(user, data, photo)
+    data.merge!({ photo: photo })
+
+    if user.update(data)
+      { user: user.show_format, status: 200 }
+    else
+      { error: user.validation_error, status: 500 }
+    end
+  end
+
+  def self.delete_account(user)
+    if user.destroy
+      { status: 200 }
+    else
+      { error: user.validation_error, status: 500 }
+    end
   end
 
   # validations

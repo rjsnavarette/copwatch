@@ -23,6 +23,7 @@ gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 gem 'awesome_print', '~> 1.8'
 # Use for email format validation
 gem 'email_validator'
+gem 'carrierwave', '~> 2.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

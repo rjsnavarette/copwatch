@@ -1,6 +1,6 @@
 class Api::V1::RegistrationsController < ApiController
   def create
-    render json: User.sign_up(user_params)
+    render json: User.sign_up(user_params, params[:photo])
 
   rescue StandardError => err
     logger.info "\n-- Registration : Controller : create --\nError: #{err}\n"
@@ -10,6 +10,6 @@ class Api::V1::RegistrationsController < ApiController
   private
 
     def user_params
-      params.require(:user).permit(:email, :password, :first_name, :last_name, :phone_number)
+      params.require(:user).permit(:email, :password, :first_name, :last_name, :phone_number, :photo)
     end
 end

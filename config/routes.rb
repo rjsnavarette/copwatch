@@ -8,8 +8,8 @@ Rails.application.routes.draw do
       # sign in
       resources :sessions, path: '', only: [] do
         collection do
-          post 'sign_in', to: 'sessions#create'
-          put 'sign_out', to: 'sessions#update'
+          post  'sign_in',  to: 'sessions#create'
+          put   'sign_out', to: 'sessions#update'
         end
       end
       # Password
@@ -22,10 +22,12 @@ Rails.application.routes.draw do
       # Users
       resources :users, only: [] do
         collection do
-          get 'profile', to: 'users#show'
-          put :verify
-          put :select_default_storage
-          put :select_mode
+          get     'profile', to: 'users#show'
+          put     :update
+          put     :verify
+          put     :select_default_storage
+          put     :select_mode
+          delete  :destroy
         end
       end
       # Preference
@@ -42,6 +44,8 @@ Rails.application.routes.draw do
           put :update
         end
       end
+      # Feedback
+      resources :feedbacks, only: [:create]
     end
   end
 end

@@ -9,6 +9,22 @@ class Api::V1::UsersController < ApiController
     render json: { error: "Failed to retrieve user profile. Please try again later.", status: 500 }
   end
 
+  def update
+    render json: User.save_data(@current_user, user_params, params[:photo])
+
+  rescue StandardError => err
+    logger.info "\n-- Users : Controller : update --\nError: #{err}\n"
+    render json: { error: "Failed to update user. Please try again later.", status: 500 }
+  end
+
+  def destroy
+    render json: User.delete_account(@current_user)
+
+  rescue StandardError => err
+    logger.info "\n-- Users : Controller : destroy --\nError: #{err}\n"
+    render json: { error: "Failed to delete account. Please try again later.", status: 500 }
+  end
+
   def verify
     render json: User.verify_email(params[:email], params[:token])
 
@@ -34,6 +50,10 @@ class Api::V1::UsersController < ApiController
   end
 
   private
+
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :phone_number, :photo)
+    end
 
     def default_storage_params
       params.require(:user).permit(:default_storage_type)
