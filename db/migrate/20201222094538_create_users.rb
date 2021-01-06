@@ -15,6 +15,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.integer :default_storage_type, default: 0
       t.integer :mode_type, default: 0
       t.boolean :is_verified, default: false
+      t.boolean :is_notification_on, default: true
 
       t.timestamps
     end
@@ -26,5 +27,9 @@ class CreateUsers < ActiveRecord::Migration[6.0]
     add_index :users, :verification_token
     add_index :users, :password_reset_token
     add_index :users, :uuid
+    add_index :users, :account_type
+    add_index :users, :default_storage_type
+    add_index :users, :mode_type
+    add_index :users, :is_verified
   end
 end

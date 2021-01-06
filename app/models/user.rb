@@ -146,7 +146,7 @@ class User < ApplicationRecord
   end
 
   def self.save_data(user, data, photo)
-    data.merge!({ photo: photo })
+    data.merge!({ photo: photo }) if photo.present?
 
     if user.update(data)
       { user: user.show_format, status: 200 }

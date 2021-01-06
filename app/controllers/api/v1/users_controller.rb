@@ -52,7 +52,7 @@ class Api::V1::UsersController < ApiController
   private
 
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :phone_number, :photo)
+      params.require(:user).permit(:first_name, :last_name, :phone_number, :photo, :is_notification_on)
     end
 
     def default_storage_params
