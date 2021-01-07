@@ -48,4 +48,12 @@ Rails.application.routes.draw do
       resources :feedbacks, only: [:create]
     end
   end
+
+  root to: 'admin/users#index'
+
+  devise_for :admins, path: 'admin', only: :sessions
+
+  namespace :admin do
+    resources :users
+  end
 end

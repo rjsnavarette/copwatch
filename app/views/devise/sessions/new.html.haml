@@ -1,0 +1,24 @@
+.page-header
+  .flash-message
+    %p.notice{:class => flash_message_class('notice')}= flash[:error]
+    %p.alert{:class => flash_message_class('alert')}= flash[:alert]
+  .page-header-image.hide
+  .container
+    .col-md-12.content-center
+      .card-plain
+        = form_with :model => admin_model, :url => admin_session_path, :local => true, :method => :post, :class => "form" do |f|
+          .header
+            .logo-container
+              %img{:alt => "", :src => ""}
+            %h5 Sign in
+          .content
+            .input-group
+              = f.text_field :email, :placeholder => "Enter User Name", :type => "text", :class => "form-control"
+              %span.input-group-addon
+                %i.zmdi.zmdi-account-circle
+            .input-group
+              = f.text_field :password, :placeholder => "Password", :type => "password", :class => "form-control"
+              %span.input-group-addon
+                %i.zmdi.zmdi-lock
+          .footer.text-center
+            = submit_tag "SIGN IN", :class => "btn btn-primary btn-round btn-lg btn-block"

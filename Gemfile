@@ -24,6 +24,11 @@ gem 'awesome_print', '~> 1.8'
 # Use for email format validation
 gem 'email_validator'
 gem 'carrierwave', '~> 2.0'
+gem 'devise'
+gem "haml-rails", "~> 2.0"
+gem 'bootstrap', '~> 4.0.0'
+# fix for ExecJS::RuntimeUnavailable
+gem 'mini_racer'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
