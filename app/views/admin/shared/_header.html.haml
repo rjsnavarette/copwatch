@@ -1,0 +1,8 @@
+%nav.navbar.p-l-5.p-r-5
+  %ul.nav.navbar-nav.navbar-left
+    %li
+      %a.ls-toggle-btn{"data-close" => "true", :href => "javascript:void(0);"}
+        %i.zmdi.zmdi-swap
+    %li.float-right
+      %a.mega-menu{"data-close" => "true", :href => destroy_admin_session_path, :data => {:method => :delete}}
+        %i.zmdi.zmdi-power

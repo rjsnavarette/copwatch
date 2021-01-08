@@ -1,0 +1,22 @@
+.table-responsive
+  %table#DataTables_Users.table.table-bordered.table-striped.table-hover.js-basic-example.dataTable.no-footer{"aria-describedby" => "DataTables_Users_info"}
+    %thead
+      %tr
+        %th.sorting{"aria-controls" => "DataTables_Users"} ID
+        %th.sorting{"aria-controls" => "DataTables_Users"} Name
+        %th.sorting{"aria-controls" => "DataTables_Users"} Email
+        %th.sorting{"aria-controls" => "DataTables_Users"} Email Verified
+        %th.sorting{"aria-controls" => "DataTables_Users"} Account Type
+        %th.sorting{"aria-controls" => "DataTables_Users"} CopWatch Mode
+        %th.sorting{"aria-controls" => "DataTables_Users"} Joined Date
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user_data(user, 'id')
+          %td= user_data(user, 'name')
+          %td= user_data(user, 'email')
+          %td
+            %span.badge{:class => verified_class(user)}= user_data(user, 'verified')
+          %td= user_data(user, 'account_type')
+          %td= user_data(user, 'mode_type')
+          %td= user_data(user, 'joined_date')

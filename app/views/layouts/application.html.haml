@@ -12,7 +12,13 @@
     -# app stylesheets
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
-  %body{:class => body_class}
+  %body.theme-blush{:class => body_class}
     = yield
   = javascript_include_tag 'libscripts.bundle.js'
   = javascript_include_tag 'vendorscripts.bundle.js'
+  - if controller_name == session
+    = javascript_include_tag 'mainscripts.bundle'
+  - else
+    = javascript_include_tag 'datatablescripts.bundle'
+    = javascript_include_tag 'mainscripts.bundle'
+    = javascript_include_tag 'jquery-datatable'

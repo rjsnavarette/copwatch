@@ -28,3 +28,10 @@
 
   .notice, .alert { margin-bottom: 0; }
 }
+
+.sidebar {
+  .user-info .image img {
+    min-width: 80px;
+    min-height: 80px;
+  }
+}

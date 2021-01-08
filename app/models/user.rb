@@ -26,6 +26,37 @@ class User < ApplicationRecord
   scope :verified, -> { where(is_verified: true) }
 
   # class methods
+  def self.seed
+    if User.count == 0
+      User.transaction do
+        100.times do
+          email = FFaker::Internet.unique.email
+          name = email.split("@").first.split(".")
+          account_type = [0,1,2,3].shuffle.first
+          uuid = ""
+
+          unless account_type == 0
+            uuid = SecureRandom.uuid
+          end
+
+          user = User.create!({
+            email: email,
+            password: "password",
+            first_name: name.first.titleize,
+            last_name: name.last.titleize,
+            account_type: account_type,
+            uuid: uuid,
+            mode_type: [0,1,2].shuffle.last,
+            is_verified: account_type == 0 ? [true, false].shuffle.last : true
+          })
+
+          Preference.create!({ user_id: user.id })
+          Permission.create!({ user_id: user.id })
+        end
+      end
+    end
+  end
+
   def self.sign_up(data, photo)
     logger.info "\n-- User : Model : sign_in --\n"
     user        = User.new(data)
@@ -203,6 +234,20 @@ class User < ApplicationRecord
 
   def name
     self.first_name.to_s + " " + self.last_name.to_s
+  end
+
+  def account_type_name
+    # account_type: 0 - email, 1 - facebook, 2 - google, 3 - apple
+    ['Email', 'Facebook', 'Google', 'Apple'][self.account_type]
+  end
+
+  def mode_type_name
+    # mode_type: 0 - copwatch standard (default), 1 - dash cam / trip, 2 - clip / body cam
+    ['Standard', 'Dash Cam', 'Clip / Body Cam'][self.mode_type]
+  end
+
+  def joined_date
+    self.created_at.strftime("%b %-d, %Y")
   end
 
   def validation_error
