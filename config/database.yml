@@ -81,12 +81,14 @@ test:
 #
 staging:
   <<: *default
+  host: localhost
   database: <%= Rails.application.credentials.dig(:db, :name) %>
   username: <%= Rails.application.credentials.dig(:db, :username) %>
   password: <%= Rails.application.credentials.dig(:db, :password) %>
 
 production:
   <<: *default
+  host: localhost
   database: <%= Rails.application.credentials.dig(:db, :name) %>
   username: <%= Rails.application.credentials.dig(:db, :username) %>
   password: <%= Rails.application.credentials.dig(:db, :password) %> #<%= ENV['COPWATCH_DATABASE_PASSWORD'] %>
