@@ -81,12 +81,12 @@ test:
 #
 staging:
   <<: *default
-  database: copwatch_production
-  username: copwatch
-  password: <%= Rails.application.credentials.dig(:DB_PASSWORD) %>
+  database: <%= Rails.application.credentials.dig(:db, :name) %>
+  username: <%= Rails.application.credentials.dig(:db, :username) %>
+  password: <%= Rails.application.credentials.dig(:db, :password) %>
 
 production:
   <<: *default
-  database: copwatch_production
-  username: copwatch
-  password: <%= Rails.application.credentials.dig(:DB_PASSWORD) %> #<%= ENV['COPWATCH_DATABASE_PASSWORD'] %>
+  database: <%= Rails.application.credentials.dig(:db, :name) %>
+  username: <%= Rails.application.credentials.dig(:db, :username) %>
+  password: <%= Rails.application.credentials.dig(:db, :password) %> #<%= ENV['COPWATCH_DATABASE_PASSWORD'] %>
