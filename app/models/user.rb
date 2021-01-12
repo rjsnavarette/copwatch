@@ -31,12 +31,14 @@ class User < ApplicationRecord
     user        = User.new(data)
     user.photo  = photo if photo.present?
 
-    if user.save
-      UserMailer.with(user: user).verification_email.deliver_now
+    User.transaction do
+      if user.save
+        UserMailer.with(user: user).verification_email.deliver_now
 
-      { user: user.sign_up_format, status: 200 }
-    else
-      { error: user.validation_error, status: 500 }
+        { user: user.sign_up_format, status: 200 }
+      else
+        { error: user.validation_error, status: 500 }
+      end
     end
   end
 
