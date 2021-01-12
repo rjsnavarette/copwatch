@@ -4,9 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to CopWatch, <%= @user.name %></h1>
+    <p> Welcome to CopWatch <%= @user.first_name.titleize %> </p>
     <p>
-      Before you can use your account, please verify your email by clicking this <a href=<%= @link %>>link</a>
+      To start using your account, please verify your email by using this code <%= @token %>
     </p>
     <p>Thanks for joining and have a great day!</p>
   </body>

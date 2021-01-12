@@ -1,7 +1,9 @@
 class UserMailer < ApplicationMailer
+  default from: Rails.application.credentials.dig(:mailer, :email)
+
   def verification_email
     @user = params[:user]
-    @link = "copwatch://open?action=0&token=#{@user.verification_token}"
+    @token = @user.verification_token
 
     mail(to: @user.email, subject: 'CopWatch Email Verification')
   end
