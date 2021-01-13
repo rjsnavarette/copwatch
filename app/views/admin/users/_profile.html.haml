@@ -1,0 +1,14 @@
+.col-lg-4.col-md-12.col-sm-12
+  .card.member-card.bg-dark
+    .member-img
+      %img.rounded-circle{:alt => "", :src => ""}
+    .body
+      %hr/
+      %strong.text-muted Email
+      %p.col-white=user_data(@user, 'email')
+      %strong.text-muted Account Type
+      %p.col-white=user_data(@user, 'account_type')
+      %strong.text-muted Copwatch Mode
+      %p.col-white=user_data(@user, 'mode_type')
+      %strong.text-muted Email Verified
+      %p.col-white=user_data(@user, 'verified')

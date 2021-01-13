@@ -1,0 +1,18 @@
+.col-lg-8.col-md-12.col-sm-12
+  .card
+    .body
+      = form_with model: @user, url: admin_user_path(@user), method: :put do |form|
+        .col-md-12
+          .form-group
+            = form.text_field :first_name, placeholder: 'First Name', type: 'text', readonly: editable?, class: 'form-control'
+        .col-md-12
+          .form-group
+            = form.text_field :last_name, placeholder: 'Last Name', type: 'text', readonly: editable?, class: 'form-control'
+        .col-md-12
+          .form-group
+            = form.text_field :phone_number, placeholder: 'Phone No.', type: 'text', readonly: editable?, class: 'form-control'
+        .col-sm-12
+          %hr
+          = form.submit "Save", class: "btn btn-raised btn-round btn-primary #{form_buttons_visibility('submit')}"
+          %a.btn.btn-raise.btn-round.btn-primary{:href => edit_admin_user_path(@user), :class => form_buttons_visibility('edit')} Edit
+          %a.btn.btn-raised.btn-round{:href => form_back_btn_url }= form_back_btn_text

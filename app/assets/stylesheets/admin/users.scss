@@ -1,3 +1,10 @@
-// Place all the styles related to the admin/users controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.member-card {
+  .member-img {
+    margin-top: 30px;
+
+    img {
+      min-width: 100px;
+      min-height: 100px;
+    }
+  }
+}

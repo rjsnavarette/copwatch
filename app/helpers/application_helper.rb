@@ -68,6 +68,44 @@ module ApplicationHelper
     user.is_verified ? 'badge-success' : 'badge-default'
   end
 
+  def editable?
+    case action_name
+    when 'show'
+      true
+    when 'edit'
+      false
+    end
+  end
+
+  def form_buttons_visibility(type)
+    case type
+    when 'submit'
+      if action_name == 'show'
+        'hide'
+      end
+    when 'edit'
+      if action_name == 'edit'
+        'hide'
+      end
+    end
+  end
+
+  def form_back_btn_url
+    if action_name == 'show'
+      admin_users_path
+    elsif 'edit'
+      admin_user_path(@user)
+    end
+  end
+
+  def form_back_btn_text
+    if action_name == 'show'
+      'Back'
+    elsif 'edit'
+      'Cancel'
+    end
+  end
+
   def admin_data(type)
     case type
     when 'id'
@@ -92,7 +130,7 @@ module ApplicationHelper
     when 'phone'
       user.phone
     when 'verified'
-      user.is_verified
+      user.is_verified ? 'Yes' : 'No'
     when 'account_type'
       user.account_type_name
     when 'mode_type'
