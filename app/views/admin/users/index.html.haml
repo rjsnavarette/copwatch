@@ -1,23 +1,7 @@
 = render "admin/shared/header"
 = render "admin/shared/sidebar"
 %section.content.profile-page
-  .block-header
-    .row
-      .col-lg-7.col-md-6.col-sm-12
-        %h2
-          = content_header
-          %small.text-muted
-      .col-lg-5.col-md-6.col-sm-12
-        -# %button.btn.btn-white.btn-icon.btn-round.float-right.m-l-10{:type => "button"}
-        -#   %i.zmdi.zmdi-plus
-        %ul.breadcrumb.float-md-right
-          %li.breadcrumb-item
-            %a{:href => ""}
-              %i.zmdi.zmdi-home
-              Admin
-          %li.breadcrumb-item
-            %a{:href => "javascript:void(0);"}= page_name
-          %li.breadcrumb-item.active= page_action
+  = render "admin/shared/content_header"
   .container-fluid
     .row.clearfix
       .col-md-12
