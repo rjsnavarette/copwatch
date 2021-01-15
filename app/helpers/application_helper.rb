@@ -17,7 +17,9 @@ module ApplicationHelper
   end
 
   def page_js
-    javascript_pack_tag "admin/#{controller_name}"
+    if controller_name == 'users'
+      javascript_pack_tag "admin/#{controller_name}"
+    end
   end
 
   def body_class
