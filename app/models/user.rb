@@ -135,6 +135,14 @@ class User < ApplicationRecord
     end
   end
 
+  def self.change_password(user, password)
+    if user.update(password: password)
+      { status: 200 }
+    else
+      { error: user.validation_error, status: 500 }
+    end
+  end
+
   def self.sign_out(user)
     if user.regenerate_auth_token
       { status: 200 }

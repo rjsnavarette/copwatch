@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         collection do
           put :forgot
           put :reset
+          put :change
         end
       end
       # Users
