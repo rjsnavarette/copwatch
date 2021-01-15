@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def page_js
-    javascript_include_tag 'mainscripts.bundle'
+    javascript_pack_tag "admin/#{controller_name}"
   end
 
   def body_class
@@ -55,13 +55,32 @@ module ApplicationHelper
     case action_name
     when 'index'
       'All'
+    when 'show'
+      if controller_name == 'users'
+        'Profile'
+      else
+        'Details'
+      end
+    when 'edit'
+      'Edit'
     else
       ''
     end
   end
 
   def content_header
-    "#{page_action} #{page_name}"
+    case action_name
+    when 'index'
+      "#{page_action} #{page_name}"
+    when 'show'
+      if controller_name = "users"
+        "User Profile"
+      else
+        "#{controller_name.singularize} Details"
+      end
+    when 'edit'
+      "Edit #{page_name.singularize}"
+    end
   end
 
   def verified_class(user)
@@ -74,6 +93,14 @@ module ApplicationHelper
       true
     when 'edit'
       false
+    end
+  end
+
+  def photo_upload_display_class
+    if action_name == 'show'
+      'hide'
+    else
+      ''
     end
   end
 
@@ -129,6 +156,8 @@ module ApplicationHelper
       user.name.titleize
     when 'phone'
       user.phone
+    when 'photo'
+      user.photo_url
     when 'verified'
       user.is_verified ? 'Yes' : 'No'
     when 'account_type'

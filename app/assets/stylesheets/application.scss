@@ -19,8 +19,8 @@
   src: font-url('Material-Design-Iconic-Font.woff2');
 }
 
-.hide { display: none; }
-.hidden { visibility: hidden; }
+.hide { display: none !important; }
+.hidden { visibility: hidden !important; }
 
 .flash-message {
   font-size: 16px;

@@ -1,7 +1,9 @@
 .col-lg-4.col-md-12.col-sm-12
   .card.member-card.bg-dark
     .member-img
-      %img.rounded-circle{:alt => "", :src => ""}
+      %button#uploadPhoto.btn.btn-rounded.btn-info{:class => photo_upload_display_class}
+        %i.zmdi.zmdi-edit
+      %img.rounded-circle{:alt => "", :src => user_data(@user, 'photo')}
     .body
       %hr/
       %strong.text-muted Email

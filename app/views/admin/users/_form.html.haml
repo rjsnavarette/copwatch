@@ -11,6 +11,9 @@
         .col-md-12
           .form-group
             = form.text_field :phone_number, placeholder: 'Phone No.', type: 'text', readonly: editable?, class: 'form-control'
+        .col-md-4.hide
+          .form-group
+            = form.file_field :photo, type: "file", accept: "image/*"
         .col-sm-12
           %hr
           = form.submit "Save", class: "btn btn-raised btn-round btn-primary #{form_buttons_visibility('submit')}"
