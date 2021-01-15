@@ -49,7 +49,7 @@ class User < ApplicationRecord
       if user.is_verified
         { error: "Email has already been verified.", status: 500 }
       elsif user.update(is_verified: true)
-        { status: 200 }
+        { auth_token: user.auth_token, status: 200 }
       else
         { error: user.validation_error, status: 500 }
       end
@@ -184,11 +184,11 @@ class User < ApplicationRecord
 
   # instance methods
   def sign_up_format
-    self.as_json(only: [:id, :first_name, :last_name, :email], methods: :photo_url)
+    self.as_json(only: [:id, :first_name, :last_name, :email], methods: [:phone, :photo_url])
   end
 
   def sign_in_format
-    self.as_json(only: [:id, :first_name, :last_name, :auth_token], methods: :photo_url).merge({ email: self.email.to_s })
+    self.as_json(only: [:id, :first_name, :last_name, :auth_token], methods: [:phone, :photo_url]).merge({ email: self.email.to_s })
   end
 
   def show_format
