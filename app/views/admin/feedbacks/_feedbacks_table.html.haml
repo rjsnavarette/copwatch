@@ -1,0 +1,23 @@
+.table-responsive
+  %table#DataTables_Feedbacks.table.table-bordered.table-striped.table-hover.js-basic-example.dataTable.no-footer{"aria-describedby" => "DataTables_Feedbackss_info"}
+    %thead
+      %tr
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} ID
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} User
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Description
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Image
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Created
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Actions
+    %tbody
+      - @feedbacks.each do |feedback|
+        %tr
+          %td= feedback_data(feedback, 'id')
+          %td= user_data(feedback.user, 'name')
+          %td= feedback_data(feedback, 'description')
+          %td= feedback_data(feedback, 'image')
+          %td= feedback_data(feedback, 'created')
+          %td.actions
+            .row
+              .col-md-3
+                %a{:href => admin_feedback_path(feedback), :data => {method: :delete}}
+                  %i.zmdi.zmdi-delete.text-error

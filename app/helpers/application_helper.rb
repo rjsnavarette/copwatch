@@ -45,6 +45,14 @@ module ApplicationHelper
     end
   end
 
+  def menu_class(name)
+    controller_name == name ? 'active open' : ''
+  end
+
+  def menu_toggled(name)
+    controller_name == name ? 'toggled' : ''
+  end
+
   def admin_model
     @admin = current_admin || Admin.new
   end
@@ -168,6 +176,19 @@ module ApplicationHelper
       user.mode_type_name
     when 'joined_date'
       user.joined_date
+    end
+  end
+
+  def feedback_data(feedback, type)
+    case type
+    when 'id'
+      feedback.id
+    when 'description'
+      feedback.description.to_s
+    when 'image'
+      feedback.image_url
+    when 'created'
+      feedback.created_at.strftime("%b %-d, %Y")
     end
   end
 end
