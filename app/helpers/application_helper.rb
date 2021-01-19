@@ -53,12 +53,16 @@ module ApplicationHelper
     controller_name == name ? 'toggled' : ''
   end
 
+  def sub_menu_toggled_class(controller, action)
+    controller_name == controller && action_name == action ? 'toggled' : ''
+  end
+
   def admin_model
     @admin = current_admin || Admin.new
   end
 
   def page_name
-    controller_name.capitalize
+    controller_name.split('_').join(' ').titleize
   end
 
   def page_action
@@ -83,7 +87,7 @@ module ApplicationHelper
     when 'index'
       "#{page_action} #{page_name}"
     when 'show'
-      if controller_name = "users"
+      if controller_name == "users"
         "User Profile"
       else
         "#{controller_name.singularize} Details"
@@ -128,18 +132,24 @@ module ApplicationHelper
   end
 
   def form_back_btn_url
-    if action_name == 'show'
+    case action_name 
+    when 'show'
       admin_users_path
-    elsif 'edit'
+    when 'edit'
       admin_user_path(@user)
+    else
+      ""
     end
   end
 
   def form_back_btn_text
-    if action_name == 'show'
+    case action_name
+    when 'show'
       'Back'
-    elsif 'edit'
+    when 'edit'
       'Cancel'
+    else
+      ''
     end
   end
 
@@ -189,6 +199,34 @@ module ApplicationHelper
       feedback.image_url
     when 'created'
       feedback.created_at.strftime("%b %-d, %Y")
+    end
+  end
+
+  def template_data(template, type)
+    case type
+    when 'id'
+      template.id
+    when 'subject'
+      template.subject
+    when 'greetings'
+      template.greetings
+    when 'content'
+      template.content
+    when 'closing'
+      template.closing
+    end
+  end
+
+  def category_data(category, type)
+    case type
+    when 'id'
+      category.id
+    when 'name'
+      category.name
+    when 'type_name'
+      category.type_name
+    when 'sub_type_name'
+      category.sub_type_name
     end
   end
 end

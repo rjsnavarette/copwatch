@@ -19,6 +19,7 @@ class Feedback < ApplicationRecord
       end
     end
   end
+
   def self.save_data(data, image)
     feedback        = Feedback.new(data)
     feedback.image  = image if image.present?

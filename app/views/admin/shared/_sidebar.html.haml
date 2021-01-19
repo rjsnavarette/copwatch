@@ -19,13 +19,20 @@
                 %span Users
               %ul.ml-menu
                 %li.active
-                  %a.toggled.waves-effect.waves-block{:href => admin_users_path} All Users
+                  %a.toggled.waves-effect.waves-block{:href => admin_users_path, :class => sub_menu_toggled_class('users', 'index')} All Users
             %li{:class => menu_class('feedbacks')}
               %a.menu-toggle.waves-effect.waves-block{:href => "javascript:void(0);", :class => menu_toggled('feedbacks')}
                 %i.zmdi.zmdi-accounts-outline
                 %span Feedbacks
               %ul.ml-menu
                 %li.active
-                  %a.toggled.waves-effect.waves-block{:href => admin_feedbacks_path} All Feedbacks
+                  %a.waves-effect.waves-block{:href => admin_feedbacks_path, :class => sub_menu_toggled_class('feedbacks', 'index')} All Feedbacks
+            %li{:class => menu_class('email_templates')}
+              %a.menu-toggle.waves-effect.waves-block{:href => "javascript:void(0);", :class => menu_toggled('email_templates')}
+                %i.zmdi.zmdi-accounts-outline
+                %span Email Templates
+              %ul.ml-menu
+                %li.active
+                  %a.waves-effect.waves-block{:href => admin_email_templates_path, :class => sub_menu_toggled_class('email_templates', 'index')} All Templates
           .slimScrollBar{:style => "background: rgba(0, 0, 0, 0.2); width: 2px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 3px; z-index: 99; left: 1px; height: 644.019px;"}
           .slimScrollRail{:style => "width: 2px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; left: 1px;"}

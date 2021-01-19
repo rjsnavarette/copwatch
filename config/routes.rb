@@ -56,5 +56,6 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :feedbacks, only: [:index, :destroy]
+    resources :email_templates
   end
 end
