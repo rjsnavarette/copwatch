@@ -20,6 +20,6 @@ class Api::V1::SessionsController < ApiController
   private
 
     def session_params
-      params.require(:session).permit(:email, :password, :account_type, :uuid, :first_name, :last_name)
+      params.require(:session).permit(:email, :password, :account_type, :uuid, :first_name, :last_name, :remote_photo_url)
     end
 end
