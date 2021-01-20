@@ -32,4 +32,7 @@ class EmailTemplate < ApplicationRecord
   # callbacks
 
   # instance methods
+  def validation_error
+    self.errors.full_messages.first
+  end
 end

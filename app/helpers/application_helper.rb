@@ -57,6 +57,12 @@ module ApplicationHelper
     controller_name == controller && action_name == action ? 'toggled' : ''
   end
 
+  def add_btn_visibility_class
+    if controller_name != 'email_templates' || (controller_name == 'email_templates' && action_name == 'new')
+      'hide'
+    end
+  end
+
   def admin_model
     @admin = current_admin || Admin.new
   end
@@ -69,6 +75,8 @@ module ApplicationHelper
     case action_name
     when 'index'
       'All'
+    when 'new'
+      action_name.capitalize
     when 'show'
       if controller_name == 'users'
         'Profile'
@@ -90,10 +98,10 @@ module ApplicationHelper
       if controller_name == "users"
         "User Profile"
       else
-        "#{controller_name.singularize} Details"
+        "#{controller_name.split("_").join(" ").titleize.singularize} Details"
       end
-    when 'edit'
-      "Edit #{page_name.singularize}"
+    when 'edit', 'new'
+      "#{action_name.capitalize} #{page_name.singularize}"
     end
   end
 
@@ -125,20 +133,9 @@ module ApplicationHelper
         'hide'
       end
     when 'edit'
-      if action_name == 'edit'
+      if ['new', 'edit'].include?(action_name)
         'hide'
       end
-    end
-  end
-
-  def form_back_btn_url
-    case action_name 
-    when 'show'
-      admin_users_path
-    when 'edit'
-      admin_user_path(@user)
-    else
-      ""
     end
   end
 
@@ -146,10 +143,70 @@ module ApplicationHelper
     case action_name
     when 'show'
       'Back'
-    when 'edit'
+    when 'edit', 'new'
       'Cancel'
     else
       ''
+    end
+  end
+
+  def form_action_btn_url(type, model_instance=nil)
+    case controller_name
+    when 'users'
+      if action_name == 'show' && type == 'edit'
+        edit_admin_user_path(model_instance)
+      elsif action_name == 'show' && type == 'back'
+        admin_users_path
+      elsif action_name == 'edit' && 'back'
+        admin_user_path(model_instance)
+      else
+        ""
+      end
+    when 'email_templates'
+      if action_name == 'show' && type == 'back' || action_name == 'new' && type == 'back'
+        admin_email_templates_path
+      elsif action_name == 'show' && type == 'edit'
+        edit_admin_email_template_path(model_instance)
+      elsif action_name == 'edit' && type == 'back'
+        admin_email_template_path(model_instance)
+      else
+        ""
+      end
+    end
+  end
+
+  def form_url(model_instance)
+    case controller_name
+    when 'users'
+      case action_name
+      when 'new'
+        admin_users_path(model_instance)
+      when 'show', 'edit'
+        admin_user_path(model_instance)
+      end
+    when 'email_templates'
+      case action_name
+      when 'new'
+        admin_email_templates_path(model_instance)
+      when 'show', 'edit'
+        admin_email_template_path(model_instance)
+      end
+    end
+  end
+
+  def form_method
+    case action_name
+    when 'new'
+      :post
+    when 'show', 'edit'
+      :put
+    end
+  end
+
+  def add_url
+    case controller_name
+    when 'email_templates'
+      new_admin_email_template_path(@template)
     end
   end
 

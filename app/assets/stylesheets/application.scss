@@ -35,3 +35,10 @@
     min-height: 80px;
   }
 }
+
+.add-button {
+  display: flex;
+  align-items: center;
+
+  i { margin: auto; }
+}

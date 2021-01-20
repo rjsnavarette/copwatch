@@ -7,7 +7,7 @@
         %th.sorting{"aria-controls" => "DataTables_EmailTemplates"} Subject
         %th.sorting{"aria-controls" => "DataTables_EmailTemplates"} Actions
     %tbody
-      - @email_templates.each do |template|
+      - @templates.each do |template|
         %tr
           %td= template_data(template, 'id')
           %td= category_data(template.category, 'name')

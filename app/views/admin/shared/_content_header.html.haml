@@ -5,8 +5,8 @@
         = content_header
         %small.text-muted
     .col-lg-5.col-md-6.col-sm-12
-      -# %button.btn.btn-white.btn-icon.btn-round.float-right.m-l-10{:type => "button"}
-      -#   %i.zmdi.zmdi-plus
+      %a.add-button.btn.btn-white.btn-icon.btn-round.float-right.m-l-10{:href => add_url, :class => add_btn_visibility_class}
+        %i.zmdi.zmdi-plus
       %ul.breadcrumb.float-md-right
         %li.breadcrumb-item
           %a{:href => ""}
@@ -15,3 +15,4 @@
         %li.breadcrumb-item
           %a{:href => "javascript:void(0);"}= page_name
         %li.breadcrumb-item.active= page_action
+= render "admin/shared/alert"

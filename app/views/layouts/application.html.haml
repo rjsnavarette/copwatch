@@ -8,6 +8,8 @@
     = stylesheet_link_tag 'bootstrap.min'
     = stylesheet_link_tag 'main'
     = page_stylesheets
+    - if controller_name == 'email_templates' && action_name != 'index'
+      = stylesheet_link_tag 'bootstrap-select.css'
     = stylesheet_link_tag 'color_skins'
     -# app stylesheets
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -23,3 +25,4 @@
     = javascript_include_tag 'mainscripts.bundle'
     = javascript_include_tag 'jquery-datatable'
     = page_js
+  = javascript_pack_tag 'admin/shared'
