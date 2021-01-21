@@ -57,6 +57,10 @@ module ApplicationHelper
     controller_name == controller && action_name == action ? 'toggled' : ''
   end
 
+  def sub_menu_active_class(menu, submenu)
+    controller_name == menu && action_name == submenu ? 'active' : ''
+  end
+
   def add_btn_visibility_class
     if controller_name != 'email_templates' || (controller_name == 'email_templates' && action_name == 'new')
       'hide'
@@ -207,6 +211,19 @@ module ApplicationHelper
     case controller_name
     when 'email_templates'
       new_admin_email_template_path(@template)
+    end
+  end
+
+  def pages_url(submenu)
+    case submenu
+    when 'about_us'
+      about_us_admin_pages_path
+    when 'privacy_policy'
+      privacy_policy_admin_pages_path
+    when 'terms_conditions'
+      terms_conditions_admin_pages_path
+    when 'legal_disclaimer'
+      legal_disclaimer_admin_pages_path
     end
   end
 
