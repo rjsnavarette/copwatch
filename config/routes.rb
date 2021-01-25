@@ -57,7 +57,7 @@ Rails.application.routes.draw do
     resources :users
     resources :feedbacks, only: [:index, :destroy]
     resources :email_templates
-    resources :pages, only: [] do
+    resources :pages, only: [:edit, :create, :update, :destroy] do
       collection do
         get :about_us
         get :privacy_policy

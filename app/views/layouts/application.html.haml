@@ -8,7 +8,7 @@
     = stylesheet_link_tag 'bootstrap.min'
     = stylesheet_link_tag 'main'
     = page_stylesheets
-    - if controller_name == 'email_templates' && action_name != 'index'
+    - if (controller_name == 'email_templates' && action_name != 'index') || controller_name == 'pages'
       = stylesheet_link_tag 'bootstrap-select.css'
     = stylesheet_link_tag 'color_skins'
     -# app stylesheets

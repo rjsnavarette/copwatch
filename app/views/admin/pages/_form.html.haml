@@ -1,0 +1,21 @@
+.col-lg-12.col-md-12.col-sm-12
+  .card
+    .body
+      = form_with model: @page, url: form_url(@page), method: form_method do |form|
+        .col-sm-12
+          %label.text-primary Category
+          .form-group
+            = form.select :category_id, @categories
+        .col-sm-12
+          %label.text-primary Title
+          .form-group
+            = form.text_field :title, placeholder: 'Title', type: 'text', readonly: editable?, class: 'form-control'
+        .col-md-12
+          %label.text-primary Content
+          .form-group
+            = form.text_area :content, placeholder: 'Content', type: 'text', readonly: editable?, class: 'form-control no-resize'
+        .col-sm-12{:class => for_actions_visibility}
+          %hr
+          = form.submit "Save", class: "btn btn-raised btn-round btn-primary #{form_buttons_visibility('submit')}"
+          %a.btn.btn-raise.btn-round.btn-primary{:href => form_action_btn_url('edit', @template), :class => form_buttons_visibility('edit')} Edit
+          %a.btn.btn-raised.btn-round{:href => "#" } Cancel

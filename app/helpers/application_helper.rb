@@ -115,10 +115,10 @@ module ApplicationHelper
 
   def editable?
     case action_name
-    when 'show'
-      true
     when 'edit'
       false
+    else
+      true
     end
   end
 
@@ -195,6 +195,8 @@ module ApplicationHelper
       when 'show', 'edit'
         admin_email_template_path(model_instance)
       end
+    when 'pages'
+      edit_admin_page_path(model_instance)
     end
   end
 
@@ -202,8 +204,21 @@ module ApplicationHelper
     case action_name
     when 'new'
       :post
-    when 'show', 'edit'
+    else
       :put
+    end
+  end
+
+  def for_actions_visibility
+    case controller_name
+    when 'pages'
+      if ['about_us', 'privacy_policy', 'terms_conditions', 'legal_disclaimer'].include?(action_name)
+        'hide'
+      else
+        ''
+      end
+    else
+      ''
     end
   end
 
