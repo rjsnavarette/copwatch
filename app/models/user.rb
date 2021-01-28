@@ -11,6 +11,7 @@ class User < ApplicationRecord
     # account_type: 0 - email, 1 - facebook, 2 - google, 3 - apple
     # storage_type: 0 - app storage (default), 1 - google cloud, 2 - icloud
     # mode_type: 0 - copwatch standard (default), 1 - dash cam / trip, 2 - clip / body cam
+    # free_ad_id: 1 - 1 month, 2 - 12 months
 
   # associations
   has_one   :preference, dependent: :destroy

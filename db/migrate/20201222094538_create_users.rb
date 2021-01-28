@@ -17,6 +17,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.integer :mode_type, default: 0
       t.boolean :is_verified, default: false
       t.boolean :is_notification_on, default: true
+      t.integer :free_ad_id
 
       t.timestamps
     end
