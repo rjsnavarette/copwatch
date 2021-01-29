@@ -47,6 +47,10 @@ Rails.application.routes.draw do
       end
       # Feedback
       resources :feedbacks, only: [:create]
+      # FreeAd
+      resources :free_ads, only: [:index]
+      # Subscription
+      resources :subscriptions, only: [:create]
     end
   end
 end

@@ -6,6 +6,8 @@ class ApiController < ActionController::Base
 
     if @current_user.nil?
       render json: { error: "Unauthorized! Please sign-in", status: 401 }
+    elsif !@current_user.is_verified
+      render json: { error: "Unauthorized! Please verify your email to continue.", status: 401 }
     end
   end
 end

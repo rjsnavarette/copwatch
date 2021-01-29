@@ -11,12 +11,12 @@ class User < ApplicationRecord
     # account_type: 0 - email, 1 - facebook, 2 - google, 3 - apple
     # storage_type: 0 - app storage (default), 1 - google cloud, 2 - icloud
     # mode_type: 0 - copwatch standard (default), 1 - dash cam / trip, 2 - clip / body cam
-    # free_ad_id: 1 - 1 month, 2 - 12 months
 
   # associations
   has_one   :preference, dependent: :destroy
   has_one   :permission, dependent: :destroy
   has_many  :feedbacks, dependent: :destroy
+  has_many  :subscriptions, dependent: :destroy
 
   # deletegate
   delegate :is_recording_to_cloud, :is_dim_my_screen, :is_do_not_disturb,
