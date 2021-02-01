@@ -29,6 +29,7 @@ gem "haml-rails", "~> 2.0"
 gem 'bootstrap', '~> 4.0.0'
 # fix for ExecJS::RuntimeUnavailable
 gem 'mini_racer'
+gem 'fcm', '~> 1.0', '>= 1.0.2'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

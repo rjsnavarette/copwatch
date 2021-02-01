@@ -31,7 +31,7 @@ class Preference < ApplicationRecord
     if preference.present?
       Preference.success_response({ preference: preference.save_data_format })
     else
-      Preference.error_message("Preference not found.", 404)
+      Preference.error_response("Preference not found.", 404)
     end
   end
 

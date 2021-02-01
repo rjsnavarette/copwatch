@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_one   :preference, dependent: :destroy
   has_one   :permission, dependent: :destroy
   has_many  :feedbacks, dependent: :destroy
+  has_many  :subscriptions, dependent: :destroy
 
   # deletegate
   delegate :is_recording_to_cloud, :is_dim_my_screen, :is_do_not_disturb,
@@ -62,12 +63,14 @@ class User < ApplicationRecord
     user        = User.new(data)
     user.photo  = photo if photo.present?
 
-    if user.save
-      UserMailer.with(user: user).verification_email.deliver_now
+    User.transaction do
+      if user.save
+        UserMailer.with(user: user).verification_email.deliver_now
 
-      { user: user.sign_up_format, status: 200 }
-    else
-      { error: user.validation_error, status: 500 }
+        { user: user.sign_up_format, status: 200 }
+      else
+        { error: user.validation_error, status: 500 }
+      end
     end
   end
 
@@ -78,7 +81,7 @@ class User < ApplicationRecord
       if user.is_verified
         { error: "Email has already been verified.", status: 500 }
       elsif user.update(is_verified: true)
-        { status: 200 }
+        { auth_token: user.auth_token, status: 200 }
       else
         { error: user.validation_error, status: 500 }
       end
@@ -164,6 +167,14 @@ class User < ApplicationRecord
     end
   end
 
+  def self.change_password(user, password)
+    if user.update(password: password)
+      { status: 200 }
+    else
+      { error: user.validation_error, status: 500 }
+    end
+  end
+
   def self.sign_out(user)
     if user.regenerate_auth_token
       { status: 200 }
@@ -213,11 +224,11 @@ class User < ApplicationRecord
 
   # instance methods
   def sign_up_format
-    self.as_json(only: [:id, :first_name, :last_name, :email], methods: :photo_url)
+    self.as_json(only: [:id, :first_name, :last_name, :email], methods: [:phone, :photo_url])
   end
 
   def sign_in_format
-    self.as_json(only: [:id, :first_name, :last_name, :auth_token], methods: :photo_url).merge({ email: self.email.to_s })
+    self.as_json(only: [:id, :first_name, :last_name, :auth_token], methods: [:phone, :photo_url]).merge({ email: self.email.to_s })
   end
 
   def show_format

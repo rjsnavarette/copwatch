@@ -1,6 +1,6 @@
 class Category < ApplicationRecord
   # category_type:
-    # 0 - page
+    # 0 - none
     # 1 - email
 
   # sub_type:
@@ -13,7 +13,6 @@ class Category < ApplicationRecord
   has_many :pages
 
   # scopes
-  scope :page,  -> { find_by(category_type: 0) }
   scope :email, -> { find_by(category_type: 1) }
 
   # class methods
@@ -22,8 +21,7 @@ class Category < ApplicationRecord
     Category.transaction do
       [
         { name: "Email Verification", sub_type: 1, category_type: 1 },
-        { name: "Forgot Password", sub_type: 2, category_type: 1 },
-        { name: "Page" }
+        { name: "Forgot Password", sub_type: 2, category_type: 1 }
       ].each do |data|
           Category.create!(data) if !category_names.include?(data[:name])
         end
@@ -37,7 +35,7 @@ class Category < ApplicationRecord
 
   # instance methods
   def type_name
-    ["Page", "Email Template"][self.category_type]
+    ["", "Email Template"][self.category_type]
   end
 
   def sub_type_name

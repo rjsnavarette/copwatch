@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         collection do
           put :forgot
           put :reset
+          put :change
         end
       end
       # Users
@@ -46,6 +47,10 @@ Rails.application.routes.draw do
       end
       # Feedback
       resources :feedbacks, only: [:create]
+      # FreeAd
+      resources :free_ads, only: [:index]
+      # Subscription
+      resources :subscriptions, only: [:create]
     end
   end
 

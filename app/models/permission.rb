@@ -31,7 +31,7 @@ class Permission < ApplicationRecord
     if permission.present?
       Permission.success_response({ permission: permission.save_data_format })
     else
-      Permission.error_message("Permission not found.", 404)
+      Permission.error_response("Permission not found.", 404)
     end
   end
 

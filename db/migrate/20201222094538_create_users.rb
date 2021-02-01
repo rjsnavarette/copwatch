@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :photo
       t.string :password
       t.string :auth_token
+      t.string :device_token
       t.string :verification_token
       t.string :password_reset_token
       t.string :uuid
