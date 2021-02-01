@@ -10,10 +10,9 @@ class Category < ApplicationRecord
 
   # associations
   has_many :email_templates
-  has_many :pages
 
   # scopes
-  scope :email, -> { find_by(category_type: 1) }
+  scope :email, -> { where(category_type: 1) }
 
   # class methods
   def self.seed

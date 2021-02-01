@@ -70,5 +70,6 @@ Rails.application.routes.draw do
         get :legal_disclaimer
       end
     end
+    resources :free_ads, only: [:index]
   end
 end

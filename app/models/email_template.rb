@@ -6,10 +6,6 @@ class EmailTemplate < ApplicationRecord
 
   # class methods
   def self.seed_test
-    if Category.count == 0
-      Category.seed
-    end
-
     EmailTemplate.transaction do
       Category.email.each do |category|
         EmailTemplate.create!({

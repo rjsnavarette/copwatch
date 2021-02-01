@@ -73,6 +73,13 @@ class FreeAd < ApplicationRecord
     ['day', 'week', 'month'][self.duration_type]
   end
 
+  def formatted_price
+    case currency
+    when 0
+      "$#{self.price}"
+    end
+  end
+
   def validation_error
     self.errors.full_messages.first.to_s
   end

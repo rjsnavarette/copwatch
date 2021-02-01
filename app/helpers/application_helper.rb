@@ -318,4 +318,17 @@ module ApplicationHelper
       category.sub_type_name
     end
   end
+
+  def free_ad_data(ad_free, type)
+    case type
+    when 'id'
+      ad_free.id
+    when 'name'
+      ad_free.name
+    when 'price'
+      ad_free.formatted_price
+    when 'duration'
+      ad_free.length
+    end
+  end
 end

@@ -1,0 +1,25 @@
+.table-responsive
+  %table#DataTables_Free_Ads.table.table-bordered.table-striped.table-hover.js-basic-example.dataTable.no-footer{"aria-describedby" => "DataTables_AddFree_info"}
+    %thead
+      %tr
+        %th.sorting{"aria-controls" => "DataTables_Free_Ads"} ID
+        %th.sorting{"aria-controls" => "DataTables_Free_Ads"} Duration
+        %th.sorting{"aria-controls" => "DataTables_Free_Ads"} Price
+        %th.sorting{"aria-controls" => "DataTables_Free_Ads"} Actions
+    %tbody
+      - @free_ads.each do |free_ad|
+        %tr
+          %td= free_ad_data(free_ad, 'id')
+          %td= free_ad_data(free_ad, 'duration')
+          %td= free_ad_data(free_ad, 'price')
+          %td.actions
+            .row
+              .col-md-3
+                %a{:href => "#"}
+                  %i.zmdi.zmdi-eye.text-success
+              .col-md-3
+                %a{:href => "#"}
+                  %i.zmdi.zmdi-edit.text-info
+              -# .col-md-3
+              -#   %a{:href => "#", :data => {method: :delete}}
+              -#     %i.zmdi.zmdi-delete.text-error

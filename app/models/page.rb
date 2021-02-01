@@ -6,7 +6,6 @@ class Page < ApplicationRecord
     # 4 - legal disclaimer
 
   # associations
-  belongs_to :category
 
   # scopes
   scope :about_us,          -> { find_by(page_type: 1) }
@@ -16,7 +15,6 @@ class Page < ApplicationRecord
 
   # class methods
   def self.seed
-    category    = Category.select(:id, :category_type).page
     page_types  = Page.select(:page_type).pluck(:page_type)
 
     Page.transaction do
@@ -24,7 +22,6 @@ class Page < ApplicationRecord
         { title: "About Us", page_type: 1 }, { title: "Privacy Policy", page_type: 2 },
         { title: "Terms & Conditions", page_type: 3 }, { title: "Legal Disclaimer", page_type: 4 }
       ].each do |page|
-        page.merge!({ category_id: category.id })
         Page.create!(page) if !page_types.include?(page[:page_type])
       end
     end
@@ -34,6 +31,17 @@ class Page < ApplicationRecord
     includes(:category)
       .as_json(only: [:id, :title, :content], methods: [:category_name])
       .each { |cat| cat["content"] = cat["content"].to_s if cat["content"].nil?}
+  end
+
+  def self.init(page_type, categories)
+    case page_type
+    when 1
+      category = Category.find_by()
+      # Pagen.new({ category_id: })
+    when 2
+    when 3
+    when 4
+    end
   end
 
   # validations
