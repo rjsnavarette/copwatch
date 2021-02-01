@@ -73,12 +73,16 @@ class FreeAd < ApplicationRecord
     ['day', 'week', 'month'][self.duration_type]
   end
 
+  def itemable_type
+    "FreeAd"
+  end
+
   def validation_error
     self.errors.full_messages.first.to_s
   end
 
   def index_format
-    self.as_json(only: [:id, :name, :price, :currency], methods: [:length])
+    self.as_json(only: [:id, :name, :price, :currency], methods: [:length, :itemable_type])
   end
 
   private
