@@ -3,10 +3,6 @@
     .body
       = form_with model: @page, url: form_url(@page), method: form_method do |form|
         .col-sm-12
-          %label.text-primary Category
-          .form-group
-            = form.select :category_id, @categories
-        .col-sm-12
           %label.text-primary Title
           .form-group
             = form.text_field :title, placeholder: 'Title', type: 'text', readonly: editable?, class: 'form-control'

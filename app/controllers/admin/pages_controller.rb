@@ -33,17 +33,15 @@ class Admin::PagesController < ApplicationController
     end
 
     def get_page
-      @categories = Category.all.collect { |cat| [cat.name, cat.id] }
-
       case action_name
       when 'about_us'
-        @page = Page.includes(:category).about_us
+        @page = Page.about_us
       when 'privacy_policy'
-        @page = Page.includes(:category).privacy_policy
+        @page = Page.privacy_policy
       when 'terms_conditions'
-        @page = Page.includes(:category).terms_conditions
+        @page = Page.terms_conditions
       when 'legal_disclaimer'
-        @page = Page.includes(:category).legal_disclaimer
+        @page = Page.legal_disclaimer
       end
     end
 

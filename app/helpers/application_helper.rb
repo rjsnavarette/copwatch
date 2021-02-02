@@ -331,4 +331,8 @@ module ApplicationHelper
       ad_free.length
     end
   end
+
+  def pages
+    Page.menu_format
+  end
 end

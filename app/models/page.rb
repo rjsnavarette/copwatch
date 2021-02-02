@@ -28,20 +28,11 @@ class Page < ApplicationRecord
   end
 
   def self.formatted
-    includes(:category)
-      .as_json(only: [:id, :title, :content], methods: [:category_name])
-      .each { |cat| cat["content"] = cat["content"].to_s if cat["content"].nil?}
+    as_json(only: [:id, :title, :content])
   end
 
-  def self.init(page_type, categories)
-    case page_type
-    when 1
-      category = Category.find_by()
-      # Pagen.new({ category_id: })
-    when 2
-    when 3
-    when 4
-    end
+  def self.menu_format
+    Page.select(:title, :page_type).all
   end
 
   # validations
@@ -49,7 +40,16 @@ class Page < ApplicationRecord
   # callbacks
 
   # instance methods
-  def category_name
-    self.category.name
+  def name
+    case self.page_type
+    when 1
+      'about_us'
+    when 2
+      'privacy_policy'
+    when 3
+      'terms_conditions'
+    when 4
+      'legal_disclaimer'
+    end
   end
 end

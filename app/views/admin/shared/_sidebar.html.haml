@@ -39,14 +39,17 @@
                 %i.zmdi.zmdi-accounts-outline
                 %span App Contents
               %ul.ml-menu
-                %li{:class => sub_menu_active_class('pages', 'about_us')}
-                  %a.waves-effect.waves-block{:href => pages_url('about_us'), :class => sub_menu_toggled_class('pages', 'about_us')} About Us
-                %li{:class => sub_menu_active_class('pages', 'privacy_policy')}
-                  %a.waves-effect.waves-block{:href => pages_url('privacy_policy'), :class => sub_menu_toggled_class('pages', 'privacy_policy')} Privacy Policy
-                %li{:class => sub_menu_active_class('pages', 'terms_conditions')}
-                  %a.waves-effect.waves-block{:href => pages_url('terms_conditions'), :class => sub_menu_toggled_class('pages', 'terms_conditions')} Terms & Conditions
-                %li{:class => sub_menu_active_class('pages', 'legal_disclaimer')}
-                  %a.waves-effect.waves-block{:href => pages_url('legal_disclaimer'), :class => sub_menu_toggled_class('pages', 'legal_disclaimer')} Legal Disclaimer
+                - pages.each do |page|
+                  %li{:class => sub_menu_active_class('pages', page.name)}
+                    %a.waves-effect.waves-block{:href => pages_url(page.name), :class => sub_menu_toggled_class('pages', page.name)}= page.title
+                -# %li{:class => sub_menu_active_class('pages', 'about_us')}
+                -#   %a.waves-effect.waves-block{:href => pages_url('about_us'), :class => sub_menu_toggled_class('pages', 'about_us')} About Us
+                -# %li{:class => sub_menu_active_class('pages', 'privacy_policy')}
+                -#   %a.waves-effect.waves-block{:href => pages_url('privacy_policy'), :class => sub_menu_toggled_class('pages', 'privacy_policy')} Privacy Policy
+                -# %li{:class => sub_menu_active_class('pages', 'terms_conditions')}
+                -#   %a.waves-effect.waves-block{:href => pages_url('terms_conditions'), :class => sub_menu_toggled_class('pages', 'terms_conditions')} Terms & Conditions
+                -# %li{:class => sub_menu_active_class('pages', 'legal_disclaimer')}
+                -#   %a.waves-effect.waves-block{:href => pages_url('legal_disclaimer'), :class => sub_menu_toggled_class('pages', 'legal_disclaimer')} Legal Disclaimer
             %li{:class => menu_class('free_ads')}
               %a.menu-toggle.waves-effect.waves-block{:href => "javascript:void(0);", :class => menu_toggled('free_ads')}
                 %i.zmdi.zmdi-accounts-outline
