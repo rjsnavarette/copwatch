@@ -80,7 +80,10 @@ class User < ApplicationRecord
     elsif !user.is_verified
       { error: "Please verify your email to sign in.", status: 500 }
     elsif user.regenerate_auth_token
-      { user: user.sign_in_format, status: 200 }
+      free_ad         = user.free_ad_subscription
+      free_ad_expiry  = free_ad.present? ? free_ad.formatted_expiry : ""
+
+      { user: user.sign_in_format, free_ad_expiry: free_ad_expiry, status: 200 }
     else
       { error: user.validation_error, status: 500 }
     end
@@ -91,15 +94,20 @@ class User < ApplicationRecord
     if user.nil?
       user              = User.new(data)
       user.is_verified  = true
+      free_ad           = user.free_ad_subscription
+      free_ad_expiry    = free_ad.present? ? free_ad.formatted_expiry : ""
 
       if user.save
-        { user: user.sign_in_format, status: 200 }
+        { user: user.sign_in_format, free_ad_expiry: free_ad_expiry, status: 200 }
       else
         { error: user.validation_error, status: 500 }
       end
     else
       if user.regenerate_auth_token
-        { user: user.sign_in_format, status: 200 }
+        free_ad           = user.free_ad_subscription
+        free_ad_expiry    = free_ad.present? ? free_ad.formatted_expiry : ""
+
+        { user: user.sign_in_format, free_ad_expiry: free_ad_expiry, status: 200 }
       else
         { error: user.validation_error, status: 500 }
       end
@@ -242,6 +250,10 @@ class User < ApplicationRecord
     else
       { error: self.validation_error, status: 500 }
     end
+  end
+
+  def free_ad_subscription
+    Subscription.for_user(self.id).free_ad
   end
 
   private

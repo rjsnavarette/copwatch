@@ -41,6 +41,10 @@ class Subscription < ApplicationRecord
     self.errors.full_messages.first.to_s
   end
 
+  def formatted_expiry
+    self.expiry_at.strftime("%Y-%m-%d %H:%M")
+  end
+
   private
 
     # custom validation methods
