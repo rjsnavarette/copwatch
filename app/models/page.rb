@@ -52,4 +52,8 @@ class Page < ApplicationRecord
       'legal_disclaimer'
     end
   end
+
+  def validation_error
+    self.errors.full_messages.first.to_s
+  end
 end

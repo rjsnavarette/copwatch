@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def page_js
-    if controller_name == 'users'
+    if ['users', 'pages'].include?(controller_name)
       javascript_pack_tag "admin/#{controller_name}"
     end
   end
@@ -133,7 +133,7 @@ module ApplicationHelper
   def form_buttons_visibility(type)
     case type
     when 'submit'
-      if action_name == 'show'
+      if ['show', 'about_us', 'privacy_policy', 'terms_conditions', 'legal_disclaimer'].include?(action_name)
         'hide'
       end
     when 'edit'
@@ -196,7 +196,7 @@ module ApplicationHelper
         admin_email_template_path(model_instance)
       end
     when 'pages'
-      edit_admin_page_path(model_instance)
+      admin_page_path(model_instance)
     end
   end
 
@@ -333,6 +333,6 @@ module ApplicationHelper
   end
 
   def pages
-    Page.menu_format
+    Page.order(:id).menu_format
   end
 end

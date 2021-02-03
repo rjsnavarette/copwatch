@@ -8,7 +8,6 @@
         .card.student-list
           .header
             %h2
-              %strong= page_name
-              = action_name.split('_').join(' ').titleize
+              %strong= action_name.split('_').join(' ').titleize
           .body
             = render "admin/pages/form"
