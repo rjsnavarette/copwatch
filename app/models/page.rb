@@ -28,7 +28,7 @@ class Page < ApplicationRecord
   end
 
   def self.formatted
-    as_json(only: [:id, :title, :content])
+    all.as_json(only: [:id, :title, :content])
   end
 
   def self.menu_format
@@ -55,5 +55,9 @@ class Page < ApplicationRecord
 
   def validation_error
     self.errors.full_messages.first.to_s
+  end
+
+  def api_format
+    as_json(only: [:id, :title, :content])
   end
 end

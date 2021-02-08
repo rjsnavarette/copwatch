@@ -51,6 +51,15 @@ Rails.application.routes.draw do
       resources :free_ads, only: [:index]
       # Subscription
       resources :subscriptions, only: [:create]
+      # Pages
+      resources :pages, only: [] do
+        collection do
+          get :about_us
+          get :privacy_policy
+          get :terms_conditions
+          get :legal_disclaimer
+        end
+      end
     end
   end
 end
