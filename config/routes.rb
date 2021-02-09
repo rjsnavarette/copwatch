@@ -60,6 +60,8 @@ Rails.application.routes.draw do
           get :legal_disclaimer
         end
       end
+      # User Videos
+      resources :videos, only: [:index, :create]
     end
   end
 end

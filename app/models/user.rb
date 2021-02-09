@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_one   :permission, dependent: :destroy
   has_many  :feedbacks, dependent: :destroy
   has_many  :subscriptions, dependent: :destroy
+  has_many  :videos, dependent: :destroy
 
   # deletegate
   delegate :is_recording_to_cloud, :is_dim_my_screen, :is_do_not_disturb,
