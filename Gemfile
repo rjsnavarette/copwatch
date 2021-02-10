@@ -30,6 +30,7 @@ gem 'bootstrap', '~> 4.0.0'
 # fix for ExecJS::RuntimeUnavailable
 gem 'mini_racer'
 gem 'fcm', '~> 1.0', '>= 1.0.2'
+gem "wysiwyg-rails"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

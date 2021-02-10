@@ -10,9 +10,12 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
+ *= require_tree
  *= require_self
  */
+
+@import "froala_editor.min";
+@import "froala_style.min";
 
 @font-face {
   font-family: 'Material-Design-Iconic-Font';
@@ -43,4 +46,7 @@
   i { margin: auto; }
 }
 
-.form-group #page_content { min-height: 250px; }
+#page_form {
+  .form-group textarea.no-resize { min-height: 180px; }
+  .fr-box { display: none; }
+}

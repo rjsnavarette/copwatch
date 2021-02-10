@@ -1,7 +1,7 @@
 .col-lg-12.col-md-12.col-sm-12
   .card
     .body
-      = form_with model: @page, url: form_url(@page), method: form_method, remote: false do |form|
+      = form_with model: @page, url: form_url(@page), method: form_method, remote: false, id: "page_form" do |form|
         .col-sm-12
           %label.text-primary Title
           .form-group
@@ -9,7 +9,8 @@
         .col-md-12
           %label.text-primary Content
           .form-group
-            = form.text_area :content, placeholder: 'Content', type: 'text', readonly: editable?, class: 'form-control no-resize'
+            %textarea.form-control.no-resize{ readonly: true }= @page.content
+            = form.text_area :content, placeholder: 'Content', type: 'text', readonly: editable?, class: 'form-control no-resize hide'
         .col-sm-12{:class => for_actions_visibility}
           %hr
           = form.submit "Save", class: "btn btn-raised btn-round btn-primary #{form_buttons_visibility('submit')}"
