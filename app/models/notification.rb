@@ -23,7 +23,10 @@ class Notification < ApplicationRecord
   end
 
   def self.for_index(user_id)
-    { notifications: for_user(user_id).videos.map(&:video_notifiable_format), status: 200 }
+    {
+      notifications: includes(:notifiable).for_user(user_id).videos.map(&:video_notifiable_format),
+      status: 200
+    }
 
   rescue StandardError => err
     puts        "\n-- Api : V1 : Notifications : Controller : index : Error --\n#{err}\n"
@@ -46,7 +49,7 @@ class Notification < ApplicationRecord
   end
 
   def video_link
-    if self.notifable_type == 'Video' && self.notifiable.present?
+    if self.notifiable_type == 'Video' && self.notifiable.present?
       self.notifiable.link.to_s
     else
       ""
