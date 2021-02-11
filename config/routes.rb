@@ -62,6 +62,8 @@ Rails.application.routes.draw do
       end
       # User Videos
       resources :videos, only: [:index, :create]
+      # Notifications
+      resources :notifications, only: [:index]
     end
   end
 end

@@ -5,7 +5,7 @@ class PushNotification
     FCM.new(Rails.application.credentials.dig(:firebase, :server_key))
   end
 
-  def send(device_tokens, data)
+  def self.send(device_tokens, data)
     begin
       fcm       = PushNotification.client
       options   = {
@@ -17,6 +17,7 @@ class PushNotification
 
       response  = fcm.send(device_tokens, options)
     rescue StandardError => err
+      puts        "\n-- PushNotification : Error --\n#{err}"
       logger.info "\n-- PushNotification : Error --\n#{err}"
     end
   end

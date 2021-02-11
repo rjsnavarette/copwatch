@@ -2,6 +2,7 @@ class Video < ApplicationRecord
   # associations
   belongs_to  :user
   has_one     :parent_video, class_name: 'Video', foreign_key: :parent_video_id
+  has_one     :notification, as: :notifiable, dependent: :destroy
 
   # scope
   scope :for_user,  -> (user_id) { where(user_id: user_id).order("id, sequence_index") }
@@ -21,10 +22,16 @@ class Video < ApplicationRecord
     { error: "An error occured while getting the videos. Please try again later.", status: 500 }
   end
 
-  def self.save_data(data)
+  def self.save_data(data, is_last_part=false)
     video = Video.new(data)
 
     if video.save
+      notification = Notification.save_data(video.user_id, video)
+
+      if notification && (video.parent_video_id.nil? || is_last_part == true)
+        PushNotification.send([video.user.device_token], { title: notification.title, body: notification.description })
+      end
+
       { parent_video_id: video.parent_video_id || video.id, status: 200 }
     else
       { error: video.validation_error, status: 500 }

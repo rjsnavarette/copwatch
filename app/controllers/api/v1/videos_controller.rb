@@ -6,7 +6,7 @@ class Api::V1::VideosController < ApiController
   end
 
   def create
-    render json: Video.save_data(video_params)
+    render json: Video.save_data(video_params, params[:is_last_part])
   end
 
   private
