@@ -12,15 +12,14 @@ class Notification < ApplicationRecord
 
   # class methods
   def self.save_data(user_id, notifiable)
-    notification = Notification.new({ user_id: user_id, notifiable: notifiable })
+    notification = Notification.create({ user_id: user_id, notifiable: notifiable })
 
     case notifiable.class.name
     when "Video"
-      notification.title        = "Video Upload"
-      notification.description  = "Video Uploaded Successfully"
+      notification.update({ title: "Video Upload", description: "Video Uploaded Successfully" })
     end
 
-    notification.save
+    notification
   end
 
   def self.for_index(user_id)
