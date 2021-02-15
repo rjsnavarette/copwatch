@@ -2,14 +2,15 @@
   .flash-message
     %p.notice{:class => flash_message_class('notice')}= flash[:error]
     %p.alert{:class => flash_message_class('alert')}= flash[:alert]
-  .page-header-image.hide
+  .page-header-image
   .container
     .col-md-12.content-center
       .card-plain
         = form_with :model => admin_model, :url => admin_session_path, :local => true, :method => :post, :class => "form" do |f|
           .header
             .logo-container
-              %img{:alt => "", :src => ""}
+              %img{:alt => "", :src => asset_path("appicon.jpg")}
+              %label COPWATCH
             %h5 Sign in
           .content
             .input-group
