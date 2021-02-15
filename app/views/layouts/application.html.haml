@@ -1,0 +1,31 @@
+!!!
+%html
+  %head
+    %title Copwatch
+    = csrf_meta_tags
+    = csp_meta_tag
+    -# theme stylesheets
+    = stylesheet_link_tag 'bootstrap.min'
+    = stylesheet_link_tag 'main'
+    = page_stylesheets
+    - if (controller_name == 'email_templates' && action_name != 'index') || controller_name == 'pages'
+      = stylesheet_link_tag 'bootstrap-select.css'
+    = stylesheet_link_tag 'color_skins'
+    -# app stylesheets
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
+  %body.theme-blush{:class => body_class}
+    = yield
+  <script type="text/javascript" src = "../../assets/froala_editor.pkgd.min.js"></script>
+  <script type="text/javascript" src = "../../assets/third_party/font_awesome.min.js"></script>
+  <script type="text/javascript" src = "../../assets/third_party/embedly.min.js"></script>
+  = javascript_include_tag 'libscripts.bundle.js'
+  = javascript_include_tag 'vendorscripts.bundle.js'
+  - if controller_name == session
+    = javascript_include_tag 'mainscripts.bundle'
+  - else
+    = javascript_include_tag 'datatablescripts.bundle'
+    = javascript_include_tag 'mainscripts.bundle'
+    = javascript_include_tag 'jquery-datatable'
+    = page_js
+  = javascript_pack_tag 'admin/shared'

@@ -25,6 +25,7 @@ gem 'awesome_print', '~> 1.8'
 gem 'email_validator'
 gem 'carrierwave', '~> 2.0'
 gem 'fcm', '~> 1.0', '>= 1.0.2'
+gem "wysiwyg-rails"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
