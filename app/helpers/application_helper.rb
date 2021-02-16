@@ -115,7 +115,7 @@ module ApplicationHelper
 
   def editable?
     case action_name
-    when 'edit'
+    when 'edit', 'new'
       false
     else
       true
