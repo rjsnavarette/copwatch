@@ -2,7 +2,7 @@ class User < ApplicationRecord
   include BCrypt
 
   has_secure_token :auth_token
-  has_secure_token :verification_token
+  # has_secure_token :verification_token
   has_secure_token :password_reset_token
 
   mount_uploader :photo, UserPhotoUploader
@@ -215,6 +215,20 @@ class User < ApplicationRecord
     end
   end
 
+  def self.generate_token(type=0)
+    case type
+    when 0
+      # auth_token
+      SecureRandom.hex
+    when 1
+      # verification_token
+      SecureRandom.random_number(999999)
+    when 2
+      # password_reset_token
+      SecureRandom.hex(10)
+    end
+  end
+
   # validations
   validates :email, presence: true, email: true, uniqueness: true, if: -> { is_email_account? }
   validates :password, presence: true, length: { minimum: 8, maximum: 20 }, if: -> { (is_create? && is_email_account?) || (!is_create? && is_email_account? && is_password_changed?) }
@@ -231,6 +245,7 @@ class User < ApplicationRecord
 
   # callbacks
   before_save :encrypt_password, if: -> { (is_create? && is_email_account?) || (!is_create? && is_email_account? && is_password_changed?) }
+  before_create :generate_verification_token
 
   # instance methods
   def sign_up_format
@@ -335,5 +350,18 @@ class User < ApplicationRecord
 
     def encrypt_password
       self.password = Password.create(self.password)
+    end
+
+    def generate_verification_token
+      token   = nil
+      tokens  = User.pluck(:verification_token)
+
+      loop do
+        token = User.generate_token(1)
+
+        break if !tokens.include?(token)
+      end
+
+      self.verification_token = token
     end
 end
