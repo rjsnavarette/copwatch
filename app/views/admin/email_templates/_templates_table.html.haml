@@ -1,0 +1,25 @@
+.table-responsive
+  %table#DataTables_EmailTemplates.table.table-bordered.table-striped.table-hover.js-basic-example.dataTable.no-footer{"aria-describedby" => "DataTables_EmailTemplates_info"}
+    %thead
+      %tr
+        %th.sorting{"aria-controls" => "DataTables_EmailTemplates"} ID
+        %th.sorting{"aria-controls" => "DataTables_EmailTemplates"} Category
+        %th.sorting{"aria-controls" => "DataTables_EmailTemplates"} Subject
+        %th.sorting{"aria-controls" => "DataTables_EmailTemplates"} Actions
+    %tbody
+      - @templates.each do |template|
+        %tr
+          %td= template_data(template, 'id')
+          %td= category_data(template.category, 'name')
+          %td= template_data(template, 'subject')
+          %td.actions
+            .row
+              .col-md-3
+                %a{:href => admin_email_template_path(template)}
+                  %i.zmdi.zmdi-eye.text-success
+              .col-md-3
+                %a{:href => edit_admin_email_template_path(template)}
+                  %i.zmdi.zmdi-edit.text-info
+              .col-md-3
+                %a{:href => admin_email_template_path(template), :data => {method: :delete}}
+                  %i.zmdi.zmdi-delete.text-error

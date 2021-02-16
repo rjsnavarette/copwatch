@@ -1,0 +1,21 @@
+.col-lg-8.col-md-12.col-sm-12
+  .card
+    .body
+      = form_with model: @user, url: form_url(@user), method: form_method do |form|
+        .col-md-12
+          .form-group
+            = form.text_field :first_name, placeholder: 'First Name', type: 'text', readonly: editable?, class: 'form-control'
+        .col-md-12
+          .form-group
+            = form.text_field :last_name, placeholder: 'Last Name', type: 'text', readonly: editable?, class: 'form-control'
+        .col-md-12
+          .form-group
+            = form.text_field :phone_number, placeholder: 'Phone No.', type: 'text', readonly: editable?, class: 'form-control'
+        .col-md-4.hide
+          .form-group
+            = form.file_field :photo, type: "file", accept: "image/*"
+        .col-sm-12
+          %hr
+          = form.submit "Save", class: "btn btn-raised btn-round btn-primary #{form_buttons_visibility('submit')}"
+          %a.btn.btn-raise.btn-round.btn-primary{:href => edit_admin_user_path(@user), :class => form_buttons_visibility('edit')} Edit
+          %a.btn.btn-raised.btn-round{:href => form_action_btn_url('back', @user) }= form_back_btn_text

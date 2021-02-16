@@ -1,0 +1,62 @@
+%aside#leftsidebar.sidebar
+  .tab-content
+    #dashboard.tab-pane.stretchRight.active
+      .menu
+        .slimScrollDiv{:style => "position: relative; overflow: hidden; width: auto; height: calc(100vh - 60px);"}
+          %ul.list{:style => "overflow: hidden; width: auto; height: calc(100vh - 60px);"}
+            %li
+              .user-info
+                .image
+                  %a.waves-effect.waves-block{:href => ""}
+                    %img{:alt => "Admin", :src => ""}
+                .detail
+                  %h4= admin_data('name')
+                  %small
+            %li.header MAIN
+            %li{:class => menu_class('users')}
+              %a.menu-toggle.waves-effect.waves-block{:href => "javascript:void(0);", :class => menu_toggled('users')}
+                %i.zmdi.zmdi-accounts-outline
+                %span Users
+              %ul.ml-menu
+                %li.active
+                  %a.toggled.waves-effect.waves-block{:href => admin_users_path, :class => sub_menu_toggled_class('users', 'index')} All Users
+            %li{:class => menu_class('feedbacks')}
+              %a.menu-toggle.waves-effect.waves-block{:href => "javascript:void(0);", :class => menu_toggled('feedbacks')}
+                %i.zmdi.zmdi-accounts-outline
+                %span Feedbacks
+              %ul.ml-menu
+                %li.active
+                  %a.waves-effect.waves-block{:href => admin_feedbacks_path, :class => sub_menu_toggled_class('feedbacks', 'index')} All Feedbacks
+            %li{:class => menu_class('email_templates')}
+              %a.menu-toggle.waves-effect.waves-block{:href => "javascript:void(0);", :class => menu_toggled('email_templates')}
+                %i.zmdi.zmdi-accounts-outline
+                %span Email Templates
+              %ul.ml-menu
+                %li.active
+                  %a.waves-effect.waves-block{:href => admin_email_templates_path, :class => sub_menu_toggled_class('email_templates', 'index')} All Templates
+            %li{:class => menu_class('pages')}
+              %a.menu-toggle.waves-effect.waves-block{:href => "javascript:void(0);", :class => menu_toggled('pages')}
+                %i.zmdi.zmdi-accounts-outline
+                %span App Contents
+              %ul.ml-menu
+                - pages.each do |page|
+                  %li{:class => sub_menu_active_class('pages', page.name)}
+                    %a.waves-effect.waves-block{:href => pages_url(page.name), :class => sub_menu_toggled_class('pages', page.name)}= page.title
+                -# %li{:class => sub_menu_active_class('pages', 'about_us')}
+                -#   %a.waves-effect.waves-block{:href => pages_url('about_us'), :class => sub_menu_toggled_class('pages', 'about_us')} About Us
+                -# %li{:class => sub_menu_active_class('pages', 'privacy_policy')}
+                -#   %a.waves-effect.waves-block{:href => pages_url('privacy_policy'), :class => sub_menu_toggled_class('pages', 'privacy_policy')} Privacy Policy
+                -# %li{:class => sub_menu_active_class('pages', 'terms_conditions')}
+                -#   %a.waves-effect.waves-block{:href => pages_url('terms_conditions'), :class => sub_menu_toggled_class('pages', 'terms_conditions')} Terms & Conditions
+                -# %li{:class => sub_menu_active_class('pages', 'legal_disclaimer')}
+                -#   %a.waves-effect.waves-block{:href => pages_url('legal_disclaimer'), :class => sub_menu_toggled_class('pages', 'legal_disclaimer')} Legal Disclaimer
+            %li{:class => menu_class('free_ads')}
+              %a.menu-toggle.waves-effect.waves-block{:href => "javascript:void(0);", :class => menu_toggled('free_ads')}
+                %i.zmdi.zmdi-accounts-outline
+                %span Free Ads
+              %ul.ml-menu
+                %li.active
+                  %a.waves-effect.waves-block{:href => admin_free_ads_path, :class => sub_menu_toggled_class('free_ads', 'index')} All Free Ads
+
+          .slimScrollBar{:style => "background: rgba(0, 0, 0, 0.2); width: 2px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 3px; z-index: 99; left: 1px; height: 644.019px;"}
+          .slimScrollRail{:style => "width: 2px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; left: 1px;"}

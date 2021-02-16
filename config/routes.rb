@@ -66,4 +66,23 @@ Rails.application.routes.draw do
       resources :notifications, only: [:index]
     end
   end
+
+  root to: 'admin/users#index'
+
+  devise_for :admins, path: 'admin', only: :sessions
+
+  namespace :admin do
+    resources :users
+    resources :feedbacks, only: [:index, :destroy]
+    resources :email_templates
+    resources :pages, only: [:create, :update, :destroy] do
+      collection do
+        get :about_us
+        get :privacy_policy
+        get :terms_conditions
+        get :legal_disclaimer
+      end
+    end
+    resources :free_ads, only: [:index]
+  end
 end

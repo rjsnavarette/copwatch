@@ -1,0 +1,27 @@
+.table-responsive
+  %table#DataTables_Users.table.table-bordered.table-striped.table-hover.js-basic-example.dataTable.no-footer{"aria-describedby" => "DataTables_Users_info"}
+    %thead
+      %tr
+        %th.sorting{"aria-controls" => "DataTables_Users"} ID
+        %th.sorting{"aria-controls" => "DataTables_Users"} Name
+        %th.sorting{"aria-controls" => "DataTables_Users"} Email
+        %th.sorting{"aria-controls" => "DataTables_Users"} Joined Date
+        %th.sorting{"aria-controls" => "DataTables_Users"} Actions
+    %tbody
+      - @users.each do |user|
+        %tr
+          %td= user_data(user, 'id')
+          %td= user_data(user, 'name')
+          %td= user_data(user, 'email')
+          %td= user_data(user, 'joined_date')
+          %td.actions
+            .row
+              .col-md-3
+                %a{:href => admin_user_path(user)}
+                  %i.zmdi.zmdi-eye.text-success
+              .col-md-3
+                %a{:href => edit_admin_user_path(user)}
+                  %i.zmdi.zmdi-edit.text-info
+              .col-md-3
+                %a{:href => admin_user_path(user), :data => {method: :delete}}
+                  %i.zmdi.zmdi-delete.text-error
