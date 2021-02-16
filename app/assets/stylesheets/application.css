@@ -22,11 +22,49 @@
   src: font-url('Material-Design-Iconic-Font.woff2');
 }
 
+body.theme-blush {
+  background: #000528;
+
+  .sidebar {
+    li a:hover { color: #986ca1 !important; }
+
+    li.active {
+      &.open {
+        i, span { color: #986ca1 !important; }
+      }
+    }
+  }
+
+  .btn-primary,
+  .navbar,
+  section.content:before { background: #986ca1; }
+
+  .card .header {
+    h2:before,
+    h2 strong { color: #986ca1; }
+
+    h2:before { background: #986ca1; }
+  }
+}
+
+.page-header:before { background-color: inherit; }
+
+.authentication .card-plain .logo-container {
+  min-width: 150px !important;
+
+  label {
+    padding: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #986ca1;
+  }
+}
+
 .hide { display: none !important; }
 .hidden { visibility: hidden !important; }
 
 .flash-message {
-  font-size: 16px;
+  font-size: 18px;
   text-align: center;
 
   .notice, .alert { margin-bottom: 0; }
@@ -49,4 +87,14 @@
 #page_form {
   .form-group textarea.no-resize { min-height: 180px; }
   .fr-box { display: none; }
+}
+
+@media only screen and (max-width: 767px) {
+  .authentication {
+    .logo-container img { max-width: 120px !important; }
+    .card-plain .logo-container label {
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
 }
