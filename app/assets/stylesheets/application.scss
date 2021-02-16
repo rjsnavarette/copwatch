@@ -47,6 +47,8 @@ body.theme-blush {
   }
 }
 
+.page-header:before { background-color: inherit; }
+
 .authentication .card-plain .logo-container {
   min-width: 150px !important;
 
