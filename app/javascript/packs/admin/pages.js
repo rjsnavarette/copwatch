@@ -1,6 +1,4 @@
 $(document).ready(function() {
-  fadeAlert();
-
   new FroalaEditor('#page_content', {})
 
   $("form .edit").on("click", function(e) {

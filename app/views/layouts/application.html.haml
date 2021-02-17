@@ -18,9 +18,9 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body.theme-blush{:class => body_class}
     = yield
-  <script type="text/javascript" src = "../../assets/froala_editor.pkgd.min.js"></script>
-  <script type="text/javascript" src = "../../assets/third_party/font_awesome.min.js"></script>
-  <script type="text/javascript" src = "../../assets/third_party/embedly.min.js"></script>
+  = javascript_include_tag 'froala_editor.pkgd.min'
+  = javascript_include_tag 'font_awesome.min'
+  = javascript_include_tag 'embedly.min'
   = javascript_include_tag 'libscripts.bundle.js'
   = javascript_include_tag 'vendorscripts.bundle.js'
   - if controller_name == session
