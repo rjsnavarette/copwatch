@@ -21,5 +21,6 @@
                 %a{:href => edit_admin_email_template_path(template)}
                   %i.zmdi.zmdi-edit.text-info
               .col-md-3
-                %a{:href => admin_email_template_path(template), :data => {method: :delete}}
+                %a.action-delete{:href => "#", :data => { target: "#email-template-#{template.id}"}}
                   %i.zmdi.zmdi-delete.text-error
+                %a{:href => admin_email_template_path(template), :id => "email-template-#{template.id}", :data => {method: :delete}}

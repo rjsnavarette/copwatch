@@ -19,5 +19,6 @@
           %td.actions
             .row
               .col-md-3
-                %a{:href => admin_feedback_path(feedback), :data => {method: :delete}}
+                %a.action-delete{:href => "#", :data => { target: "#feedback-delete-#{feedback.id}"}}
                   %i.zmdi.zmdi-delete.text-error
+                %a{:href => admin_feedback_path(feedback), :id => "feedback-delete-#{feedback.id}", :data => {method: :delete}}

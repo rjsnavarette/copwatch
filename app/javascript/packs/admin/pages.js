@@ -21,12 +21,4 @@ $(document).ready(function() {
       $("form .fr-box").css("display", "none");
     }
   })
-
-  function fadeAlert() {
-    $(".alert.alert-info, .alert.alert-danger")
-    .fadeOut(5000, function() {
-      $(".alert").addClass("hide").removeClass("alert-info")
-        .removeClass("alert-danger").css("display", "block").text("No Message");
-    });
-  }
 })

@@ -6,6 +6,8 @@
     = csp_meta_tag
     -# theme stylesheets
     = stylesheet_link_tag 'bootstrap.min'
+    - if !['pages', 'free_ads'].include?(controller_name) && action_name == 'index'
+      = stylesheet_link_tag 'sweetalert'
     = stylesheet_link_tag 'main'
     = page_stylesheets
     - if (controller_name == 'email_templates' && action_name != 'index') || controller_name == 'pages'
@@ -27,5 +29,7 @@
     = javascript_include_tag 'datatablescripts.bundle'
     = javascript_include_tag 'mainscripts.bundle'
     = javascript_include_tag 'jquery-datatable'
+    - if !['pages', 'free_ads'].include?(controller_name) && action_name == 'index'
+      = javascript_include_tag 'sweetalert.min'
     = page_js
   = javascript_pack_tag 'admin/shared'
