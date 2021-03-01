@@ -67,13 +67,13 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'admin/users#index'
+  root to: 'devise/sessions#new'
 
   devise_for :admins, path: 'admin', only: :sessions
 
   namespace :admin do
     resources :users
-    resources :feedbacks, only: [:index, :destroy]
+    resources :feedbacks, only: [:index, :show, :destroy]
     resources :email_templates
     resources :pages, only: [:create, :update, :destroy] do
       collection do

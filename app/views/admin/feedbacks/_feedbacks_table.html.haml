@@ -5,7 +5,6 @@
         %th.sorting{"aria-controls" => "DataTables_Feedbacks"} ID
         %th.sorting{"aria-controls" => "DataTables_Feedbacks"} User
         %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Description
-        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Image
         %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Created
         %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Actions
     %tbody
@@ -13,12 +12,15 @@
         %tr
           %td= feedback_data(feedback, 'id')
           %td= user_data(feedback.user, 'name')
-          %td= feedback_data(feedback, 'description')
-          %td= feedback_data(feedback, 'image')
+          %td{:style => "word-break:break-all; white-space:normal;"}= feedback_data(feedback, 'description')
           %td= feedback_data(feedback, 'created')
           %td.actions
             .row
               .col-md-3
+                %a{:href => admin_feedback_path(feedback)}
+                  %i.zmdi.zmdi-eye.text-success
+                -# %a{:href => "#"}
+                -#   %i.zmdi.zmdi-email.text-info
                 %a.action-delete{:href => "#", :data => { target: "#feedback-delete-#{feedback.id}"}}
                   %i.zmdi.zmdi-delete.text-error
                 %a{:href => admin_feedback_path(feedback), :id => "feedback-delete-#{feedback.id}", :data => {method: :delete}}

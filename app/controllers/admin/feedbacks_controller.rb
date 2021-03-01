@@ -7,6 +7,11 @@ class Admin::FeedbacksController < ApplicationController
                     .references("users").all
   end
 
+  def show
+    @feedback   = Feedback.includes(:user).find_by(id: params[:id])
+    @user_name  = @feedback.user.present? ? @feedback.user.name : ""
+  end
+
   def destroy
     @feedback = Feedback.find_by(id: params[:id])
 

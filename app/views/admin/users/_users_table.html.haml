@@ -19,10 +19,8 @@
               .col-md-3
                 %a{:href => admin_user_path(user)}
                   %i.zmdi.zmdi-eye.text-success
-              .col-md-3
                 %a{:href => edit_admin_user_path(user)}
                   %i.zmdi.zmdi-edit.text-info
-              .col-md-3
                 %a.action-delete{:href => "#", :data => { target: "#user-delete-#{user.id}"}}
                   %i.zmdi.zmdi-delete.text-error
                 %a.hide{:href => admin_user_path(user), :id => "user-delete-#{user.id}", :data => {method: :delete}}
