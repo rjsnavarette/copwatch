@@ -1,6 +1,6 @@
 = render "admin/shared/header"
 = render "admin/shared/sidebar"
-%section.content.profile-page
+%section.content
   = render "admin/shared/content_header"
   .container-fluid
     .row.clearfix
@@ -30,3 +30,4 @@
                   %input.form-control{:type => 'text', :value => @user_name, :readonly => true}
               .col-sm-12
                 %hr
+                %a.btn.btn-info.waves-effect.m-r-20{:href => "mailto:#{@email}"} RESPOND
