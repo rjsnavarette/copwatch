@@ -6,6 +6,8 @@ class PushNotification
   end
 
   def self.send(device_tokens, data)
+    Rails.logger.info "\n-- Model : PushNotification : send --\n"
+
     begin
       fcm       = PushNotification.client
       options   = {
@@ -17,8 +19,7 @@ class PushNotification
 
       response  = fcm.send(device_tokens, options)
     rescue StandardError => err
-      puts        "\n-- PushNotification : Error --\n#{err}"
-      logger.info "\n-- PushNotification : Error --\n#{err}"
+      Rails.logger.info "\n-- PushNotification : Error --\n#{err}"
     end
   end
 end

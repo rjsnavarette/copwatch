@@ -28,7 +28,7 @@ class Video < ApplicationRecord
     if video.save
       notification = Notification.save_data(video.user_id, video)
 
-      if notification && (video.parent_video_id.nil? || is_last_part == true)
+      if notification && (video.parent_video_id.nil? || [true, 'true'].include?(is_last_part))
         PushNotification.send([video.user.device_token], { title: notification.title, body: notification.description })
       end
 
