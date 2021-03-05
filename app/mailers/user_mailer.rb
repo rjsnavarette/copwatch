@@ -10,7 +10,7 @@ class UserMailer < ApplicationMailer
 
   def forgot_password_email
     @user = params[:user]
-    @link = "copwatch://open?action=1&token=#{@user.password_reset_token}"
+    @link = app_forgot_password_passwords_url({ token: @user.password_reset_token })
 
     mail(to: @user.email, subject: 'Forgot Password')
   end

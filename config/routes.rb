@@ -85,4 +85,10 @@ Rails.application.routes.draw do
     end
     resources :free_ads, only: [:index]
   end
+
+  resources :passwords, path: '', only: [] do
+    collection do
+      get :app_forgot_password
+    end
+  end
 end
