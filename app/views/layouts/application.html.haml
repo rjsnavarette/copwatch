@@ -5,7 +5,7 @@
     = csrf_meta_tags
     = csp_meta_tag
     -# theme stylesheets
-    = stylesheet_link_tag 'font-awesome/css/font-awesome'
+    %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css", :rel => "stylesheet"}
     = stylesheet_link_tag 'bootstrap.min'
     - if !['pages', 'free_ads'].include?(controller_name) && action_name == 'index'
       = stylesheet_link_tag 'sweetalert'
