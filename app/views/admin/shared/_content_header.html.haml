@@ -12,7 +12,10 @@
           %a{:href => ""}
             %i.zmdi.zmdi-home
             Admin
-        %li.breadcrumb-item
-          %a{:href => "javascript:void(0);"}= page_name
-        %li.breadcrumb-item.active= page_action
+        - if controller_name != 'pages'
+          %li.breadcrumb-item
+            %a{:href => page_home_url}= page_name
+          %li.breadcrumb-item.active= page_action
+        - else
+          %li.breadcrumb-item.active= page_name
 = render "admin/shared/alert"

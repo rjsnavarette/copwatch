@@ -72,7 +72,11 @@ module ApplicationHelper
   end
 
   def page_name
-    controller_name.split('_').join(' ').titleize
+    if controller_name == 'pages'
+      action_name.split('_').join(' ').titleize
+    else
+      controller_name.split('_').join(' ').titleize
+    end
   end
 
   def page_action
@@ -334,5 +338,18 @@ module ApplicationHelper
 
   def pages
     Page.order(:id).menu_format
+  end
+
+  def page_home_url
+    case controller_name
+    when 'users'
+      admin_users_path
+    when 'feedbacks'
+      admin_feedbacks_path
+    when 'email_templates'
+      admin_email_templates_path
+    when 'free_ads'
+      admin_free_ads_path
+    end
   end
 end
