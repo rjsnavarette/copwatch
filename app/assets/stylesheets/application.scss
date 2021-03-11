@@ -93,6 +93,11 @@ td.actions a {
   .fr-box { display: none; }
 }
 
+.btn-group.bootstrap-select > .btn.dropdown-toggle {
+  outline: transparent !important;
+  box-shadow: none;
+}
+
 @media only screen and (max-width: 767px) {
   .authentication {
     .logo-container img { max-width: 120px !important; }
