@@ -7,6 +7,9 @@
       .col-lg-4.col-md-12.col-sm-12
         .card.member-card.bg-dark
           .member-img
+            - if feedback_data(@feedback, 'image').present?
+              %button.btn.btn-default.waves-effect.m-r-20{"data-target" => "#defaultModal", "data-toggle" => "modal", :type => "button", :style => "width: 25px; height: 25px; position: absolute; right: 0; bottom: 0; margin: 0; background: transparent;"}
+              %i.zmdi.zmdi-fullscreen{:style => "font-size: 25px;"}
             %img{:alt => "Feedback Image", :src => feedback_data(@feedback, 'image')}
           .body
       .col-lg-8.col-md-12.col-sm-12
@@ -31,3 +34,4 @@
               .col-sm-12
                 %hr
                 %a.btn.btn-info.waves-effect.m-r-20{:href => "mailto:#{@email}"} RESPOND
+= render "admin/feedbacks/image_modal"

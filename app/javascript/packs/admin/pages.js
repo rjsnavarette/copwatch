@@ -10,14 +10,14 @@ $(document).ready(function() {
     if (txt == "Edit") {
       $("#page_title, #page_content").attr("readonly", false);
       $("form .save").removeClass("hide");
-      $(this).text("Cancel");
+      $(this).text("Cancel").removeClass('btn-primary').addClass('btn-default');
       $("form textarea.no-resize").hide();
       $("form .wysiwyg-editor").show();
       $("form .fr-box").css("display", "block");
     } else {
       $("#page_title, #page_content").attr("readonly", true);
       $("form .save").addClass("hide");
-      $(this).text("Edit")
+      $(this).text("Edit").removeClass('btn-default').addClass('btn-primary');
       $("form textarea.no-resize").show();
       $("form .wysiwyg-editor").hide();
       $("form .fr-box").css("display", "none");

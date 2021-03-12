@@ -1,0 +1,9 @@
+#defaultModal.modal.fade{"aria-hidden" => "true", :role => "dialog", :style => "display: none;", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %h4#defaultModalLabel.title
+      .modal-body
+        %img{:alt => "Feedback Image", :src => feedback_data(@feedback, 'image')}
+      .modal-footer
+        %button.btn.btn-danger.waves-effect{"data-dismiss" => "modal", :type => "button"} CLOSE
