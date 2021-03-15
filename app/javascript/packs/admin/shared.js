@@ -12,13 +12,17 @@ $(document).ready(function() {
     create_delete_alert($(this).attr("data-target"));
   })
 
+  $("form").submit(function() {
+    show_loading();
+  })
+
   fadeAlert();
 
   // functions
   function fadeAlert() {
     $(".alert.alert-info, .alert.alert-danger")
     .fadeOut(5000, function() {
-      $(".alert").addClass("hide").removeClass("alert-info")
+      $(".alert-info, .alert-danger").addClass("hidden").addClass("no-messsage").removeClass("alert-info")
         .removeClass("alert-danger").css("display", "block").text("No Message");
     });
   }
@@ -37,5 +41,9 @@ $(document).ready(function() {
       console.log(target);
       $(target)[0].click();
     });
+  }
+
+  function show_loading() {
+    $(".alert-loading").removeClass('hidden');
   }
 })

@@ -1,4 +1,6 @@
 - if flash[:success].present?
-  .alert.alert-info= flash[:success]
+  .alert.alert-message.alert-info= flash[:success]
 - elsif flash[:error].present?
-  .alert.alert-danger= flash[:error]
+  .alert.alert-message.alert-danger= flash[:error]
+- else
+  .alert.alert-message.no-message= "No Message"

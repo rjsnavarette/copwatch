@@ -21,6 +21,7 @@ class Admin::EmailTemplatesController < ApplicationController
     @template = EmailTemplate.new(email_template_params)
     
     if @template.save
+      flash[:success] = "Email Template Created!"
       redirect_to admin_email_template_path(@template)
     else
       flash[:error] = @template.validation_error
@@ -30,8 +31,10 @@ class Admin::EmailTemplatesController < ApplicationController
 
   def update
     if @template.update(email_template_params)
+      flash[:success] = "Email Template Successfully Updated!"
       redirect_to admin_email_template_path(@template)
     else
+      flash[:error] = @template.validation_error
       redirect_to edit_admin_email_template_path
     end
   end

@@ -15,8 +15,10 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
+      flash[:success] = "User Successfully Updated!"
       redirect_to admin_user_path(@user)
     else
+      flash[:error] = "Update Failed!"
       render :edit
     end
   end

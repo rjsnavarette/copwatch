@@ -47,6 +47,22 @@ body.theme-blush {
   }
 }
 
+.alert {
+  &.alert-message {
+    border-radius: 5px;
+    text-align: center;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    margin-bottom: 0;
+  }
+
+  &.no-message {
+    background: #986ca1;
+    color: #986ca1;
+  }
+}
+
 td.actions a {
   padding: 0 3px;
 }
@@ -96,6 +112,15 @@ td.actions a {
 .btn-group.bootstrap-select > .btn.dropdown-toggle {
   outline: transparent !important;
   box-shadow: none;
+}
+
+.alert.alert-loading {
+  color: #000000;
+  background: url(image_path('loading.gif'));
+  background-size: 150px;
+  background-position: -42px center;
+  background-repeat: no-repeat;
+  padding-left: 50px;
 }
 
 @media only screen and (max-width: 767px) {
