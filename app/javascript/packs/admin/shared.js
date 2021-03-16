@@ -1,9 +1,9 @@
 $(document).ready(function() {
-  $(".alert.alert-success, .alert.alert-danger")
-  .fadeOut(5000, function() {
-    $(".alert").addClass("hide").removeClass("alert-success")
-      .removeClass("alert-danger").css("display", "block").text("No Message");
-  })
+  // $(".alert.alert-success, .alert.alert-danger")
+  // .fadeOut(5000, function() {
+  //   $(".alert").addClass("hide").removeClass("alert-success")
+  //     .removeClass("alert-danger").css("display", "block").text("No Message");
+  // })
 
   $("#DataTables_Users, #DataTables_Feedbacks, #DataTables_EmailTemplates").on("click", ".action-delete", function(e) {
     console.log("action delete clicked");
@@ -12,15 +12,11 @@ $(document).ready(function() {
     create_delete_alert($(this).attr("data-target"));
   })
 
-  $("form").submit(function() {
-    show_loading();
-  })
-
   fadeAlert();
 
   // functions
   function fadeAlert() {
-    $(".alert.alert-success, .alert.alert-danger")
+    $(".alert-success, .alert-danger")
     .fadeOut(5000, function() {
       $(".alert-success, .alert-danger").addClass("hidden").addClass("no-messsage").removeClass("alert-success")
         .removeClass("alert-danger").css("display", "block").text("No Message");
