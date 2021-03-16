@@ -20,9 +20,9 @@ $(document).ready(function() {
 
   // functions
   function fadeAlert() {
-    $(".alert.alert-info, .alert.alert-danger")
+    $(".alert.alert-success, .alert.alert-danger")
     .fadeOut(5000, function() {
-      $(".alert-info, .alert-danger").addClass("hidden").addClass("no-messsage").removeClass("alert-info")
+      $(".alert-success, .alert-danger").addClass("hidden").addClass("no-messsage").removeClass("alert-success")
         .removeClass("alert-danger").css("display", "block").text("No Message");
     });
   }
