@@ -352,4 +352,12 @@ module ApplicationHelper
       admin_free_ads_path
     end
   end
+
+  def show_feedback_full_screen(feedback)
+    if feedback_data(feedback, 'image').present?
+      ''
+    else
+      'hide'
+    end
+  end
 end

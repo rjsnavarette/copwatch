@@ -7,10 +7,9 @@
       .col-lg-4.col-md-12.col-sm-12
         .card.member-card.bg-dark
           .member-img
-            - if feedback_data(@feedback, 'image').present?
-              %button.btn.btn-default.waves-effect.m-r-20{"data-target" => "#defaultModal", "data-toggle" => "modal", :type => "button", :style => "width: 25px; height: 25px; position: absolute; right: 0; bottom: 0; margin: 0; background: transparent;"}
-                %i.zmdi.zmdi-fullscreen{:style => "font-size: 25px;"}
-            %img{:alt => "Feedback Image", :src => feedback_data(@feedback, 'image')}
+            %a.full-screen-btn{"data-target" => "#defaultModal", "data-toggle" => "modal", :type => "button"}
+              %img{:alt => "Feedback Image", :src => feedback_data(@feedback, 'image')}
+              %i.zmdi.zmdi-fullscreen{:class => show_feedback_full_screen(@feedback)}
           .body
       .col-lg-8.col-md-12.col-sm-12
         .card
