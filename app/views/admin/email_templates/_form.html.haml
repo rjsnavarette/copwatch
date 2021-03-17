@@ -2,10 +2,10 @@
   .card
     .body
       = form_with model: @template, url: form_url(@template), method: form_method do |form|
-        -# .col-sm-12
-        -#   %label.text-primary Category
-        -#   .form-group
-        -#     = form.select :category_id, @categories
+        .col-sm-12
+          %label.text-primary Category
+          .form-group
+            = form.select :category_id, @categories
         .col-sm-12
           %label.text-primary Subject
           .form-group

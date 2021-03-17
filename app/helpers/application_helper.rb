@@ -362,6 +362,6 @@ module ApplicationHelper
   end
 
   def add_wysiwyg_class
-    action_name == 'edit' ? 'wysiwyg' : ''
+    ['new', 'edit'].include?(action_name) ? 'wysiwyg' : ''
   end
 end
