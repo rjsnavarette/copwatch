@@ -360,4 +360,8 @@ module ApplicationHelper
       'hide'
     end
   end
+
+  def add_wysiwyg_class
+    action_name == 'edit' ? 'wysiwyg' : ''
+  end
 end

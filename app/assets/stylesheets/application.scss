@@ -134,12 +134,14 @@ td.actions a {
     position: absolute;
     right: 0;
     bottom: 0;
-    padding: 2px 8px;
+    padding: 3px 8px 0 9px;
     font-size: 30px;
     background: #00000091;
     color: #ffffff;
   }
 }
+
+#email_template_content { min-height: 250px; }
 
 @media only screen and (max-width: 767px) {
   .authentication {

@@ -5,6 +5,8 @@ $(document).ready(function() {
   //     .removeClass("alert-danger").css("display", "block").text("No Message");
   // })
 
+  $("form textarea.wysiwyg").wysiwyg();
+
   $("#DataTables_Users, #DataTables_Feedbacks, #DataTables_EmailTemplates").on("click", ".action-delete", function(e) {
     console.log("action delete clicked");
     e.preventDefault();

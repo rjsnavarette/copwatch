@@ -14,7 +14,7 @@
     - if (controller_name == 'email_templates' && action_name != 'index') || controller_name == 'pages'
       = stylesheet_link_tag 'bootstrap-select.css'
     = stylesheet_link_tag 'color_skins'
-    - if controller_name == 'pages'
+    - if ['pages', 'email_templates'].include?(controller_name)
       = stylesheet_link_tag 'wysiwyg'
     -# app stylesheets
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
@@ -34,7 +34,7 @@
     = javascript_include_tag 'jquery-datatable'
     - if !['pages', 'free_ads'].include?(controller_name) && action_name == 'index'
       = javascript_include_tag 'sweetalert.min'
-    - if controller_name == 'pages'
+    - if ['pages', 'email_templates'].include?(controller_name)
       = javascript_include_tag 'wysiwyg'
     = page_js
   = javascript_pack_tag 'admin/shared'

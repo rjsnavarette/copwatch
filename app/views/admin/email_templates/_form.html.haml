@@ -2,26 +2,26 @@
   .card
     .body
       = form_with model: @template, url: form_url(@template), method: form_method do |form|
-        .col-sm-12
-          %label.text-primary Category
-          .form-group
-            = form.select :category_id, @categories
+        -# .col-sm-12
+        -#   %label.text-primary Category
+        -#   .form-group
+        -#     = form.select :category_id, @categories
         .col-sm-12
           %label.text-primary Subject
           .form-group
             = form.text_field :subject, placeholder: 'Subject', type: 'text', readonly: editable?, class: 'form-control'
-        .col-md-12
-          %label.text-primary Greetings
-          .form-group
-            = form.text_field :greetings, placeholder: 'Greetings', type: 'text', readonly: editable?, class: 'form-control'
+        -# .col-md-12
+        -#   %label.text-primary Greetings
+        -#   .form-group
+        -#     = form.text_field :greetings, placeholder: 'Greetings', type: 'text', readonly: editable?, class: 'form-control'
         .col-md-12
           %label.text-primary Content
           .form-group
-            = form.text_area :content, placeholder: 'Content', type: 'text', readonly: editable?, class: 'form-control no-resize'
-        .col-md-12
-          %label.text-primary Closing
-          .form-group
-            = form.text_field :closing, placeholder: 'Closing', type: 'text', readonly: editable?, class: 'form-control'
+            = form.text_area :content, placeholder: 'Content', type: 'text', readonly: editable?, class: "form-control no-resize #{add_wysiwyg_class}"
+        -# .col-md-12
+          -# %label.text-primary Closing
+          -# .form-group
+            -# = form.text_field :closing, placeholder: 'Closing', type: 'text', readonly: editable?, class: 'form-control'
         .col-sm-12
           %hr
           .alert.alert-default.alert-loading.text-info.hidden Please wait...

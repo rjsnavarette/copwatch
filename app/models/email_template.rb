@@ -21,9 +21,9 @@ class EmailTemplate < ApplicationRecord
 
   # validations
   validates :subject, presence: true
-  validates :greetings, presence: true
+  # validates :greetings, presence: true
   validates :content, presence: true
-  validates :closing, presence: true
+  # validates :closing, presence: true
 
   # callbacks
 
