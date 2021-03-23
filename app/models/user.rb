@@ -253,7 +253,7 @@ class User < ApplicationRecord
   end
 
   def sign_in_format
-    self.as_json(only: [:id, :first_name, :last_name, :auth_token], methods: [:phone, :photo_url]).merge({ email: self.email.to_s })
+    self.as_json(only: [:id, :first_name, :last_name, :auth_token], methods: [:phone, :photo_url]).merge({ email: self.email.to_s, google_account_email: self.google_account_email.to_s })
   end
 
   def show_format
