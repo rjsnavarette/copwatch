@@ -15,6 +15,10 @@ class Admin < ApplicationRecord
     Admin.create!({ email: "test.admin@copwatch.com", password: "password", first_name: "test", last_name: "admin" })
   end
 
+  def self.seed
+    Admin.create!({ email: "test.admin@copwatch.com", password: "password", first_name: "test", last_name: "admin" })
+  end
+
   # validations
 
   # callbacks

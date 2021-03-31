@@ -12,3 +12,7 @@ puts "\n-- Seeding Users Feedbacks --\n"
 Feedback.seed           if Feedback.count == 0 && Rails.env != 'production'
 puts "\n-- Seeding Free Ads --\n"
 FreeAd.seed             if FreeAd.count == 0
+puts "\n-- Seeding Admin --\n"
+Admin.seed              if Admin.count == 0
+puts "\n-- Seeding Feeds --\n"
+Feed.seed

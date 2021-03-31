@@ -282,16 +282,29 @@ module ApplicationHelper
     end
   end
 
-  def feedback_data(feedback, type)
+  def feed_data(feed, type)
     case type
     when 'id'
-      feedback.id
-    when 'description'
-      feedback.description.to_s
+      feed.id
+    when 'feed'
+      feed.feed
     when 'image'
-      feedback.image_url
-    when 'created'
-      feedback.created_at.strftime("%b %-d, %Y")
+      feed.image_url
+    when 'created_at'
+      feed.created_at.strftime("%v")
+    end
+  end
+
+  def feedback_data(feedback, type)
+    case type
+      when 'id'
+        feedback.id
+      when 'description'
+        feedback.description.to_s
+      when 'image'
+        feedback.image_url
+      when 'created'
+        feedback.created_at.strftime("%b %-d, %Y")
     end
   end
 

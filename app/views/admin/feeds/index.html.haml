@@ -1,0 +1,14 @@
+= render "admin/shared/header"
+= render "admin/shared/sidebar"
+%section.content.profile-page
+  = render "admin/shared/content_header"
+  .container-fluid
+    .row.clearfix
+      .col-md-12
+        .card.student-list
+          .header
+            %h2
+              %strong= page_name
+              List
+          .body
+            = render "admin/feeds/feeds_table"

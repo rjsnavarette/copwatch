@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   namespace :api, defaults: { format: :json } do
@@ -64,6 +65,8 @@ Rails.application.routes.draw do
       resources :videos, only: [:index, :create]
       # Notifications
       resources :notifications, only: [:index]
+      # Post Feeds
+      resources :post_feeds, only: [:create]
     end
   end
 
@@ -72,8 +75,12 @@ Rails.application.routes.draw do
   devise_for :admins, path: 'admin', only: :sessions
 
   namespace :admin do
+    get 'feeds/index'
+    get 'feeds/show'
+    get 'feeds/destoy'
     resources :users
     resources :feedbacks, only: [:index, :show, :destroy]
+    resources :post_feeds
     resources :email_templates
     resources :pages, only: [:create, :update, :destroy] do
       collection do

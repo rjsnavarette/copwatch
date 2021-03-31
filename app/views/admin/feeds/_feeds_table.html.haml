@@ -1,0 +1,26 @@
+.table-responsive
+  %table#DataTables_Feedbacks.table.table-bordered.table-striped.table-hover.js-basic-example.dataTable.no-footer{"aria-describedby" => "DataTables_Feedbackss_info"}
+    %thead
+      %tr
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} ID
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} User
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Feed
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Created
+        %th.sorting{"aria-controls" => "DataTables_Feedbacks"} Actions
+    %tbody
+      - @feeds.each do |feed|
+        %tr
+          %td= feed_data(feed, 'id')
+          %td= user_data(feed.user, 'name')
+          %td{:style => "word-break:break-all; white-space:normal;"}= feed_data(feed, 'feed')
+          %td= feed_data(feed, 'created')
+          %td.actions
+            .row
+              .col-md-3
+                %a{:href => admin_feedback_path(feed)}
+                  %i.zmdi.zmdi-eye.text-success
+                -# %a{:href => "#"}
+                -#   %i.zmdi.zmdi-email.text-info
+                %a.action-delete{:href => "#", :data => { target: "#feedback-delete-#{feed.id}"}}
+                  %i.zmdi.zmdi-delete.text-error
+                %a{:href => admin_feedback_path(feed), :id => "feedback-delete-#{feed.id}", :data => {method: :delete}}
