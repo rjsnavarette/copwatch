@@ -291,7 +291,7 @@ module ApplicationHelper
     when 'image'
       feed.image_url
     when 'created_at'
-      feed.created_at.strftime("%v")
+      feed.created_at.strftime("%b %-d, %Y")
     end
   end
 

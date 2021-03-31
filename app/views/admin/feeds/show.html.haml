@@ -1,2 +1,36 @@
-%h1
-  Show Post Feeds
+= render "admin/shared/header"
+= render "admin/shared/sidebar"
+%section.content
+  = render "admin/shared/content_header"
+  .container-fluid
+    .row.clearfix
+      .col-lg-4.col-md-12.col-sm-12
+        .card.member-card.bg-dark
+          .member-img
+            %a.full-screen-btn{"data-target" => "#defaultModal", "data-toggle" => "modal", :type => "button"}
+              %img{:alt => "Feedback Image", :src => feed_data(@feed, 'image')}
+              %i.zmdi.zmdi-fullscreen{:class => show_feedback_full_screen(@feedback)}
+          .body
+      .col-lg-8.col-md-12.col-sm-12
+        .card
+          .body
+            %form
+              .col-md-12
+                .form-group
+                  %label User
+                  %input.form-control{:type => 'text', :value => @user_name, :readonly => true}
+              .col-md-12
+                .form-group
+                  %label Description
+                  %textarea.form-control{:type => 'text', :readonly => true, :style => "min-height: 100px; overlflow: auto;"}= feedback_data(@feedback, 'description')
+              .col-md-12
+                .form-group
+                  %label Created
+                  %input.form-control{:type => 'text', :value => feedback_data(@feedback, 'created'), :readonly => true}
+              .col-md-4.hide
+                .form-group
+                  %input.form-control{:type => 'text', :value => @user_name, :readonly => true}
+              .col-sm-12
+                %hr
+                %a.btn.btn-info.waves-effect.m-r-20{:href => "mailto:#{@email}"} RESPOND
+= render "admin/feedbacks/image_modal"

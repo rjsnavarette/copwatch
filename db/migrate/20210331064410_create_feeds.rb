@@ -7,6 +7,8 @@ class CreateFeeds < ActiveRecord::Migration[6.0]
       t.string :like
       t.string :image
       t.integer :user_id
+
+      t.timestamps
     end
     add_index :feeds, :user_id
   end

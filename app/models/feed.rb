@@ -1,11 +1,12 @@
 class Feed < ApplicationRecord
-  #associations
+  mount_uploader :image, FeedImageUploader
+
+  # associations
   belongs_to :user
 
-  #validations
-  validates :feed, presence: true
+  # scopes
 
-  #class methods
+  # class methods
   def self.seed
     users_id = User.select(:id).pluck(:id)
 
@@ -17,5 +18,30 @@ class Feed < ApplicationRecord
         })
       end
     end
+  end
+
+  def self.save_data(data, image)
+    feedback        = Feedback.new(data)
+    feedback.image  = image if image.present?
+
+    if feedback.save
+      { status: 200 }
+    else
+      { error: feedback.validation_error, status: 500 }
+    end
+  end
+
+  # validations
+  validates :feed, presence: true
+
+  # callbacks
+
+  # instance methods
+  def validation_error
+    self.errors.full_messages.first
+  end
+
+  def image_url
+    self.image.url.to_s
   end
 end
